@@ -6,10 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 
 import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
@@ -39,12 +42,13 @@ public class AppView extends JFrame {
 	 * Create the frame.
 	 */
 	public AppView() {
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double width = screenSize.getWidth();
+		double height = screenSize.getHeight();
+
+//        setUndecorated(true)
 		setResizable(false);
-		//pack();
-       // setVisible(true);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);   //maximize the window
-//        setUndecorated(true);     //remove the boards
-    //    setVisible(true); 
+		setExtendedState(JFrame.MAXIMIZED_BOTH);;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -53,27 +57,32 @@ public class AppView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
-		panel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		JPanel topPanel = new JPanel();
+		contentPane.add(topPanel, BorderLayout.NORTH);
+		topPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
+		topPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		
-		JButton btnNewButton = new JButton("User");
-		panel.add(btnNewButton);
+		JButton userBtn = new JButton("Logout");
+		topPanel.add(userBtn);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 150));
+		JPanel centerPanel = new JPanel();
+		contentPane.add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setLayout(null);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panel_1.add(btnNewButton_1);
+		JButton startBtn = new JButton("Start");
+		startBtn.setBounds((int)width/2, (int)height/2, 83, 21);
+		centerPanel.add(startBtn);
 		
-		JPanel panel_2 = new JPanel();
-		contentPane.add(panel_2, BorderLayout.SOUTH);
+		JPanel bottomPanel = new JPanel();
+		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		
-		JButton btnNewButton_2 = new JButton("City");
-		panel_2.add(btnNewButton_2);
+		JButton cityBtn = new JButton("City");
+		bottomPanel.add(cityBtn);
 		
+		JButton challengeBtn = new JButton("Challenges");
+		bottomPanel.add(challengeBtn);
 		
+		JButton statsBtn = new JButton("Stats");
+		bottomPanel.add(statsBtn);		
 	}
 }
