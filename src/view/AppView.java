@@ -93,7 +93,14 @@ public class AppView extends JFrame {
 		bottomPanel.add(challengeBtn);
 		
 		JButton statsBtn = new JButton("Stats");
-		bottomPanel.add(statsBtn);		
+		bottomPanel.add(statsBtn);	
+		
+		startBtn.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		openSessionSettingView();
+        	}
+        	
+        });
 	}
 	
 	public void openLoginView() {
@@ -103,6 +110,19 @@ public class AppView extends JFrame {
 	                try {
 	                    LoginView loginView = new LoginView();
 	                    loginView.setVisible(true);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        });
+	}
+	public void openSessionSettingView() {
+		 this.dispose();
+	        EventQueue.invokeLater(new Runnable() {
+	            public void run() {
+	                try {
+	                    SessionSettingView sessionSettingView = new SessionSettingView();
+	                    sessionSettingView.setVisible(true);
 	                } catch (Exception e) {
 	                    e.printStackTrace();
 	                }
