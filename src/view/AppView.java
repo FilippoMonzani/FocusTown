@@ -3,10 +3,13 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -46,8 +49,8 @@ public class AppView extends JFrame {
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 
-//        setUndecorated(true)
-		setResizable(false);
+//        setUndecorated(true) 
+		setResizable(false);  
 		setExtendedState(JFrame.MAXIMIZED_BOTH);;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -65,12 +68,19 @@ public class AppView extends JFrame {
 		JButton userBtn = new JButton("Logout");
 		topPanel.add(userBtn);
 		
+		userBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openLoginView();
+        }});
+		
 		JPanel centerPanel = new JPanel();
 		contentPane.add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(null);
 		
 		JButton startBtn = new JButton("Start");
-		startBtn.setBounds((int)width/2, (int)height/2, 83, 21);
+		int btnWidth = 83; // Larghezza del bottone
+		int btnHeight = 21; // Altezza del bottone
+		startBtn.setBounds((int)(width / 2 - btnWidth / 2), (int)(height / 2 - btnHeight / 2), btnWidth, btnHeight);
 		centerPanel.add(startBtn);
 		
 		JPanel bottomPanel = new JPanel();
@@ -84,5 +94,19 @@ public class AppView extends JFrame {
 		
 		JButton statsBtn = new JButton("Stats");
 		bottomPanel.add(statsBtn);		
+	}
+	
+	public void openLoginView() {
+		 this.dispose();
+	        EventQueue.invokeLater(new Runnable() {
+	            public void run() {
+	                try {
+	                    LoginView loginView = new LoginView();
+	                    loginView.setVisible(true);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        });
 	}
 }
