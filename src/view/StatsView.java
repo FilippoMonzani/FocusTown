@@ -41,6 +41,8 @@ public class StatsView extends JFrame {
 	 * Create the frame.
 	 */
 	public StatsView() {
+		setResizable(false);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 838, 552);
 		contentPane = new JPanel();

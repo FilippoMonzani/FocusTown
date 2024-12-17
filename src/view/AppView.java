@@ -48,7 +48,7 @@ public class AppView extends JFrame {
 
 //        setUndecorated(true)
 		setResizable(false);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);;
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
