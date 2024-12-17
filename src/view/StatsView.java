@@ -14,6 +14,8 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import view.Histogram;
+
 public class StatsView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -58,22 +60,27 @@ public class StatsView extends JFrame {
 			topPanel.revalidate();
 		});
 		
-		JComboBox monthSelect = new JComboBox();
+		JComboBox monthSelect = new JComboBox(new String[] {"Gennaio", "Febbraio", "Marzo"}); // TODO: aggiorna i mesi in base ai dati dell'utente
 		topPanel.add(monthSelect);
 		
-		JLabel yearLabel = new JLabel("New label");
+		JLabel yearLabel = new JLabel("2024");
 		topPanel.add(yearLabel);
 		
 		JPanel centerPanel = new JPanel();
 		contentPane.add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setLayout(new BorderLayout(0, 0));
 		
 		JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		bottomPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		
+
 		JButton backButton = new JButton("Back");
 		bottomPanel.add(backButton);
+		
+        int[] data = {10, 30, 20, 50, 40, 60};
+        String[] categories = {"A", "B", "C", "D", "E", "F"};
+		Histogram histogram = new Histogram(data, categories);
+		centerPanel.add(histogram);
 	}
-
 }
