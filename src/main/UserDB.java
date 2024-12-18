@@ -26,9 +26,9 @@ public class UserDB {
 	private String username;
 	@Column
 	private String password;
-	
-	public UserDB () {
-		
+
+	public UserDB() {
+
 	}
 
 	public UserDB(int id, String username, String password) {
@@ -37,7 +37,7 @@ public class UserDB {
 		this.username = username;
 		this.password = password;
 	}
-	
+
 	public UserDB(String username, String password) {
 		this.username = username;
 		this.password = password;
