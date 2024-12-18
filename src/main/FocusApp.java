@@ -4,6 +4,9 @@
 
 package main;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 /************************************************************/
 /**
  * 
@@ -18,6 +21,11 @@ public class FocusApp {
 				 */
 				public City[] city;
 
+				/**
+				 * variables for database communication
+				 */
+				private static SessionFactory sessionFactory;
+				private Session session;
 	/**
 	 * 
 	 * @param duration 
@@ -38,5 +46,19 @@ public class FocusApp {
 	 * @param user 
 	 */
 	public void addUser(User user) {
+		
+		session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		User u = session.find(User.class, user.getUsername());
+		if( u != null) {
+			throw new DuplicateUserException();
+		}
+		else {
+			session.persist(user);
+		}
+		session.getTransaction().commit();
+		if (session != null) {
+			session.close();
+		}
 	}
 }

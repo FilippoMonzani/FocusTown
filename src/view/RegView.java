@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class RegView extends JFrame {
+public class RegView extends JFrame {																																																									//commento segreto
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -98,10 +98,13 @@ public class RegView extends JFrame {
         btnReg = new JButton("Registrati");
         btnReg.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	String username = usernameField.getText();
+            	String password = passwordField.getText();
+            	
                 // Mostra un messaggio di conferma della registrazione
                 JOptionPane.showMessageDialog(RegView.this, "Registrazione avvenuta con successo!");
                 // Puoi aggiungere logica per gestire la registrazione effettiva qui
-                openMainView();
+                openLoginView();
             }
         });
         
