@@ -4,8 +4,14 @@
 
 package main;
 
+import java.awt.EventQueue;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
+import view.AppView;
+import view.LoginView;
+import view.RegView;
 
 /************************************************************/
 /**
@@ -15,22 +21,55 @@ public class FocusApp {
 	/**
 				 * 
 				 */
-				public User[] user;
+	public User[] user;
 	/**
 				 * 
 				 */
-				public City[] city;
+	public City[] city;
 
-				/**
-				 * variables for database communication
-				 */
-				private static SessionFactory sessionFactory;
-				private Session session;
+	/**
+	 * variables for database communication
+	 */
+	private static SessionFactory sessionFactory;
+	private static Session session;
+	private static LoginView loginView = null;
+	private static RegView regView = null;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					loginView = new LoginView();
+					loginView.setVisible(true);
+
+					regView = new RegView();
+					loginView.addListenerToRegBtn(a -> changeToRegView());
+					regView.addListenerToBtnReg(a -> {
+						addUser();
+						regView.showSuccessDialog();
+					});
+					System.out.println("Listeners added");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	private static void changeToRegView() {
+		try {
+			regView.setVisible(true);
+			loginView.setVisible(false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 
-	 * @param duration 
-	 * @return 
-	 * @return 
+	 * @param duration
+	 * @return
+	 * @return
 	 */
 	public void startTimer(int duration) {
 	}
@@ -41,19 +80,14 @@ public class FocusApp {
 	public void endTimer() {
 	}
 
-	/**
-	 * 
-	 * @param user 
-	 */
-	public void addUser(User user) {
-		
+	private static void addUser() {
+		User user = new User(regView.getUsername(), regView.getPassword());
 		session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		User u = session.find(User.class, user.getUsername());
-		if( u != null) {
+		if (u != null) {
 			throw new DuplicateUserException();
-		}
-		else {
+		} else {
 			session.persist(user);
 		}
 		session.getTransaction().commit();
