@@ -6,12 +6,15 @@ package main;
 
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import view.AppView;
 import view.LoginView;
 import view.RegView;
+import view.View;
 
 /************************************************************/
 /**
@@ -41,13 +44,18 @@ public class FocusApp {
 				try {
 					loginView = new LoginView();
 					loginView.setVisible(true);
-
 					regView = new RegView();
-					loginView.addListenerToRegBtn(a -> changeToRegView());
-					regView.addListenerToBtnReg(a -> {
+					
+					setBtnDestination(loginView.getBtnReg(), loginView, regView);
+					setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
+					
+					regView.getBtnReg().addActionListener(a -> {
 						addUser();
 						regView.showSuccessDialog();
+						regView.setVisible(false);
+						loginView.setVisible(true);
 					});
+					
 					System.out.println("Listeners added");
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +64,20 @@ public class FocusApp {
 		});
 	}
 
-	private static void changeToRegView() { //login -> reg
+	/***
+	 * Imposta la view di destinazione a cui porta un bottone
+	 * @param btn Bottone che porta alla view 'dest'
+	 * @param source View che ospita il bottone
+	 * @param dest View a cui deve portare il bottone
+	 */
+	private static void setBtnDestination(JButton btn, View source, View dest) {
+		btn.addActionListener(a -> {
+			source.setVisible(false);
+			dest.setVisible(true);
+		});
+	}
+	
+	private static void changeToRegView() {
 		try {
 			regView.setVisible(true);
 			loginView.setVisible(false);
