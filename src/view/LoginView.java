@@ -1,23 +1,22 @@
 package view;
 
-import java.awt.EventQueue;
-import java.awt.Toolkit;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField; // Importato per nascondere la password
-import javax.swing.JOptionPane;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField; // Importato per nascondere la password
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class LoginView extends JFrame {
 
@@ -110,42 +109,22 @@ public class LoginView extends JFrame {
 		panel_1.add(btnReg, gbc_btnNewButton);
 
 		// Aggiunta della logica di login
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String username = usernameField.getText();
-				String password = new String(passwordField.getPassword()); // Ottieni la password
-
-				// Logica di verifica (hard-coded)
-				if (username.equals("admin") && password.equals("password123")) {
-					JOptionPane.showMessageDialog(LoginView.this, "Login riuscito!", "Successo",
-							JOptionPane.INFORMATION_MESSAGE);
-					openMainView(); // Passa alla schermata principale
-				} else {
-					JOptionPane.showMessageDialog(LoginView.this, "Credenziali errate. Riprova.", "Errore",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-	}
-
-	/**
-	 * Metodo per passare alla schermata principale.
-	 */
-	private void openMainView() {
-		// Chiude la schermata di login
-		this.dispose();
-
-		// Mostra la schermata principale
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AppView mainView = new AppView();
-					mainView.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//		btnLogin.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String username = usernameField.getText();
+//				String password = new String(passwordField.getPassword()); // Ottieni la password
+//
+//				// Logica di verifica (hard-coded)
+//				if (username.equals("admin") && password.equals("password123")) {
+//					JOptionPane.showMessageDialog(LoginView.this, "Login riuscito!", "Successo",
+//							JOptionPane.INFORMATION_MESSAGE);
+//					openMainView(); // Passa alla schermata principale
+//				} else {
+//					JOptionPane.showMessageDialog(LoginView.this, "Credenziali errate. Riprova.", "Errore",
+//							JOptionPane.ERROR_MESSAGE);
+//				}
+//			}
+//		});
 	}
 
 	public void addListenerToRegBtn(ActionListener listener) {

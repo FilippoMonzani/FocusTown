@@ -1,10 +1,8 @@
 package view;
 
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -29,22 +27,6 @@ public class RegView extends JFrame { // commento segreto
 	private JButton btnReg;
 	private JLabel lblNewLabel_3;
 	private JButton btnNewButton;
-
-	/**
-	 * Launch the application.
-	 */
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    RegView frame = new RegView();
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
 
 	/**
 	 * Create the frame.
@@ -94,14 +76,6 @@ public class RegView extends JFrame { // commento segreto
 
 		// Registration Button
 		btnReg = new JButton("Registrati");
-//		btnReg.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				// Mostra un messaggio di conferma della registrazione
-//				JOptionPane.showMessageDialog(RegView.this, "Registrazione avvenuta con successo!");
-//				// Puoi aggiungere logica per gestire la registrazione effettiva qui
-//				openLoginView();
-//			}
-//		});
 
 		// Add the registration button to the layout
 		GridBagConstraints gbc_btnReg = new GridBagConstraints();
@@ -123,29 +97,6 @@ public class RegView extends JFrame { // commento segreto
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 5;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openLoginView();
-			}
-		});
-	}
-
-	private void openLoginView() {
-		// Chiude la schermata di registrazione
-		this.dispose();
-
-		// Mostra la schermata principale
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginView loginView = new LoginView();
-					loginView.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
 	}
 	
 	public void addListenerToBtnReg(ActionListener listener) {
@@ -162,6 +113,6 @@ public class RegView extends JFrame { // commento segreto
     
     public void showSuccessDialog() {
     	JOptionPane.showMessageDialog(RegView.this, "Registrazione avvenuta con successo!");
-		openLoginView();
+//		openLoginView();
     }
 }

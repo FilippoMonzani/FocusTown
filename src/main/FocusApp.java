@@ -56,7 +56,7 @@ public class FocusApp {
 		});
 	}
 
-	private static void changeToRegView() {
+	private static void changeToRegView() { //login -> reg
 		try {
 			regView.setVisible(true);
 			loginView.setVisible(false);
