@@ -115,4 +115,7 @@ public class RegView extends JFrame { // commento segreto
     	JOptionPane.showMessageDialog(RegView.this, "Registrazione avvenuta con successo!");
 //		openLoginView();
     }
+    public void addListenerToLoginBtn(ActionListener listener) {
+		btnNewButton.addActionListener(listener);
+	}
 }

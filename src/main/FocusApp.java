@@ -43,7 +43,8 @@ public class FocusApp {
 					loginView.setVisible(true);
 
 					regView = new RegView();
-					loginView.addListenerToRegBtn(a -> changeToRegView());
+					loginView.addListenerToRegBtn(a -> changeToRegView("registrazione"));
+					regView.addListenerToLoginBtn(a -> changeToRegView("login"));
 					regView.addListenerToBtnReg(a -> {
 						addUser();
 						regView.showSuccessDialog();
@@ -56,10 +57,16 @@ public class FocusApp {
 		});
 	}
 
-	private static void changeToRegView() { //login -> reg
+	private static void changeToRegView(String verifica) { // login -> reg e reg-> login
 		try {
-			regView.setVisible(true);
-			loginView.setVisible(false);
+			if (verifica.equals("registrazione")) {
+				regView.setVisible(true);
+				loginView.setVisible(false);
+			} else if (verifica.equals("login")) {
+				regView.setVisible(false);
+				loginView.setVisible(true);
+
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
