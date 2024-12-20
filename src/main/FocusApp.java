@@ -47,7 +47,7 @@ public class FocusApp {
 					regView = new RegView();
 					
 					setBtnDestination(loginView.getBtnReg(), loginView, regView);
-					setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
+					setBtnDestination(regView.getBackToLoginBtn(), regView, loginView); // Forse vale la pena di creare una classe wrapper per ogni view?
 					
 					regView.getBtnReg().addActionListener(a -> {
 						addUser();
