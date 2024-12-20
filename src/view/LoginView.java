@@ -2,12 +2,10 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -18,7 +16,7 @@ import javax.swing.JPasswordField; // Importato per nascondere la password
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class LoginView extends JFrame {
+public class LoginView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -29,6 +27,7 @@ public class LoginView extends JFrame {
 	private JLabel lblNewLabel_2;
 	private JLabel regLabel;
 	private JButton btnReg;
+	private JButton btnLogin;
 
 	/**
 	 * Create the frame.
@@ -87,7 +86,7 @@ public class LoginView extends JFrame {
 		panel_1.add(passwordField, gbcPassword);
 
 		// Pulsante di login
-		JButton btnLogin = new JButton("Login");
+		btnLogin = new JButton("Login");
 		GridBagConstraints gbcLogin = new GridBagConstraints();
 		gbcLogin.gridx = 0;
 		gbcLogin.gridy = 4;
@@ -107,7 +106,7 @@ public class LoginView extends JFrame {
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 6;
 		panel_1.add(btnReg, gbc_btnNewButton);
-
+		
 		// Aggiunta della logica di login
 //		btnLogin.addActionListener(new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
@@ -129,5 +128,13 @@ public class LoginView extends JFrame {
 
 	public void addListenerToRegBtn(ActionListener listener) {
 		btnReg.addActionListener(listener);
+	}
+	
+	public JButton getBtnReg() {
+		return btnReg;
+	}
+	
+	public JButton getLoginBtn() {
+		return btnLogin;
 	}
 }

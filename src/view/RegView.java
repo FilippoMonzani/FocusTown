@@ -14,7 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class RegView extends JFrame { // commento segreto
+public class RegView extends JFrame implements View { // commento segreto
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -26,7 +26,7 @@ public class RegView extends JFrame { // commento segreto
 	private JLabel regLabel;
 	private JButton btnReg;
 	private JLabel lblNewLabel_3;
-	private JButton btnNewButton;
+	private JButton backToLoginBtn;
 
 	/**
 	 * Create the frame.
@@ -91,17 +91,17 @@ public class RegView extends JFrame { // commento segreto
 		gbc_lblNewLabel_3.gridy = 4;
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 
-		btnNewButton = new JButton("Login");
+		backToLoginBtn = new JButton("Login");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 5;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
+		contentPane.add(backToLoginBtn, gbc_btnNewButton);
 	}
 	
-	public void addListenerToBtnReg(ActionListener listener) {
-		btnReg.addActionListener(listener);
-    }
+	public JButton getBackToLoginBtn() {
+		return backToLoginBtn;
+	}
 	
     public String getUsername() {
         return usernameField.getText();
@@ -113,6 +113,10 @@ public class RegView extends JFrame { // commento segreto
     
     public void showSuccessDialog() {
     	JOptionPane.showMessageDialog(RegView.this, "Registrazione avvenuta con successo!");
-//		openLoginView();
+    	// Quando l'utente clicca "ok" viene portato alla schermata di login
     }
+
+	public JButton getBtnReg() {
+		return btnReg;
+	}
 }
