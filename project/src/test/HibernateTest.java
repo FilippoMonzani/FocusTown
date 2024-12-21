@@ -62,14 +62,7 @@ class TestDB {
 
 public class HibernateTest {
 
-//	private static SessionFactory sessionFactory;
 	private Session session;
-
-//	@BeforeClass
-//    public static void setup() {
-//        sessionFactory = HibernateUtil.getSessionFactory();
-//        System.out.println("SessionFactory created");
-//    }
 
 	@Before
 	public void openSession() {
@@ -85,31 +78,16 @@ public class HibernateTest {
 	}
 
 	@Test
-	public void hibernateInsertTest2() {
-
+	public void hibernateInsertTest() {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			session.beginTransaction();
 
-			User[] u = new User[26];
-			for (int i = 0; i < 26; i++) {
-				String username = "user" + ((Integer)i).toString();
-				String password = "pass" + ((Integer) i).toString();
-				u[i] = new User(username, password);
-				session.persist(u[i]);
+			TestDB[] t = new TestDB[10];
+			for (int i = 0; i < 10; i++) {
+				String word = "prova" + ((Integer) i).toString();
+				t[i] = new TestDB(word);
+				session.persist(t[i]);
 			}
-			session.flush();
-			List<User> users = session.createQuery("from User u", User.class).list();
-			users.forEach(s -> System.out.println(s.getUsername() + " " + s.getPassword()));
-			session.getTransaction().commit();
-		}
-	}
-
-	@Test
-	public void hibernateInsertTest3() {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			session.beginTransaction();
-			TestDB t = new TestDB("prova");
-			session.persist(t);
 			session.getTransaction().commit();
 		}
 	}

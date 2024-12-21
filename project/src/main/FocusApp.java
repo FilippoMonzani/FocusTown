@@ -8,9 +8,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JButton;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import view.AppView;
 import view.LoginView;
 import view.RegView;
