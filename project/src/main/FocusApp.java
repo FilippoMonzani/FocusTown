@@ -30,11 +30,6 @@ public class FocusApp {
 				 */
 	public City[] city;
 
-	/**
-	 * variables for database communication
-	 */
-	private static SessionFactory sessionFactory;
-	private static Session session;
 	private static LoginView loginView = null;
 	private static RegView regView = null;
 
@@ -103,17 +98,24 @@ public class FocusApp {
 
 	private static void addUser() {
 		User user = new User(regView.getUsername(), regView.getPassword());
-		session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		User u = session.find(User.class, user.getUsername());
-		if (u != null) {
+		if (user.read() != null) {
 			throw new DuplicateUserException();
 		} else {
-			session.persist(user);
+			user.save();
 		}
-		session.getTransaction().commit();
-		if (session != null) {
-			session.close();
-		}
+		
+//			User user = new User(regView.getUsername(), regView.getPassword());
+//			session = HibernateUtil.getSessionFactory().openSession();
+//			session.beginTransaction();
+//			User u = session.find(User.class, user.getUsername());
+//			if (u != null) {
+//				throw new DuplicateUserException();
+//			} else {
+//				session.persist(user);
+//			}
+//			session.getTransaction().commit();
+//			if (session != null) {
+//				session.close();
+		
 	}
 }

@@ -4,6 +4,8 @@
 
 package main;
 
+import org.hibernate.Session;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -48,5 +50,34 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void save() {
+		User user = new User(this.username, this.password);
+		Session session = SessionUtil.startSession();
+		session.persist(user);
+		SessionUtil.endSession(session);
+	}
+	
+	public User read() {
+		User user = new User(this.username, this.password);
+		Session session = SessionUtil.startSession();
+		User retrievedUser = session.find(User.class, user.getUsername());
+		SessionUtil.endSession(session);
+		return retrievedUser;
+	}
+	
+	public void update() {
+		User user = new User(this.username, this.password);
+		Session session = SessionUtil.startSession();
+		session.merge(user);
+		SessionUtil.endSession(session);
+	}
+	
+	public void delete() {
+		User user = new User(this.username, this.password);
+		Session session = SessionUtil.startSession();
+		session.remove(user);
+		SessionUtil.endSession(session);
 	}
 }

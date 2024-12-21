@@ -1,3 +1,4 @@
+
 package test;
 
 import static org.junit.Assert.assertEquals;
@@ -83,29 +84,6 @@ public class HibernateTest {
 		System.out.println("Session closed\n");
 	}
 
-//	@Test
-//	public void hibernateInsertTest() {
-//
-//		User u1 = new User("Sergio", "password");
-//		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-//			session.beginTransaction();
-//			System.out.println("transizione iniziata");
-//			session.persist(u1);
-//			session.flush();
-//			System.out.println("utente salvato");
-//			User u2 = session.find(User.class, u1.getId());
-//			System.out.println("Query svolta");
-//			System.out
-//					.println("id: " + u1.getId() + " username: " + u1.getUsername() + " password: " + u1.getPassword());
-//			System.out
-//					.println("id: " + u2.getId() + " username: " + u2.getUsername() + " password: " + u2.getPassword());
-//			assertEquals(u2.getId(), u1.getId());
-//			assertEquals(u2.getPassword(), u1.getPassword());
-//			assertEquals(u2.getUsername(), u1.getUsername());
-//			session.getTransaction().commit();
-//		}
-//	}
-
 	@Test
 	public void hibernateInsertTest2() {
 
@@ -114,12 +92,13 @@ public class HibernateTest {
 
 			User[] u = new User[26];
 			for (int i = 0; i < 26; i++) {
-				String password = ((Integer) i).toString();
-				u[i] = new User("Sergio", password);
+				String username = "user" + ((Integer)i).toString();
+				String password = "pass" + ((Integer) i).toString();
+				u[i] = new User(username, password);
 				session.persist(u[i]);
 			}
 			session.flush();
-			List<User> users = session.createQuery("from UserDB u", User.class).list();
+			List<User> users = session.createQuery("from User u", User.class).list();
 			users.forEach(s -> System.out.println(s.getUsername() + " " + s.getPassword()));
 			session.getTransaction().commit();
 		}
