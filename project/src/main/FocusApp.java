@@ -5,12 +5,10 @@
 package main;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.function.Consumer;
 
 import javax.swing.JButton;
 
+import model.AuthenticationService;
 import model.City;
 import model.User;
 import view.AppView;
@@ -38,6 +36,8 @@ public class FocusApp {
 	private static AppView appView = null;
 	private static StatsView statsView = null;
 
+	private static User currentUser = null;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -63,10 +63,11 @@ public class FocusApp {
 	 */
 	private static void setDestinations() {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
+//		setBtnDestination(loginView.getLoginBtn(), loginView, appView);
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
 		setBtnDestination(regView.getBtnReg(), regView, loginView);
 	}
-	
+
 	/**
 	 * Define the action listener of every button here
 	 */
@@ -74,13 +75,30 @@ public class FocusApp {
 		regView.getBtnReg().addActionListener(a -> {
 			try {
 				addUser();
-				regView.showSuccessMessage();				
+				regView.showSuccessMessage();
 			} catch (DuplicateUserException e) {
 				regView.showErrorMessage("Il nome utente è già preso.");
 			}
 		});
+
+		loginView.getLoginBtn().addActionListener(a -> {
+			String usernameLogin = loginView.getUsername();
+			String passwordLogin = loginView.getPassword();
+			
+			AuthenticationService authService = new AuthenticationService();
+			User u = new User(usernameLogin, passwordLogin);
+
+			try {
+					FocusApp.currentUser = authService.login(u, passwordLogin);
+					// after succesful authentication, appView is shown
+			} catch (UserNotFoundException e) {
+				loginView.showErrorMessage("Questo nome utente non esiste.");
+			} catch (WrongPasswordException e) {				
+				loginView.showErrorMessage("Password errata.");
+			}
+		});
 	}
-	
+
 	/***
 	 * Set the destination view for a button
 	 * 

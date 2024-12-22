@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField; // Importato per nascondere la password
 import javax.swing.JTextField;
@@ -106,28 +107,15 @@ public class LoginView extends JFrame implements View {
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 6;
 		panel_1.add(btnReg, gbc_btnNewButton);
-		
-		// Aggiunta della logica di login
-//		btnLogin.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				String username = usernameField.getText();
-//				String password = new String(passwordField.getPassword()); // Ottieni la password
-//
-//				// Logica di verifica (hard-coded)
-//				if (username.equals("admin") && password.equals("password123")) {
-//					JOptionPane.showMessageDialog(LoginView.this, "Login riuscito!", "Successo",
-//							JOptionPane.INFORMATION_MESSAGE);
-//					openMainView(); // Passa alla schermata principale
-//				} else {
-//					JOptionPane.showMessageDialog(LoginView.this, "Credenziali errate. Riprova.", "Errore",
-//							JOptionPane.ERROR_MESSAGE);
-//				}
-//			}
-//		});
 	}
 
-	public void addListenerToRegBtn(ActionListener listener) {
-		btnReg.addActionListener(listener);
+	
+	public String getUsername() {
+		return usernameField.getText();
+	}
+	
+	public String getPassword() {
+		return new String(passwordField.getPassword());
 	}
 	
 	public JButton getBtnReg() {
@@ -137,4 +125,8 @@ public class LoginView extends JFrame implements View {
 	public JButton getLoginBtn() {
 		return btnLogin;
 	}
+	
+	public void showErrorMessage(String msg) {
+    	JOptionPane.showMessageDialog(LoginView.this, String.format("<html><p>C'è stato un <span style=\"color: red\">errore</span> durante il login:</p><br><div style=\"text-align: center; font-size:1.2em\">%s</div></html>", msg));
+    }
 }

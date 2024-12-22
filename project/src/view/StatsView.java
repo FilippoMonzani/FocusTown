@@ -57,13 +57,13 @@ public class StatsView extends JFrame {
 		
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		// Cambia programmaticamente il gap orizzontale tra i labels
+		// Programmatically changes gap between labels
 		SwingUtilities.invokeLater(() -> {
 			((FlowLayout) topPanel.getLayout()).setHgap(topPanel.getWidth()/4);
 			topPanel.revalidate();
 		});
 		
-		JComboBox monthSelect = new JComboBox(new String[] {"Gennaio", "Febbraio", "Marzo"}); // TODO: aggiorna i mesi in base ai dati dell'utente
+		JComboBox monthSelect = new JComboBox(new String[] {"Gennaio", "Febbraio", "Marzo"}); // TODO: update months
 		topPanel.add(monthSelect);
 		
 		JLabel yearLabel = new JLabel("2024");
