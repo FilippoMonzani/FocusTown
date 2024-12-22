@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 
 import javax.swing.JButton;
 
+import model.City;
 import model.User;
 import view.AppView;
 import view.LoginView;
@@ -75,7 +76,7 @@ public class FocusApp {
 				addUser();
 				regView.showSuccessMessage();				
 			} catch (DuplicateUserException e) {
-				regView.showFailMessage("Il nome utente è già preso.");
+				regView.showErrorMessage("Il nome utente è già preso.");
 			}
 		});
 	}

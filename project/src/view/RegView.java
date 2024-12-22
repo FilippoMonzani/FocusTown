@@ -115,7 +115,7 @@ public class RegView extends JFrame implements View { // commento segreto
     	JOptionPane.showMessageDialog(RegView.this, "Registrazione avvenuta con successo!");
     }
     
-    public void showFailMessage(String msg) {
+    public void showErrorMessage(String msg) {
     	JOptionPane.showMessageDialog(RegView.this, String.format("<html><p>C'è stato un <span style=\"color: red\">errore</span> durante la registrazione:</p><br><div style=\"text-align: center; font-size:1.2em\">%s</div></html>", msg));
     }
 
