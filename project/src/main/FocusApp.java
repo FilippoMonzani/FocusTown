@@ -5,12 +5,17 @@
 package main;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 
+import model.User;
 import view.AppView;
 import view.LoginView;
 import view.RegView;
+import view.StatsView;
 import view.View;
 
 /************************************************************/
@@ -29,26 +34,22 @@ public class FocusApp {
 
 	private static LoginView loginView = null;
 	private static RegView regView = null;
+	private static AppView appView = null;
+	private static StatsView statsView = null;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					loginView = new LoginView();
-					loginView.setVisible(true);
 					regView = new RegView();
-					
-					setBtnDestination(loginView.getBtnReg(), loginView, regView);
-					setBtnDestination(regView.getBackToLoginBtn(), regView, loginView); // Forse vale la pena di creare una classe wrapper per ogni view?
-					
-					regView.getBtnReg().addActionListener(a -> {
-						addUser();
-						regView.showSuccessDialog();
-						regView.setVisible(false);
-						loginView.setVisible(true);
-					});
-					
-					System.out.println("Listeners added");
+					appView = new AppView();
+					statsView = new StatsView();
+
+					loginView.setVisible(true);
+
+					setDestinations();
+					setFunctionalities();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,26 +57,41 @@ public class FocusApp {
 		});
 	}
 
+	/**
+	 * Define the destination of every button here
+	 */
+	private static void setDestinations() {
+		setBtnDestination(loginView.getBtnReg(), loginView, regView);
+		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
+		setBtnDestination(regView.getBtnReg(), regView, loginView);
+	}
+	
+	/**
+	 * Define the action listener of every button here
+	 */
+	private static void setFunctionalities() {
+		regView.getBtnReg().addActionListener(a -> {
+			try {
+				addUser();
+				regView.showSuccessMessage();				
+			} catch (DuplicateUserException e) {
+				regView.showFailMessage("Il nome utente è già preso.");
+			}
+		});
+	}
+	
 	/***
-	 * Imposta la view di destinazione a cui porta un bottone
-	 * @param btn Bottone che porta alla view 'dest'
-	 * @param source View che ospita il bottone
-	 * @param dest View a cui deve portare il bottone
+	 * Set the destination view for a button
+	 * 
+	 * @param btn    Button that brings to view "dest" when clicked
+	 * @param source View that contains the button
+	 * @param dest   Destination view
 	 */
 	private static void setBtnDestination(JButton btn, View source, View dest) {
 		btn.addActionListener(a -> {
 			source.setVisible(false);
 			dest.setVisible(true);
 		});
-	}
-	
-	private static void changeToRegView() {
-		try {
-			regView.setVisible(true);
-			loginView.setVisible(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -91,6 +107,7 @@ public class FocusApp {
 	 * 
 	 */
 	public void endTimer() {
+
 	}
 
 	private static void addUser() {
@@ -100,19 +117,5 @@ public class FocusApp {
 		} else {
 			user.save();
 		}
-		
-//			User user = new User(regView.getUsername(), regView.getPassword());
-//			session = HibernateUtil.getSessionFactory().openSession();
-//			session.beginTransaction();
-//			User u = session.find(User.class, user.getUsername());
-//			if (u != null) {
-//				throw new DuplicateUserException();
-//			} else {
-//				session.persist(user);
-//			}
-//			session.getTransaction().commit();
-//			if (session != null) {
-//				session.close();
-		
 	}
 }

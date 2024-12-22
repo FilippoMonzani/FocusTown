@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+
+import model.Histogram;
+
 import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 
@@ -13,8 +16,6 @@ import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-
-import view.Histogram;
 
 public class StatsView extends JFrame {
 

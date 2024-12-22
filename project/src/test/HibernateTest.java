@@ -21,7 +21,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import main.HibernateUtil;
-import main.User;
+import model.User;
 
 @Entity
 @Table(name = "TEST_T")
