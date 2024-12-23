@@ -8,6 +8,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JButton;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import model.AuthenticationService;
 import model.City;
 import model.User;
@@ -37,7 +40,9 @@ public class FocusApp {
 	private static StatsView statsView = null;
 
 	private static User currentUser = null;
-
+	
+	private static final Logger logger = LogManager.getLogger(FocusApp.class);
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -90,6 +95,7 @@ public class FocusApp {
 
 			try {
 					FocusApp.currentUser = authService.login(u, passwordLogin);
+					logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
 					// after succesful authentication, appView is shown
 			} catch (UserNotFoundException e) {
 				loginView.showErrorMessage("Questo nome utente non esiste.");

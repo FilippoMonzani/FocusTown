@@ -60,6 +60,10 @@ public class User {
 		SessionUtil.endSession(session);
 	}
 	
+	/**
+	 * Find user in database that matches the supplied username
+	 * @return User
+	 */
 	public User read() {
 		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
