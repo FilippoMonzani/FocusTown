@@ -58,6 +58,11 @@ public class User {
 		SessionUtil.endSession(session);
 	}
 
+	
+	/**
+	 * Find user in database that matches the supplied username
+	 * @return User
+	 */
 	public User read() {
 		Session session = SessionUtil.startSession();
 		User retrievedUser = session.find(User.class, this.getUsername());
