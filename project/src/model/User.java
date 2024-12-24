@@ -53,36 +53,41 @@ public class User {
 		this.password = password;
 	}
 	
+	/**
+	 * Save this user in the database.
+	 */
 	public void save() {
-		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
-		session.persist(user);
+		session.persist(this);
 		SessionUtil.endSession(session);
 	}
 	
 	/**
-	 * Find user in database that matches the supplied username
-	 * @return User
+	 * Read the user from the database that matches the username.
+	 * @return The user, if the username matches.
 	 */
 	public User read() {
-		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
-		User retrievedUser = session.find(User.class, user.getUsername());
+		User retrievedUser = session.find(User.class, getUsername());
 		SessionUtil.endSession(session);
 		return retrievedUser;
 	}
 	
+	/**
+	 * Update this user in the database.
+	 */
 	public void update() {
-		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
-		session.merge(user);
+		session.merge(this);
 		SessionUtil.endSession(session);
 	}
 	
+	/**
+	 * Delete this user from the database.
+	 */
 	public void delete() {
-		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
-		session.remove(user);
+		session.remove(this);
 		SessionUtil.endSession(session);
 	}
 }

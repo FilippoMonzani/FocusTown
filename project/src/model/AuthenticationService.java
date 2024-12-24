@@ -13,7 +13,7 @@ public class AuthenticationService {
 	 * @throws UserNotFoundException If the user is not in the database
 	 * @throws WrongPasswordException If the password does not match
 	 */
-	public User login(User u, String password) throws UserNotFoundException {
+	public User login(User u, String password) throws UserNotFoundException, WrongPasswordException {
 		u = u.read(); // read returns null if username is not in db
 		if (u == null) {
 			throw new UserNotFoundException(u);
