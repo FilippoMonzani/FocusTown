@@ -23,10 +23,10 @@ public class User {
 	@Id
 	@Column(name = "username", nullable = false, updatable = false)
 	private String username;
-	@Column(name = "password", nullable = false)
+	@Column
 	private String password;
 
-	//empty constructor needed for Hibernate queries
+	// empty constructor needed for Hibernate queries
 	public User() {
 
 	}
@@ -35,7 +35,6 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
-
 
 	public String getUsername() {
 		return username;
@@ -52,33 +51,29 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public void save() {
-		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
-		session.persist(user);
+		session.persist(this);
 		SessionUtil.endSession(session);
 	}
-	
+
 	public User read() {
-		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
-		User retrievedUser = session.find(User.class, user.getUsername());
+		User retrievedUser = session.find(User.class, this.getUsername());
 		SessionUtil.endSession(session);
 		return retrievedUser;
 	}
-	
+
 	public void update() {
-		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
-		session.merge(user);
+		session.merge(this);
 		SessionUtil.endSession(session);
 	}
-	
+
 	public void delete() {
-		User user = new User(this.username, this.password);
 		Session session = SessionUtil.startSession();
-		session.remove(user);
+		session.remove(this);
 		SessionUtil.endSession(session);
 	}
 }

@@ -4,6 +4,11 @@
 
 package model;
 
+import java.util.List;
+
+import org.hibernate.Session;
+import main.SessionUtil;
+
 /************************************************************/
 /**
  * 
@@ -12,11 +17,11 @@ public class City {
 	/**
 				 * 
 				 */
-				private Building[] buildings;
+				private List<Building> buildings;
 	/**
 				 * 
 				 */
-				public User user;
+				//public User user;
 
 	/**
 	 * 
@@ -29,7 +34,16 @@ public class City {
 	 * 
 	 * @return 
 	 */
-	public Building[] getBuildings() {
-		return null;
+	public void loadBuildings(User user) {
+		Session session = SessionUtil.startSession();
+		List<Building> retrievedBuildings = session.createQuery("from Building b where b.owner = :owner_username", Building.class).setParameter("owner_username", user.getUsername()).list();
+		for (Building b : retrievedBuildings) {
+			String password = session.createQuery("select u.password from app_user u where u.username = :owner_username", String.class).setParameter("owner_username", user.getUsername()).toString();
+			b.getOwner().setPassword(password);
+			buildings.add(b);
+		}
+		SessionUtil.endSession(session);
 	}
+	
+	
 }
