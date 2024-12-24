@@ -40,9 +40,9 @@ public class FocusApp {
 	private static StatsView statsView = null;
 
 	private static User currentUser = null;
-	
+
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,7 +68,7 @@ public class FocusApp {
 	 */
 	private static void setDestinations() {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
-//		setBtnDestination(loginView.getLoginBtn(), loginView, appView);
+		setBtnDestination(loginView.getLoginBtn(), loginView, appView); // this transition should happen only if authentication succeeds
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
 		setBtnDestination(regView.getBtnReg(), regView, loginView);
 	}
@@ -82,24 +82,24 @@ public class FocusApp {
 				addUser();
 				regView.showSuccessMessage();
 			} catch (DuplicateUserException e) {
-				regView.showErrorMessage("Il nome utente è già preso.");
+				regView.showErrorMessage("Questo nome utente è già preso.");
 			}
 		});
 
 		loginView.getLoginBtn().addActionListener(a -> {
 			String usernameLogin = loginView.getUsername();
 			String passwordLogin = loginView.getPassword();
-			
+
 			AuthenticationService authService = new AuthenticationService();
 			User u = new User(usernameLogin, passwordLogin);
 
 			try {
-					FocusApp.currentUser = authService.login(u, passwordLogin);
-					logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
-					// after succesful authentication, appView is shown
+				FocusApp.currentUser = authService.login(u, passwordLogin);
+				logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
+				// after succesful authentication, appView is shown
 			} catch (UserNotFoundException e) {
 				loginView.showErrorMessage("Questo nome utente non esiste.");
-			} catch (WrongPasswordException e) {				
+			} catch (WrongPasswordException e) {
 				loginView.showErrorMessage("Password errata.");
 			}
 		});

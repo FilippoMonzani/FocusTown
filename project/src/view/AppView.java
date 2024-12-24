@@ -20,7 +20,7 @@ import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 
-public class AppView extends JFrame {
+public class AppView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
