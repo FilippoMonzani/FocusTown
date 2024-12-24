@@ -25,12 +25,7 @@ public class FocusApp {
 	/**
 				 * 
 				 */
-	public User[] user;
-	/**
-				 * 
-				 */
-	public City[] city;
-
+	
 	private static LoginView loginView = null;
 	private static RegView regView = null;
 	private static AppView appView = null;
