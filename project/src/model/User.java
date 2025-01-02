@@ -68,7 +68,6 @@ public class User {
 	 */
 	public User read() {
 		Session session = SessionUtil.startSession();
-<<<<<<< HEAD
 		User retrievedUser = session.find(User.class, getUsername());
 		SessionUtil.endSession(session);
 		return retrievedUser;
@@ -77,26 +76,15 @@ public class User {
 	/**
 	 * Update this user in the database.
 	 */
-=======
-		User retrievedUser = session.find(User.class, this.getUsername());
-		SessionUtil.endSession(session);
-		return retrievedUser;
-	}
-
->>>>>>> 481733e1f9558c707fd9d5c613e591b339eb8fd6
 	public void update() {
 		Session session = SessionUtil.startSession();
 		session.merge(this);
 		SessionUtil.endSession(session);
 	}
-<<<<<<< HEAD
 	
 	/**
 	 * Delete this user from the database.
 	 */
-=======
-
->>>>>>> 481733e1f9558c707fd9d5c613e591b339eb8fd6
 	public void delete() {
 		Session session = SessionUtil.startSession();
 		session.remove(this);
