@@ -68,9 +68,7 @@ public class FocusApp {
 	 */
 	private static void setDestinations() {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
-		setBtnDestination(loginView.getLoginBtn(), loginView, appView); // this transition should happen only if authentication succeeds
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
-		setBtnDestination(regView.getBtnReg(), regView, loginView);
 	}
 
 	/**
@@ -81,6 +79,8 @@ public class FocusApp {
 			try {
 				addUser();
 				regView.showSuccessMessage();
+				loginView.setVisible(true);
+				regView.setVisible(false);
 			} catch (DuplicateUserException e) {
 				regView.showErrorMessage("Questo nome utente è già preso.");
 			}
@@ -97,6 +97,8 @@ public class FocusApp {
 				FocusApp.currentUser = authService.login(u, passwordLogin);
 				logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
 				// after succesful authentication, appView is shown
+				appView.setVisible(true);
+				loginView.setVisible(false);
 			} catch (UserNotFoundException e) {
 				loginView.showErrorMessage("Questo nome utente non esiste.");
 			} catch (WrongPasswordException e) {
