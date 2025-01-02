@@ -23,10 +23,10 @@ public class User {
 	@Id
 	@Column(name = "username", nullable = false, updatable = false)
 	private String username;
-	@Column(name = "password", nullable = false)
+	@Column
 	private String password;
 
-	//empty constructor needed for Hibernate queries
+	// empty constructor needed for Hibernate queries
 	public User() {
 
 	}
@@ -35,7 +35,6 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
-
 
 	public String getUsername() {
 		return username;
@@ -61,6 +60,7 @@ public class User {
 		session.persist(this);
 		SessionUtil.endSession(session);
 	}
+
 	
 	/**
 	 * Read the user from the database that matches the username.
@@ -68,6 +68,7 @@ public class User {
 	 */
 	public User read() {
 		Session session = SessionUtil.startSession();
+<<<<<<< HEAD
 		User retrievedUser = session.find(User.class, getUsername());
 		SessionUtil.endSession(session);
 		return retrievedUser;
@@ -76,15 +77,26 @@ public class User {
 	/**
 	 * Update this user in the database.
 	 */
+=======
+		User retrievedUser = session.find(User.class, this.getUsername());
+		SessionUtil.endSession(session);
+		return retrievedUser;
+	}
+
+>>>>>>> 481733e1f9558c707fd9d5c613e591b339eb8fd6
 	public void update() {
 		Session session = SessionUtil.startSession();
 		session.merge(this);
 		SessionUtil.endSession(session);
 	}
+<<<<<<< HEAD
 	
 	/**
 	 * Delete this user from the database.
 	 */
+=======
+
+>>>>>>> 481733e1f9558c707fd9d5c613e591b339eb8fd6
 	public void delete() {
 		Session session = SessionUtil.startSession();
 		session.remove(this);

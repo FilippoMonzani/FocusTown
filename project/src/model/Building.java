@@ -4,27 +4,119 @@
 
 package model;
 
-import java.util.Date;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+import org.hibernate.Session;
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import main.SessionUtil;
 
 /************************************************************/
 /**
  * 
  */
+@Entity
+@Table(name = "BUILDING")
 public class Building {
-	/**
-				 * 
-				 */
-				private String id;
-	/**
-				 * 
-				 */
-				private Date timeStamp;
-	/**
-				 * 
-				 */
-				private int duration;
-	/**
-	 * 
-	 */
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	@Column(name = "creation_time", nullable = false, updatable = false)
+	@CreationTimestamp
+	private LocalDateTime timeStamp;
+
+	@Column
+	private Duration duration;
+
+	@Column
 	private String subject;
+
+	@Convert(converter = UserConverter.class)
+	private User owner;
+
+	public Building() {
+
+	}
+
+	public Building(Duration duration, String subject, User owner) {
+		super();
+		this.duration = duration;
+		this.subject = subject;
+		this.owner = owner;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(LocalDateTime timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+	public Duration getDuration() {
+		return duration;
+	}
+
+	public void setDuration(Duration duration) {
+		this.duration = duration;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public void save() {
+		Session session = SessionUtil.startSession();
+		session.persist(this);
+		SessionUtil.endSession(session);
+	}
+
+	public Building read() {
+		Session session = SessionUtil.startSession();
+		Building retrievedBuilding = session.find(Building.class, this.getId());
+		SessionUtil.endSession(session);
+		return retrievedBuilding;
+	}
+
+	public void update() {
+		Session session = SessionUtil.startSession();
+		session.merge(this);
+		SessionUtil.endSession(session);
+	}
+
+	public void delete() {
+		Session session = SessionUtil.startSession();
+		session.remove(this);
+		SessionUtil.endSession(session);
+	}
 }
