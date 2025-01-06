@@ -140,4 +140,12 @@ public class FocusApp {
 			user.save();
 		}
 	}
+	
+	/**
+	 * @param user
+	 * 
+	 */
+	private void initBuilding(User user) {
+		
+	}
 }
