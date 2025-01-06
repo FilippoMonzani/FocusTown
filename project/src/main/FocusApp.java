@@ -5,8 +5,12 @@
 package main;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.Duration;
 
 import javax.swing.JButton;
+import javax.swing.Timer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,9 +39,11 @@ public class FocusApp {
 	private static StatsView statsView = null;
 
 	private static User currentUser = null;
+	private static City currentCity = null;
+
 
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
-
+	private boolean sessionInterrupted;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -123,12 +129,33 @@ public class FocusApp {
 	 * @return
 	 */
 	public void startTimer(int duration) {
+		String subject = null;
+		Timer timer = new Timer(1000,new ActionListener() {
+			 int count = duration;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				count--;
+				if(sessionInterrupted) {
+					//timer.stop();
+				}
+				else if(count==0) {
+					//timer.stop();
+					endTimer( subject  ,duration);
+				}
+			}
+		}
+				); 
+		timer.start();
 	}
 
 	/**
 	 * 
 	 */
-	public void endTimer() {
+	public void endTimer(String subject, int seconds) {
+		Duration duration =  Duration.ofSeconds(seconds);
+		currentCity.addBuilding(duration, subject, currentUser);
+		
 
 	}
 
