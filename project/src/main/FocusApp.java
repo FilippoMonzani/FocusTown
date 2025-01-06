@@ -64,6 +64,8 @@ public class FocusApp {
 	private static void setDestinations() {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
+		setBtnDestination(appView.getStatsButton(), appView, statsView);
+		setBtnDestination(statsView.getBackBtn(), statsView, appView);
 	}
 
 	/**

@@ -24,6 +24,7 @@ public class AppView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton statsBtn;
 
 	/**
 	 * Create the frame.
@@ -76,7 +77,7 @@ public class AppView extends JFrame implements View {
 		JButton challengeBtn = new JButton("Challenges");
 		bottomPanel.add(challengeBtn);
 		
-		JButton statsBtn = new JButton("Stats");
+		statsBtn = new JButton("Stats");
 		bottomPanel.add(statsBtn);	
 		
 		startBtn.addActionListener(new ActionListener(){
@@ -112,5 +113,9 @@ public class AppView extends JFrame implements View {
 	                }
 	            }
 	        });
+	}
+	
+	public JButton getStatsButton() {
+		return this.statsBtn;
 	}
 }

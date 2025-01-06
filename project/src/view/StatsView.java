@@ -17,10 +17,11 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
-public class StatsView extends JFrame {
+public class StatsView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton backButton;
 
 	/**
 	 * Launch the application.
@@ -78,12 +79,16 @@ public class StatsView extends JFrame {
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		bottomPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
-		JButton backButton = new JButton("Back");
+		backButton = new JButton("Back");
 		bottomPanel.add(backButton);
 		
         int[] data = {10, 30, 20, 50, 40, 60};
         String[] categories = {"A", "B", "C", "D", "E", "F"};
 		Histogram histogram = new Histogram(data, categories);
 		centerPanel.add(histogram);
+	}
+	
+	public JButton getBackBtn() {
+		return this.backButton;
 	}
 }
