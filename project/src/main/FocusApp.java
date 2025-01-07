@@ -8,11 +8,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JButton;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import model.AuthenticationService;
 import model.City;
+import model.HistogramAdapter;
 import model.User;
 import view.AppView;
 import view.LoginView;
@@ -64,7 +66,7 @@ public class FocusApp {
 	private static void setDestinations() {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
-		setBtnDestination(appView.getStatsButton(), appView, statsView);
+//		setBtnDestination(appView.getStatsButton(), appView, statsView);
 		setBtnDestination(statsView.getBackBtn(), statsView, appView);
 	}
 
@@ -101,6 +103,21 @@ public class FocusApp {
 			} catch (WrongPasswordException e) {
 				loginView.showErrorMessage("Password errata.");
 			}
+		});
+		
+		appView.getStatsButton().addActionListener(a -> {
+			// Example data
+			String[] categories = new String[] {"Gennaio", "Febbraio", "Marzo"};
+			int[] data = new int[] {20, 5, 50};
+			
+			HistogramAdapter ha = new HistogramAdapter();
+			ha.setCategories(categories);
+			ha.setData(data);
+			
+			statsView.getHistogram().setBars(ha.getHistogramBars());
+			
+			statsView.setVisible(true);
+			appView.setVisible(false);
 		});
 	}
 
@@ -149,5 +166,9 @@ public class FocusApp {
 	 */
 	private void initBuilding(User user) {
 		
+	}
+	
+	public static Logger getLogger() {
+		return FocusApp.logger;
 	}
 }

@@ -1,43 +1,26 @@
 package view;
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
+import java.awt.FlowLayout;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import model.Histogram;
-
-import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
-
-import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
+import model.HistogramAdapter;
 
 public class StatsView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton backButton;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StatsView frame = new StatsView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JComboBox<String> monthSelect;
+	private HistogramPanel histogram;
 
 	/**
 	 * Create the frame.
@@ -64,7 +47,7 @@ public class StatsView extends JFrame implements View {
 			topPanel.revalidate();
 		});
 		
-		JComboBox monthSelect = new JComboBox(new String[] {"Gennaio", "Febbraio", "Marzo"}); // TODO: update months
+		monthSelect = new JComboBox();
 		topPanel.add(monthSelect);
 		
 		JLabel yearLabel = new JLabel("2024");
@@ -82,13 +65,20 @@ public class StatsView extends JFrame implements View {
 		backButton = new JButton("Back");
 		bottomPanel.add(backButton);
 		
-        int[] data = {10, 30, 20, 50, 40, 60};
-        String[] categories = {"A", "B", "C", "D", "E", "F"};
-		Histogram histogram = new Histogram(data, categories);
+		// Example
+		histogram = new HistogramPanel();
 		centerPanel.add(histogram);
 	}
 	
 	public JButton getBackBtn() {
 		return this.backButton;
+	}
+	
+	public JComboBox<String> getMonthsSelect() {
+		return this.monthSelect;
+	}
+	
+	public HistogramPanel getHistogram() {
+		return this.histogram;
 	}
 }
