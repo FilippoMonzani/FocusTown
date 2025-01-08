@@ -18,7 +18,7 @@ import main.SessionUtil;
  */
 @Entity
 @Table(name = "APP_USER")
-public class User {
+public class User implements Persistable{
 
 	@Id
 	@Column(name = "username", nullable = false, updatable = false)
@@ -64,11 +64,11 @@ public class User {
 	
 	/**
 	 * Read the user from the database that matches the username.
-	 * @return The user, if the username matches.
+	 * @return The user, if the username matches, else returns null.
 	 */
 	public User read() {
 		Session session = SessionUtil.startSession();
-		User retrievedUser = session.find(User.class, getUsername());
+		User retrievedUser = session.find(User.class, this.getUsername());
 		SessionUtil.endSession(session);
 		return retrievedUser;
 	}

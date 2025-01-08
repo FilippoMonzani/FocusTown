@@ -25,7 +25,7 @@ import main.SessionUtil;
  */
 @Entity
 @Table(name = "BUILDING")
-public class Building {
+public class Building implements Persistable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.time.Duration;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +23,9 @@ import model.User;
 import view.AppView;
 import view.LoginView;
 import view.RegView;
+import view.SessionSettingView;
 import view.StatsView;
+import view.TimerCountdownView;
 import view.View;
 
 /************************************************************/
@@ -37,6 +41,8 @@ public class FocusApp {
 	private static RegView regView = null;
 	private static AppView appView = null;
 	private static StatsView statsView = null;
+	private static SessionSettingView sessionSettingView = null;
+	private static TimerCountdownView timerCountdownView = null;
 
 	private static User currentUser = null;
 	private static City currentCity = null;
@@ -52,6 +58,8 @@ public class FocusApp {
 					regView = new RegView();
 					appView = new AppView();
 					statsView = new StatsView();
+					sessionSettingView = new SessionSettingView();
+					timerCountdownView = new TimerCountdownView();
 
 					loginView.setVisible(true);
 
@@ -70,6 +78,9 @@ public class FocusApp {
 	private static void setDestinations() {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
+		setBtnDestination(appView.getStartBtn(), appView, sessionSettingView);
+		setBtnDestination(appView.getUserBtn(), appView, loginView);
+		setBtnDestination(sessionSettingView.getCancelButton(), sessionSettingView, appView);
 	}
 
 	/**
@@ -105,6 +116,21 @@ public class FocusApp {
 			} catch (WrongPasswordException e) {
 				loginView.showErrorMessage("Password errata.");
 			}
+		});
+		
+		sessionSettingView.getStartButton().addActionListener(a -> {
+	            	if(!sessionSettingView.getHourField().getText().matches("\\d+") || !sessionSettingView.getMinuteField().getText().matches("\\d+")) {
+	            		sessionSettingView.getErrorLabel().setText("Error: hour and minute values must be integers.");
+	            	}
+	            	else {
+	            		sessionSettingView.getErrorLabel().setText("");
+	            	}
+	            	
+	            	if(sessionSettingView.getMinuteField().getText().matches("\\d+") && Integer.parseInt(sessionSettingView.getMinuteField().getText()) > 59) {
+	        			sessionSettingView.getErrorLabel().setText("Error: minutes value must be smaller than 60.");
+	            	}
+	            	sessionSettingView.setVisible(false);
+	    			timerCountdownView.setVisible(true);
 		});
 	}
 

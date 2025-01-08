@@ -33,11 +33,14 @@ import java.awt.Component;
 import java.awt.Color;
 import java.awt.Font;
 
-public class SessionSettingView extends JFrame {
+public class SessionSettingView extends JFrame implements View{
 
 	private JPanel contentPane;
 	private JTextField hourField;
 	private JTextField minuteField;
+	private JButton cancelButton;
+	private JButton startButton;
+	private JLabel errorLabel;
 
 	/**
 	 * Create the frame.
@@ -84,7 +87,7 @@ public class SessionSettingView extends JFrame {
 		contentPane.add(southPane, BorderLayout.SOUTH);
 		southPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton cancelButton = new JButton("CANCEL");
+		cancelButton = new JButton("CANCEL");
 		cancelButton.setBackground(new Color(169, 169, 169));
 		southPane.add(cancelButton);
 		cancelButton.setForeground(new Color(220, 20, 60));
@@ -95,7 +98,7 @@ public class SessionSettingView extends JFrame {
 		blankLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
 		southPane.add(blankLabel);
 		
-		JButton startButton = new JButton("START");
+		startButton = new JButton("START");
 		startButton.setBackground(new Color(169, 169, 169));
 		southPane.add(startButton);
 		startButton.setForeground(new Color(0, 255, 0));
@@ -113,38 +116,46 @@ public class SessionSettingView extends JFrame {
 		mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		northPane.add(mainLabel);
 		
-		JLabel errorLabel = new JLabel("");
+		errorLabel = new JLabel("");
 		errorLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		errorLabel.setForeground(Color.RED);
 		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		northPane.add(errorLabel, BorderLayout.SOUTH);
-		
-		startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-				// Azione da eseguire al click
-            	if(!hourField.getText().matches("\\d+") || !minuteField.getText().matches("\\d+")) {
-            		errorLabel.setText("Error: hour and minute values must be integers.");
-            	}
-            	else {
-            		errorLabel.setText("");
-            	}
-            	
-            	if(minuteField.getText().matches("\\d+") && Integer.parseInt(minuteField.getText()) > 59) {
-        			errorLabel.setText("Error: minutes value must be smaller than 60.");
-        		}
-            }
-        });
-		
-		cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Azione da eseguire al click
-            	openAppView();
-            }	
-        });
-		
+	
 	}
+	
+	public JLabel getErrorLabel() {
+		return errorLabel;
+	}
+	public void setErrorLabel(JLabel errorLabel) {
+		this.errorLabel = errorLabel;
+	}
+	public JButton getCancelButton() {
+		return cancelButton;
+	}
+	public void setCancelButton(JButton cancelButton) {
+		this.cancelButton = cancelButton;
+	}
+	public JButton getStartButton() {
+		return startButton;
+	}
+	public void setStartButton(JButton startButton) {
+		this.startButton = startButton;
+	}
+	
+	public JTextField getHourField() {
+		return hourField;
+	}
+	public void setHourField(JTextField hourField) {
+		this.hourField = hourField;
+	}
+	public JTextField getMinuteField() {
+		return minuteField;
+	}
+	public void setMinuteField(JTextField minuteField) {
+		this.minuteField = minuteField;
+	}
+	
 	public void openAppView() {
 		 this.dispose();
 	        EventQueue.invokeLater(new Runnable() {

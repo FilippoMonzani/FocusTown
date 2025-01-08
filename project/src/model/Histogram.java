@@ -49,5 +49,5 @@ public class Histogram extends JPanel {
 			g.setColor(Color.WHITE);
 			g.drawString(categories[i], x + (barWidth / 4), maxHeight - 5);
 		}
-	}
+	} 
 }
