@@ -22,6 +22,7 @@ public class TimerCountdownView extends JFrame {
     private JLabel timerLabel;
     private int countdownTime = 60; // Countdown start time in seconds
     private Timer timer;
+    private JButton stopButton;
 
     /**
      * Launch the application.
@@ -76,7 +77,7 @@ public class TimerCountdownView extends JFrame {
         timer.start();
 
         // Button to stop the timer
-        JButton stopButton = new JButton("Stop Timer");
+        stopButton = new JButton("Stop Timer");
         stopButton.setPreferredSize(new Dimension(120, 25)); // Adjust button size
         stopButton.addActionListener(new ActionListener() {
             @Override
@@ -89,5 +90,9 @@ public class TimerCountdownView extends JFrame {
             }
         });
         contentPane.add(stopButton, BorderLayout.SOUTH);
+    }
+    
+    public JButton getStopButton() {
+    	return stopButton;
     }
 }

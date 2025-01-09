@@ -33,7 +33,7 @@ public class Building {
 
 	@Column(name = "creation_time", nullable = false, updatable = false)
 	@CreationTimestamp
-	private LocalDateTime timeStamp;
+	private LocalDateTime timeStamp; // timestamp of study session end
 
 	@Column
 	private Duration duration;
@@ -53,6 +53,14 @@ public class Building {
 		this.duration = duration;
 		this.subject = subject;
 		this.owner = owner;
+	}
+	
+	public Building(Duration duration, String subject, User owner, LocalDateTime timestamp) {
+		super();
+		this.duration = duration;
+		this.subject = subject;
+		this.owner = owner;
+		this.timeStamp = timestamp;
 	}
 
 	public Long getId() {

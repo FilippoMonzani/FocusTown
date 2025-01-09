@@ -18,12 +18,15 @@ import org.apache.logging.log4j.Logger;
 
 import model.AuthenticationService;
 import model.City;
-import model.HistogramAdapter;
+import model.DataGroupByStrategy;
+import model.GroupByNumberOfBuildings;
+import model.GroupByStudyHours;
 import model.User;
 import view.AppView;
 import view.LoginView;
 import view.RegView;
 import view.StatsView;
+import view.TimerCountdownView;
 import view.View;
 
 /************************************************************/
@@ -31,21 +34,21 @@ import view.View;
  * 
  */
 public class FocusApp {
-	/**
-				 * 
-				 */
-	
+
 	private static LoginView loginView = null;
 	private static RegView regView = null;
 	private static AppView appView = null;
 	private static StatsView statsView = null;
+	private static TimerCountdownView timerCountdownView = null;
 
 	private static User currentUser = null;
 	private static City currentCity = null;
 
-
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
 	private boolean sessionInterrupted;
+
+	private static HistogramManager histogramManager;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -54,8 +57,11 @@ public class FocusApp {
 					regView = new RegView();
 					appView = new AppView();
 					statsView = new StatsView();
+					timerCountdownView = new TimerCountdownView();
 
 					loginView.setVisible(true);
+
+					histogramManager = new HistogramManager(statsView.getHistogram());
 
 					setDestinations();
 					setFunctionalities();
@@ -73,6 +79,7 @@ public class FocusApp {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
 		setBtnDestination(statsView.getBackBtn(), statsView, appView);
+		setBtnDestination(appView.getStatsButton(), appView, statsView);
 	}
 
 	/**
@@ -100,6 +107,7 @@ public class FocusApp {
 			try {
 				FocusApp.currentUser = authService.login(u, passwordLogin);
 				logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
+				initBuilding();
 				// after succesful authentication, appView is shown
 				appView.setVisible(true);
 				loginView.setVisible(false);
@@ -109,20 +117,23 @@ public class FocusApp {
 				loginView.showErrorMessage("Password errata.");
 			}
 		});
-		
-		appView.getStatsButton().addActionListener(a -> {
-			// Example data
-			String[] categories = new String[] {"Gennaio", "Febbraio", "Marzo"};
-			int[] data = new int[] {20, 5, 50};
-			
-			HistogramAdapter ha = new HistogramAdapter();
-			ha.setCategories(categories);
-			ha.setData(data);
-			
-			statsView.getHistogram().setBars(ha.getHistogramBars());
-			
-			statsView.setVisible(true);
-			appView.setVisible(false);
+
+		statsView.getDataSelect().addActionListener(a -> {
+			DataGroupByStrategy strategy = switch (statsView.getSelectedData()) {
+			case 0 -> new GroupByNumberOfBuildings();
+			case 1 -> new GroupByStudyHours();
+			default -> new GroupByNumberOfBuildings();
+			};
+			histogramManager.setStrategy(strategy);
+			updateStatsHistogram();
+		});
+
+		statsView.getMonthSelect().addActionListener(a -> updateStatsHistogram());
+
+		statsView.getYearSelect().addActionListener(a -> updateStatsHistogram());
+
+		timerCountdownView.getStopButton().addActionListener(a -> {
+//			timer.stop();
 		});
 	}
 
@@ -148,22 +159,20 @@ public class FocusApp {
 	 */
 	public void startTimer(int duration) {
 		String subject = null;
-		Timer timer = new Timer(1000,new ActionListener() {
-			 int count = duration;
+		Timer timer = new Timer(1000, new ActionListener() {
+			int count = duration;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				count--;
-				if(sessionInterrupted) {
-					//timer.stop();
-				}
-				else if(count==0) {
-					//timer.stop();
-					endTimer( subject  ,duration);
+				if (sessionInterrupted) {
+//					 timer.stop();
+				} else if (count == 0) {
+					// timer.stop();
+					endTimer(subject, duration);
 				}
 			}
-		}
-				); 
+		});
 		timer.start();
 	}
 
@@ -171,10 +180,8 @@ public class FocusApp {
 	 * 
 	 */
 	public void endTimer(String subject, int seconds) {
-		Duration duration =  Duration.ofSeconds(seconds);
+		Duration duration = Duration.ofSeconds(seconds);
 		currentCity.addBuilding(duration, subject, currentUser);
-		
-
 	}
 
 	private static void addUser() {
@@ -185,16 +192,23 @@ public class FocusApp {
 			user.save();
 		}
 	}
-	
+
 	/**
-	 * @param user
-	 * 
+	 * Load buildings from a city
 	 */
-	private void initBuilding(User user) {
-		
+	private static void initBuilding() {
+//		currentCity = new City();
+//		currentCity.loadBuildings(currentUser);
 	}
-	
+
 	public static Logger getLogger() {
 		return FocusApp.logger;
+	}
+	
+	private static void updateStatsHistogram() {
+		int year = statsView.getSelectedYear();
+		int month = statsView.getSelectedMonth();
+		logger.log(Level.DEBUG, String.format("Looking at buildings from %d, %d", year, month));
+		histogramManager.updateHistogram(year, month);
 	}
 }

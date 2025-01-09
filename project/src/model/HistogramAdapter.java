@@ -1,69 +1,80 @@
 package model;
 
-import java.util.Arrays;
-
-import org.apache.logging.log4j.Level;
-
-import main.FocusApp;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * This class aggregates data into an array of HisogramBar[] for the HistogramPanel to render with Swing.
- * It actsa as an adapter between the raw data and HistogramPanel
+ * Adapter for generating histogram bars from a data map. The map associates
+ * each label on the X-axis (of type Integer) with a value on the Y-axis (of type
+ * Long). The class calculates the height of each bar based on the relative
+ * values in the map.
  * 
- * @author LorenzoCorbellini
  */
 public class HistogramAdapter {
-	private int[] data;
-	private String[] categories;
+	// Map associating X-axis labels with Y-axis values
+	private Map<Integer, Long> data;
 
-	public HistogramAdapter(int[] data, String[] categories) {
-		this.data = data;
-		this.categories = categories;
-	}
-	
-	public HistogramAdapter() {
-		
-	}
-	
 	/**
-	 * Compute histogram bars from the data that the adapter received.
-	 * @return
+	 * Constructs an adapter with the provided data.
+	 * 
+	 * @param data The data map for the histogram, associating labels with values.
 	 */
-	public HistogramBar[] getHistogramBars() {
-		
-		if(categories.length == 0 || data.length == 0) {
-			throw new IllegalArgumentException("Categories and data cannot be empty!");
+	public HistogramAdapter(Map<Integer, Long> data) {
+		this.data = data;
+	}
+
+	public HistogramAdapter() {
+
+	}
+
+	/**
+	 * Computes the histogram bars from the data provided to the adapter.
+	 * 
+	 * @return A list of HistogramBar objects representing the bars for the
+	 *         histogram. An empty list if the map is empty.
+	 */
+	public List<HistogramBar> getHistogramBars() {
+
+		if (data.isEmpty()) {
+			return Collections.emptyList();
 		}
-		
-		if(categories.length != data.length) {
-			throw new IllegalArgumentException("Lenght of categories and data do not match!");
-		}
-		
-		HistogramBar[] bars = new HistogramBar[categories.length];
-		float maxValue = Arrays.stream(data).max().orElse(1);
-		
-		for(int i = 0; i < data.length; i++) {
-			float height = data[i] / maxValue;
-			FocusApp.getLogger().log(Level.DEBUG, "Bar " + categories[i] + " height: " + height);
-			bars[i] = new HistogramBar(categories[i], height);
-		}
-		
+
+		List<HistogramBar> bars = new LinkedList<>();
+		float maxValue = data.values().stream()
+				.max(Long::compare)
+				.filter(value -> value != 0)
+				.orElse(1L);
+
+		data.forEach((label, value) -> {
+			float height = value / maxValue;
+
+			bars.add(new HistogramBar(label.toString(), String.valueOf(value), height));
+
+//			FocusApp.getLogger().log(Level.DEBUG,
+//					String.format("Bar: %d, height: %f", (int) label, height));
+		});
+
 		return bars;
 	}
 
-	public int[] getData() {
-		return data;
-	}
-
-	public void setData(int[] data) {
+	/**
+	 * Sets the data for the histogram.
+	 * 
+	 * @param data The data map to associate labels with values.
+	 */
+	public void setData(Map<Integer, Long> data) {
 		this.data = data;
 	}
 
-	public String[] getCategories() {
-		return categories;
-	}
-
-	public void setCategories(String[] categories) {
-		this.categories = categories;
+	/**
+	 * Retrieves the set of categories (labels) for the X-axis.
+	 * 
+	 * @return A set of the labels for the X-axis.
+	 */
+	public Set<Integer> getCategories() {
+		return data.keySet();
 	}
 }

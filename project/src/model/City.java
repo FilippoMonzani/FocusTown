@@ -5,6 +5,8 @@
 package model;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -29,6 +31,10 @@ public class City {
 
 	// public User user;
 
+	public City() {
+		buildings = new ArrayList<Building>();
+	}
+	
 	 /**
      * Creates a new building with the specified characteristics, 
      * adds it to the transient list, and persists it in the database.
@@ -42,6 +48,7 @@ public class City {
 		Session session = SessionUtil.startSession();
 		session.persist(building);
 		buildings.add(building);
+		SessionUtil.endSession(session);
 	}
 
 	/**
@@ -53,7 +60,7 @@ public class City {
      */
 	public void loadBuildings(User user) {
 		Session session = SessionUtil.startSession();
-		List<Building> retrievedBuildings = session.createQuery("from Building b where b.owner = :owner_username", Building.class).setParameter("owner_username", user.getUsername()).list();
+		List<Building> retrievedBuildings = session.createQuery("from Building b where b.owner = :owner_username", Building.class).setParameter("owner_username", user).list();
 		for (Building b : retrievedBuildings) {
 			String password = session.createQuery("select u.password from app_user u where u.username = :owner_username", String.class).setParameter("owner_username", user.getUsername()).toString();
 			b.getOwner().setPassword(password);
@@ -61,6 +68,8 @@ public class City {
 		}
 		SessionUtil.endSession(session);
 	}
-	
-	
+
+	public List<Building> getBuildings() {
+		return Collections.unmodifiableList(buildings);
+	}
 }
