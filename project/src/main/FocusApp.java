@@ -195,10 +195,13 @@ public class FocusApp {
 	}
 	
 	/**
+	 * 
+	 * call loadBuilding method for the current city
+	 * 
 	 * @param user
 	 * 
 	 */
 	private void initBuilding(User user) {
-		
+		currentCity.loadBuildings(user);
 	}
 }
