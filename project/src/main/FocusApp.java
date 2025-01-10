@@ -7,10 +7,13 @@ package main;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.time.Duration;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
@@ -25,6 +28,7 @@ import view.LoginView;
 import view.RegView;
 import view.SessionSettingView;
 import view.StatsView;
+import view.SubjectSessionView;
 import view.TimerCountdownView;
 import view.View;
 
@@ -43,10 +47,11 @@ public class FocusApp {
 	private static StatsView statsView = null;
 	private static SessionSettingView sessionSettingView = null;
 	private static TimerCountdownView timerCountdownView = null;
+	private static SubjectSessionView subjectSessionView = null;
 
 	private static User currentUser = null;
 	private static City currentCity = null;
-
+	private static Timer timer;
 
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
 	private boolean sessionInterrupted;
@@ -60,6 +65,7 @@ public class FocusApp {
 					statsView = new StatsView();
 					sessionSettingView = new SessionSettingView();
 					timerCountdownView = new TimerCountdownView();
+					subjectSessionView = new SubjectSessionView();
 
 					loginView.setVisible(true);
 
@@ -118,7 +124,64 @@ public class FocusApp {
 			}
 		});
 		
+		sessionSettingView.getHourField().addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+
+				if (!sessionSettingView.getHourField().getText().matches("\\d+")) {
+					sessionSettingView.getErrorLabel().setText("Error: hour values must be integers.");
+					sessionSettingView.getHourField().setText("");
+				} else {
+					sessionSettingView.getErrorLabel().setText("");
+				}
+				int hours = Integer.parseInt(sessionSettingView.getHourField().getText());
+				int minutes = Integer.parseInt(sessionSettingView.getMinuteField().getText());
+				int newHours = TimeManager.calculateHours(hours, minutes);
+				if (newHours == 24) {
+					minutes = 0;
+				}
+				sessionSettingView.getHourField().setText(((Integer) newHours).toString());
+				sessionSettingView.getMinuteField().setText(((Integer) minutes).toString());
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO document why this method is empty
+			}
+		});
+
+		sessionSettingView.getMinuteField().addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+
+				if (!sessionSettingView.getMinuteField().getText().matches("\\d+")) {
+					sessionSettingView.getErrorLabel().setText("Error: minute values must be integers.");
+					sessionSettingView.getMinuteField().setText("");
+				} else {
+					sessionSettingView.getErrorLabel().setText("");
+				}
+				int hours = Integer.parseInt(sessionSettingView.getHourField().getText());
+				int minutes = Integer.parseInt(sessionSettingView.getMinuteField().getText());
+				int newHours = TimeManager.calculateHours(hours, minutes);
+				minutes = minutes % 60;
+				if (newHours == 24) {
+					minutes = 0;
+				}
+				sessionSettingView.getHourField().setText(((Integer) newHours).toString());
+				sessionSettingView.getMinuteField().setText(((Integer) minutes).toString());
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO document why this method is empty
+			}
+		});
+		
+		
 		sessionSettingView.getStartButton().addActionListener(a -> {
+			boolean correctInput = false;
 	            	if(!sessionSettingView.getHourField().getText().matches("\\d+") || !sessionSettingView.getMinuteField().getText().matches("\\d+")) {
 	            		sessionSettingView.getErrorLabel().setText("Error: hour and minute values must be integers.");
 	            	}
@@ -129,8 +192,22 @@ public class FocusApp {
 	            	if(sessionSettingView.getMinuteField().getText().matches("\\d+") && Integer.parseInt(sessionSettingView.getMinuteField().getText()) > 59) {
 	        			sessionSettingView.getErrorLabel().setText("Error: minutes value must be smaller than 60.");
 	            	}
-	            	sessionSettingView.setVisible(false);
+	            	int hours = Integer.parseInt(sessionSettingView.getHourField().getText());
+	            	int minutes = Integer.parseInt(sessionSettingView.getMinuteField().getText());
+	            	int seconds = 60*60*hours + 60*minutes;
 	    			timerCountdownView.setVisible(true);
+	            		sessionSettingView.setVisible(false);
+		    			startTimer(seconds);
+	            	
+		});
+		
+		timerCountdownView.getStopButton().addActionListener(a -> {
+			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (confirm == JOptionPane.YES_OPTION) {
+                timer.stop();
+                sessionSettingView.setVisible(true);
+                timerCountdownView.setVisible(false);
+            }
 		});
 	}
 
@@ -154,35 +231,40 @@ public class FocusApp {
 	 * @return
 	 * @return
 	 */
-	public void startTimer(int duration) {
+	public static void startTimer(int duration) {
+		boolean sessionInterrupted = false;
 		String subject = null;
-		Timer timer = new Timer(1000,new ActionListener() {
+		timer = new Timer(1000,new ActionListener() {
 			 int count = duration;
+			 TimeManager time = new TimeManager(count);
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { 
 				count--;
+				time.tick();
+				
+				timerCountdownView.getTimerLabel().setText("Time remaining " + time.toString());
 				if(sessionInterrupted) {
-					//timer.stop();
+					timer.stop();
 				}
-				else if(count==0) {
-					//timer.stop();
-					endTimer( subject  ,duration);
+				else if(time.isZero()) {
+					timer.stop();
+					subjectSessionView.setVisible(true);
+					timerCountdownView.setVisible(false);
 				}
 			}
-		}
-				); 
+		});
+		
+		timer.setInitialDelay(0);
 		timer.start();
 	}
 
 	/**
 	 * 
 	 */
-	public void endTimer(String subject, int seconds) {
+	public static void endTimer(String subject, int seconds) {
 		Duration duration =  Duration.ofSeconds(seconds);
 		currentCity.addBuilding(duration, subject, currentUser);
-		
-
 	}
 
 	private static void addUser() {

@@ -22,24 +22,27 @@ public class TimerCountdownView extends JFrame {
     private JLabel timerLabel;
     private int countdownTime = 60; // Countdown start time in seconds
     private Timer timer;
+    private JButton stopButton;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TimerCountdownView frame = new TimerCountdownView();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    /**
+//     * Launch the application.
+//     */
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    TimerCountdownView frame = new TimerCountdownView();
+//                    frame.setVisible(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
-    /**
+
+
+	/**
      * Create the frame.
      */
     public TimerCountdownView() {
@@ -56,38 +59,54 @@ public class TimerCountdownView extends JFrame {
         contentPane.setLayout(new BorderLayout(0, 0));
 
         // Timer label at the top
-        timerLabel = new JLabel("Time remaining: " + countdownTime + " seconds");
+        timerLabel = new JLabel("");
         timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(timerLabel, BorderLayout.NORTH);
 
-        // Start the countdown timer
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (countdownTime > 0) {
-                    countdownTime--;
-                    timerLabel.setText("Time remaining: " + countdownTime + " seconds");
-                } else {
-                    timerLabel.setText("Time's up!");
-                    timer.stop();
-                }
-            }
-        });
-        timer.start();
+//        // Start the countdown timer
+//        timer = new Timer(1000, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (countdownTime > 0) {
+//                    countdownTime--;
+//                    timerLabel.setText("Time remaining: " + countdownTime + " seconds");
+//                } else {
+//                    timerLabel.setText("Time's up!");
+//                    timer.stop();
+//                }
+//            }
+//        });
+//        timer.start();
 
         // Button to stop the timer
-        JButton stopButton = new JButton("Stop Timer");
+        stopButton = new JButton("Stop Timer");
         stopButton.setPreferredSize(new Dimension(120, 25)); // Adjust button size
-        stopButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    timer.stop();
-                    timerLabel.setText("Timer stopped at: " + countdownTime + " seconds");
-                }
-            }
-        });
+//        stopButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+//                if (confirm == JOptionPane.YES_OPTION) {
+//                    timer.stop();
+//                    timerLabel.setText("Timer stopped at: " + countdownTime + " seconds");
+//                }
+//            }
+//        });
         contentPane.add(stopButton, BorderLayout.SOUTH);
     }
+    
+    public JButton getStopButton() {
+		return stopButton;
+	}
+
+	public void setStopButton(JButton stopButton) {
+		this.stopButton = stopButton;
+	}
+
+	public JLabel getTimerLabel() {
+		return timerLabel;
+	}
+
+	public void setTimerLabel(JLabel timerLabel) {
+		this.timerLabel = timerLabel;
+	}
 }

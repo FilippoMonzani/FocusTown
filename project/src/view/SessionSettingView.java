@@ -66,7 +66,7 @@ public class SessionSettingView extends JFrame implements View{
 		centerPane.setLayout(new BoxLayout(centerPane, BoxLayout.X_AXIS));
 		centerPane.add(Box.createHorizontalGlue());
 		
-		hourField = new JTextField();
+		hourField = new JTextField("");
 		hourField.setFont(new Font("Tahoma", Font.PLAIN, 45));
 		hourField.setHorizontalAlignment(SwingConstants.CENTER);
 		hourField.setMaximumSize(new Dimension(150, 100));
@@ -74,9 +74,12 @@ public class SessionSettingView extends JFrame implements View{
 		hourField.setColumns(2);
 		
 		JLabel label1 = new JLabel(":");
+		label1.setFont(new Font("Tahoma", Font.PLAIN, 45));
+		label1.setHorizontalAlignment(SwingConstants.CENTER);
+		label1.setMaximumSize(new Dimension(150, 100));
 		centerPane.add(label1);
 		
-		minuteField = new JTextField();
+		minuteField = new JTextField("");
 		minuteField.setFont(new Font("Tahoma", Font.PLAIN, 45));
 		minuteField.setHorizontalAlignment(SwingConstants.CENTER);
 		minuteField.setMaximumSize(new Dimension(150, 100));
@@ -154,20 +157,6 @@ public class SessionSettingView extends JFrame implements View{
 	}
 	public void setMinuteField(JTextField minuteField) {
 		this.minuteField = minuteField;
-	}
-	
-	public void openAppView() {
-		 this.dispose();
-	        EventQueue.invokeLater(new Runnable() {
-	            public void run() {
-	                try {
-	                    AppView appView = new AppView();
-	                    appView.setVisible(true);
-	                } catch (Exception e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        });
 	}
 
 }
