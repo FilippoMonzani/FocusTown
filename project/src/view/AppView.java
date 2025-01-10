@@ -24,6 +24,7 @@ public class AppView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton statsBtn;
 	private JButton startBtn;
 	private JButton userBtn;
 
@@ -74,7 +75,7 @@ public class AppView extends JFrame implements View {
 		JButton challengeBtn = new JButton("Challenges");
 		bottomPanel.add(challengeBtn);
 		
-		JButton statsBtn = new JButton("Stats");
+		statsBtn = new JButton("Stats");
 		bottomPanel.add(statsBtn);	
 		
 	}
@@ -87,6 +88,9 @@ public class AppView extends JFrame implements View {
 		this.startBtn = startBtn;
 	}
 	
+	public JButton getStatsButton() {
+		return this.statsBtn;
+	}
 
 	public JButton getUserBtn() {
 		return userBtn;

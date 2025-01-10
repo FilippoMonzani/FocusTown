@@ -1,42 +1,29 @@
 package view;
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import java.awt.FlowLayout;
 
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
-import model.Histogram;
-
-import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
-
-import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-
-public class StatsView extends JFrame {
+public class StatsView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StatsView frame = new StatsView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JButton backButton;
+	private JComboBox<String> monthSelect;
+	private JComboBox<String> yearSelect;
+	private HistogramPanel histogram;
+	private JComboBox<String> dataSelect;
+	private Component horizontalStrut;
+	private Component horizontalStrut_1;
 
 	/**
 	 * Create the frame.
@@ -63,11 +50,20 @@ public class StatsView extends JFrame {
 			topPanel.revalidate();
 		});
 		
-		JComboBox monthSelect = new JComboBox(new String[] {"Gennaio", "Febbraio", "Marzo"}); // TODO: update months
+		dataSelect = new JComboBox<String>(new String[] {"Number of buildings", "Study hours"});
+		topPanel.add(dataSelect);
+		
+		horizontalStrut = Box.createHorizontalStrut(30);
+		topPanel.add(horizontalStrut);
+		
+		monthSelect = new JComboBox<>(new String[] {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"});
 		topPanel.add(monthSelect);
 		
-		JLabel yearLabel = new JLabel("2024");
-		topPanel.add(yearLabel);
+		horizontalStrut_1 = Box.createHorizontalStrut(30);
+		topPanel.add(horizontalStrut_1);
+		
+		yearSelect = new JComboBox<>(new String[] {"2024", "2025", "2026"});
+		topPanel.add(yearSelect);
 		
 		JPanel centerPanel = new JPanel();
 		contentPane.add(centerPanel, BorderLayout.CENTER);
@@ -78,12 +74,43 @@ public class StatsView extends JFrame {
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		bottomPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
-		JButton backButton = new JButton("Back");
+		backButton = new JButton("Back");
 		bottomPanel.add(backButton);
 		
-        int[] data = {10, 30, 20, 50, 40, 60};
-        String[] categories = {"A", "B", "C", "D", "E", "F"};
-		Histogram histogram = new Histogram(data, categories);
+		// Example
+		histogram = new HistogramPanel();
 		centerPanel.add(histogram);
+	}
+	
+	public JButton getBackBtn() {
+		return this.backButton;
+	}
+	
+	public JComboBox<String> getMonthSelect() {
+		return this.monthSelect;
+	}
+
+	public JComboBox<String> getYearSelect() {
+		return this.yearSelect;
+	}
+
+	public JComboBox<String> getDataSelect() {
+		return dataSelect;
+	}
+	
+	public HistogramPanel getHistogram() {
+		return this.histogram;
+	}
+	
+	public int getSelectedMonth() {
+		return monthSelect.getSelectedIndex() + 1;
+	}
+
+	public int getSelectedYear() {
+		return Integer.parseInt((String)yearSelect.getSelectedItem());
+	}
+
+	public int getSelectedData() {
+		return dataSelect.getSelectedIndex();
 	}
 }
