@@ -10,7 +10,6 @@ public class CityView extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
 
-    
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -23,10 +22,9 @@ public class CityView extends JFrame {
             }
         });
     }
-
   
     public CityView() {
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 400); 
 
         contentPane = new JPanel();

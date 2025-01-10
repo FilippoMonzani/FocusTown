@@ -22,8 +22,8 @@ public class StatsView extends JFrame implements View {
 	private JComboBox<String> yearSelect;
 	private HistogramPanel histogram;
 	private JComboBox<String> dataSelect;
-	private Component horizontalStrut;
-	private Component horizontalStrut_1;
+	private Component horizontalStrut1;
+	private Component horizontalStrut2;
 
 	/**
 	 * Create the frame.
@@ -44,7 +44,7 @@ public class StatsView extends JFrame implements View {
 		
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		// Programmatically changes gap between labels
+		// Programmatically change gap between labels
 		SwingUtilities.invokeLater(() -> {
 			((FlowLayout) topPanel.getLayout()).setHgap(topPanel.getWidth()/4);
 			topPanel.revalidate();
@@ -53,14 +53,14 @@ public class StatsView extends JFrame implements View {
 		dataSelect = new JComboBox<String>(new String[] {"Number of buildings", "Study hours"});
 		topPanel.add(dataSelect);
 		
-		horizontalStrut = Box.createHorizontalStrut(30);
-		topPanel.add(horizontalStrut);
+		horizontalStrut1 = Box.createHorizontalStrut(30);
+		topPanel.add(horizontalStrut1);
 		
 		monthSelect = new JComboBox<>(new String[] {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"});
 		topPanel.add(monthSelect);
 		
-		horizontalStrut_1 = Box.createHorizontalStrut(30);
-		topPanel.add(horizontalStrut_1);
+		horizontalStrut2 = Box.createHorizontalStrut(30);
+		topPanel.add(horizontalStrut2);
 		
 		yearSelect = new JComboBox<>(new String[] {"2024", "2025", "2026"});
 		topPanel.add(yearSelect);
@@ -77,7 +77,6 @@ public class StatsView extends JFrame implements View {
 		backButton = new JButton("Back");
 		bottomPanel.add(backButton);
 		
-		// Example
 		histogram = new HistogramPanel();
 		centerPanel.add(histogram);
 	}

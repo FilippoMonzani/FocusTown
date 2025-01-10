@@ -1,24 +1,15 @@
 package view;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
-import javax.swing.SwingConstants;
-import java.awt.GridBagLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class AppView extends JFrame implements View {
 
@@ -37,7 +28,6 @@ public class AppView extends JFrame implements View {
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 
-//        setUndecorated(true) 
 		setResizable(false);  
 		setExtendedState(JFrame.MAXIMIZED_BOTH);;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,9 +51,9 @@ public class AppView extends JFrame implements View {
 		centerPanel.setLayout(null);
 		
 		startBtn = new JButton("Start");
-		int btnWidth = 83; // Larghezza del bottone
-		int btnHeight = 21; // Altezza del bottone
-		startBtn.setBounds((int)(width / 2 - btnWidth / 2), (int)(height / 2 - btnHeight / 2), btnWidth, btnHeight);
+		int btnWidth = 83;
+		int btnHeight = 21;
+		startBtn.setBounds((int)(width / 2 - (double)btnWidth / 2), (int)(height / 2 - (double)btnHeight / 2), btnWidth, btnHeight);
 		centerPanel.add(startBtn);
 		
 		JPanel bottomPanel = new JPanel();

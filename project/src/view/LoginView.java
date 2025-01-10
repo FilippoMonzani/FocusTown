@@ -15,17 +15,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField; // Importato per nascondere la password
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 public class LoginView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField usernameField; // Campo per nome utente
-	private JPasswordField passwordField; // Campo per la password (mascherata)
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
+	private JLabel appNameLabel;
+	private JLabel usernameLabel;
+	private JLabel passwordLabel;
 	private JLabel regLabel;
 	private JButton btnReg;
 	private JButton btnLogin;
@@ -34,8 +35,7 @@ public class LoginView extends JFrame implements View {
 	 * Create the frame.
 	 */
 	public LoginView() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -46,87 +46,85 @@ public class LoginView extends JFrame implements View {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		lblNewLabel = new JLabel("nomeApp");
-		panel.add(lblNewLabel);
+		appNameLabel = new JLabel("nomeApp");
+		panel.add(appNameLabel);
 
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
-		panel_1.setLayout(new GridBagLayout());
+		JPanel panel1 = new JPanel();
+		contentPane.add(panel1, BorderLayout.CENTER);
+		panel1.setLayout(new GridBagLayout());
 
-		lblNewLabel_1 = new JLabel("nomeUtente");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 0;
-		panel_1.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		usernameLabel = new JLabel("nomeUtente");
+		GridBagConstraints gbcUsernameLabel = new GridBagConstraints();
+		gbcUsernameLabel.insets = new Insets(0, 0, 5, 0);
+		gbcUsernameLabel.gridx = 0;
+		gbcUsernameLabel.gridy = 0;
+		panel1.add(usernameLabel, gbcUsernameLabel);
 
-		// Campo di testo per il nome utente
 		usernameField = new JTextField(15);
-		GridBagConstraints gbcUsername = new GridBagConstraints();
-		gbcUsername.gridx = 0;
-		gbcUsername.gridy = 1;
-		gbcUsername.insets = new Insets(10, 10, 10, 10);
-		gbcUsername.anchor = GridBagConstraints.CENTER;
-		panel_1.add(usernameField, gbcUsername);
+		GridBagConstraints gbcUsernameField = new GridBagConstraints();
+		gbcUsernameField.gridx = 0;
+		gbcUsernameField.gridy = 1;
+		gbcUsernameField.insets = new Insets(10, 10, 10, 10);
+		gbcUsernameField.anchor = GridBagConstraints.CENTER;
+		panel1.add(usernameField, gbcUsernameField);
 
-		lblNewLabel_2 = new JLabel("Password");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.anchor = GridBagConstraints.NORTH;
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_2.gridx = 0;
-		gbc_lblNewLabel_2.gridy = 2;
-		panel_1.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		passwordLabel = new JLabel("Password");
+		GridBagConstraints gbcPasswordLabel = new GridBagConstraints();
+		gbcPasswordLabel.anchor = GridBagConstraints.NORTH;
+		gbcPasswordLabel.insets = new Insets(0, 0, 5, 0);
+		gbcPasswordLabel.gridx = 0;
+		gbcPasswordLabel.gridy = 2;
+		panel1.add(passwordLabel, gbcPasswordLabel);
 
-		// Campo di testo per la password
-		passwordField = new JPasswordField(15); // Usa JPasswordField per nascondere i caratteri
-		GridBagConstraints gbcPassword = new GridBagConstraints();
-		gbcPassword.gridx = 0;
-		gbcPassword.gridy = 3;
-		gbcPassword.insets = new Insets(10, 10, 10, 10);
-		gbcPassword.anchor = GridBagConstraints.CENTER;
-		panel_1.add(passwordField, gbcPassword);
+		passwordField = new JPasswordField(15); // JPassword hides sensitive text
+		GridBagConstraints gbcPasswordField = new GridBagConstraints();
+		gbcPasswordField.gridx = 0;
+		gbcPasswordField.gridy = 3;
+		gbcPasswordField.insets = new Insets(10, 10, 10, 10);
+		gbcPasswordField.anchor = GridBagConstraints.CENTER;
+		panel1.add(passwordField, gbcPasswordField);
 
-		// Pulsante di login
 		btnLogin = new JButton("Login");
 		GridBagConstraints gbcLogin = new GridBagConstraints();
 		gbcLogin.gridx = 0;
 		gbcLogin.gridy = 4;
 		gbcLogin.insets = new Insets(10, 10, 10, 10);
 		gbcLogin.anchor = GridBagConstraints.CENTER;
-		panel_1.add(btnLogin, gbcLogin);
+		panel1.add(btnLogin, gbcLogin);
 
 		regLabel = new JLabel("Non sei registrato?");
-		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
-		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_3.gridx = 0;
-		gbc_lblNewLabel_3.gridy = 5;
-		panel_1.add(regLabel, gbc_lblNewLabel_3);
+		GridBagConstraints gbcRegLabel = new GridBagConstraints();
+		gbcRegLabel.insets = new Insets(0, 0, 5, 0);
+		gbcRegLabel.gridx = 0;
+		gbcRegLabel.gridy = 5;
+		panel1.add(regLabel, gbcRegLabel);
 
 		btnReg = new JButton("Sign up");
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 6;
-		panel_1.add(btnReg, gbc_btnNewButton);
+		GridBagConstraints gbcRegBtn = new GridBagConstraints();
+		gbcRegBtn.gridx = 0;
+		gbcRegBtn.gridy = 6;
+		panel1.add(btnReg, gbcRegBtn);
 	}
 
-	
 	public String getUsername() {
 		return usernameField.getText();
 	}
-	
+
 	public String getPassword() {
 		return new String(passwordField.getPassword());
 	}
-	
+
 	public JButton getBtnReg() {
 		return btnReg;
 	}
-	
+
 	public JButton getLoginBtn() {
 		return btnLogin;
 	}
-	
+
 	public void showErrorMessage(String msg) {
-    	JOptionPane.showMessageDialog(LoginView.this, String.format("<html><p>C'è stato un <span style=\"color: red\">errore</span> durante il login:</p><br><div style=\"text-align: center; font-size:1.2em\">%s</div></html>", msg));
-    }
+		JOptionPane.showMessageDialog(LoginView.this, String.format(
+				"<html><p>C'è stato un <span style=\"color: red\">errore</span> durante il login:</p><br><div style=\"text-align: center; font-size:1.2em\">%s</div></html>",
+				msg));
+	}
 }
