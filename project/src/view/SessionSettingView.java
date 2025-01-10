@@ -48,23 +48,21 @@ public class SessionSettingView extends JFrame implements View {
 		centerPane.setLayout(new BoxLayout(centerPane, BoxLayout.X_AXIS));
 		centerPane.add(Box.createHorizontalGlue());
 
-		String fontFamily = "Tahoma";
-		
 		hourField = new JTextField("");
-		hourField.setFont(new Font(fontFamily, Font.PLAIN, 45));
+		hourField.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 45));
 		hourField.setHorizontalAlignment(SwingConstants.CENTER);
 		hourField.setMaximumSize(new Dimension(150, 100));
 		centerPane.add(hourField);
 		hourField.setColumns(2);
 
 		JLabel label1 = new JLabel(":");
-		label1.setFont(new Font(fontFamily, Font.PLAIN, 45));
+		label1.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 45));
 		label1.setHorizontalAlignment(SwingConstants.CENTER);
 		label1.setMaximumSize(new Dimension(150, 100));
 		centerPane.add(label1);
 
 		minuteField = new JTextField("");
-		minuteField.setFont(new Font(fontFamily, Font.PLAIN, 45));
+		minuteField.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 45));
 		minuteField.setHorizontalAlignment(SwingConstants.CENTER);
 		minuteField.setMaximumSize(new Dimension(150, 100));
 		centerPane.add(minuteField);
@@ -78,17 +76,17 @@ public class SessionSettingView extends JFrame implements View {
 		cancelButton.setBackground(new Color(169, 169, 169));
 		southPane.add(cancelButton);
 		cancelButton.setForeground(new Color(220, 20, 60));
-		cancelButton.setFont(new Font(fontFamily, Font.BOLD, 40));
+		cancelButton.setFont(new Font(ViewSettings.fontFamily, Font.BOLD, 40));
 
 		JLabel blankLabel = new JLabel("        ");
-		blankLabel.setFont(new Font(fontFamily, Font.PLAIN, 40));
+		blankLabel.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 40));
 		southPane.add(blankLabel);
 
 		startButton = new JButton("START");
 		startButton.setBackground(new Color(169, 169, 169));
 		southPane.add(startButton);
 		startButton.setForeground(new Color(0, 255, 0));
-		startButton.setFont(new Font(fontFamily, Font.BOLD, 40));
+		startButton.setFont(new Font(ViewSettings.fontFamily, Font.BOLD, 40));
 
 		centerPane.add(Box.createHorizontalGlue());
 
@@ -97,12 +95,12 @@ public class SessionSettingView extends JFrame implements View {
 		northPane.setLayout(new BorderLayout(0, 0));
 
 		JLabel mainLabel = new JLabel("Session Settings");
-		mainLabel.setFont(new Font(fontFamily, Font.BOLD, 45));
+		mainLabel.setFont(new Font(ViewSettings.fontFamily, Font.BOLD, 45));
 		mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		northPane.add(mainLabel);
 
 		errorLabel = new JLabel("");
-		errorLabel.setFont(new Font(fontFamily, Font.PLAIN, 30));
+		errorLabel.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 30));
 		errorLabel.setForeground(Color.RED);
 		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		northPane.add(errorLabel, BorderLayout.SOUTH);

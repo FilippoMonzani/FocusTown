@@ -3,7 +3,9 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -38,37 +40,43 @@ public class StatsView extends JFrame implements View {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel topPanel = new JPanel();
 		contentPane.add(topPanel, BorderLayout.NORTH);
-		
+
 		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		// Programmatically change gap between labels
 		SwingUtilities.invokeLater(() -> {
-			((FlowLayout) topPanel.getLayout()).setHgap(topPanel.getWidth()/4);
+			((FlowLayout) topPanel.getLayout()).setHgap(topPanel.getWidth() / 4);
 			topPanel.revalidate();
 		});
+
+		Font font = new Font(ViewSettings.fontFamily, Font.PLAIN, 16);
 		
-		dataSelect = new JComboBox<String>(new String[] {"Number of buildings", "Study hours"});
+		dataSelect = new JComboBox<>(new String[] { "Number of buildings", "Study hours" });
+		dataSelect.setFont(font);
 		topPanel.add(dataSelect);
-		
+
 		horizontalStrut1 = Box.createHorizontalStrut(30);
 		topPanel.add(horizontalStrut1);
-		
-		monthSelect = new JComboBox<>(new String[] {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"});
+
+		monthSelect = new JComboBox<>(new String[] { "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+				"Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre" });
+		monthSelect.setFont(font);
 		topPanel.add(monthSelect);
-		
+
 		horizontalStrut2 = Box.createHorizontalStrut(30);
 		topPanel.add(horizontalStrut2);
-		
-		yearSelect = new JComboBox<>(new String[] {"2024", "2025", "2026"});
+
+		yearSelect = new JComboBox<>(new String[] { "2024", "2025", "2026" });
+		yearSelect.setFont(font);
 		topPanel.add(yearSelect);
-		
+
 		JPanel centerPanel = new JPanel();
 		contentPane.add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
@@ -76,15 +84,15 @@ public class StatsView extends JFrame implements View {
 
 		backButton = new JButton("Back");
 		bottomPanel.add(backButton);
-		
+
 		histogram = new HistogramPanel();
 		centerPanel.add(histogram);
 	}
-	
+
 	public JButton getBackBtn() {
 		return this.backButton;
 	}
-	
+
 	public JComboBox<String> getMonthSelect() {
 		return this.monthSelect;
 	}
@@ -96,17 +104,17 @@ public class StatsView extends JFrame implements View {
 	public JComboBox<String> getDataSelect() {
 		return dataSelect;
 	}
-	
+
 	public HistogramPanel getHistogram() {
 		return this.histogram;
 	}
-	
+
 	public int getSelectedMonth() {
 		return monthSelect.getSelectedIndex() + 1;
 	}
 
 	public int getSelectedYear() {
-		return Integer.parseInt((String)yearSelect.getSelectedItem());
+		return Integer.parseInt((String) yearSelect.getSelectedItem());
 	}
 
 	public int getSelectedData() {
