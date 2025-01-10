@@ -17,7 +17,7 @@ public class BuildingTest {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			System.out.println("Session created");
 			session.beginTransaction();
-			User u = new User("Giuseppe Psaila", "cbgfnsjg");
+			User u = new User("Giuseppe Psaila11", "cbgfnsjg");
 			session.persist(u);
 			Building b = new Building(Duration.ofSeconds(7200), "programmazione web", u);
 			session.persist(b);

@@ -14,8 +14,7 @@ public class UserConverter implements AttributeConverter<User, String> {
 		if (dbData == null || dbData.isEmpty()) {
 			return null;
 		}
-		User user = new User(dbData,null);
-		return user;
+		return new User(dbData,null);
 	}
 
 }

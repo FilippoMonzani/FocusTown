@@ -25,6 +25,9 @@ public class AppView extends JFrame implements View {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton statsBtn;
+	private JButton startBtn;
+	private JButton userBtn;
+
 
 	/**
 	 * Create the frame.
@@ -50,19 +53,14 @@ public class AppView extends JFrame implements View {
 		topPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		topPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		
-		JButton userBtn = new JButton("Logout");
+		userBtn = new JButton("Logout");
 		topPanel.add(userBtn);
-		
-		userBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                openLoginView();
-        }});
 		
 		JPanel centerPanel = new JPanel();
 		contentPane.add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(null);
 		
-		JButton startBtn = new JButton("Start");
+		startBtn = new JButton("Start");
 		int btnWidth = 83; // Larghezza del bottone
 		int btnHeight = 21; // Altezza del bottone
 		startBtn.setBounds((int)(width / 2 - btnWidth / 2), (int)(height / 2 - btnHeight / 2), btnWidth, btnHeight);
@@ -80,42 +78,27 @@ public class AppView extends JFrame implements View {
 		statsBtn = new JButton("Stats");
 		bottomPanel.add(statsBtn);	
 		
-		startBtn.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
-        		openSessionSettingView();
-        	}
-        	
-        });
 	}
 	
-	public void openLoginView() {
-		 this.dispose();
-	        EventQueue.invokeLater(new Runnable() {
-	            public void run() {
-	                try {
-	                    LoginView loginView = new LoginView();
-	                    loginView.setVisible(true);
-	                } catch (Exception e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        });
+	public JButton getStartBtn() {
+		return startBtn;
 	}
-	public void openSessionSettingView() {
-		 this.dispose();
-	        EventQueue.invokeLater(new Runnable() {
-	            public void run() {
-	                try {
-	                    SessionSettingView sessionSettingView = new SessionSettingView();
-	                    sessionSettingView.setVisible(true);
-	                } catch (Exception e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        });
+
+	public void setStartBtn(JButton startBtn) {
+		this.startBtn = startBtn;
 	}
 	
 	public JButton getStatsButton() {
 		return this.statsBtn;
 	}
+
+	public JButton getUserBtn() {
+		return userBtn;
+	}
+
+	public void setUserBtn(JButton userBtn) {
+		this.userBtn = userBtn;
+	}
+	
 }
+
