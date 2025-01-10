@@ -66,6 +66,7 @@ public class FocusApp {
 
 					loginView.setVisible(true);
 
+					currentCity = new City();
 					histogramManager = new HistogramManager(statsView.getHistogram());
 
 					setDestinations();
@@ -115,7 +116,7 @@ public class FocusApp {
 			try {
 				FocusApp.currentUser = authService.login(u, passwordLogin);
 				logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
-//				initBuilding(currentUser);
+//				initBuilding();
 				// after succesful authentication, appView is shown
 				appView.setVisible(true);
 				loginView.setVisible(false);
@@ -139,20 +140,21 @@ public class FocusApp {
 		statsView.getMonthSelect().addActionListener(a -> updateStatsHistogram());
 
 		statsView.getYearSelect().addActionListener(a -> updateStatsHistogram());
-		
+
 		sessionSettingView.getStartButton().addActionListener(a -> {
-	            	if(!sessionSettingView.getHourField().getText().matches("\\d+") || !sessionSettingView.getMinuteField().getText().matches("\\d+")) {
-	            		sessionSettingView.getErrorLabel().setText("Error: hour and minute values must be integers.");
-	            	}
-	            	else {
-	            		sessionSettingView.getErrorLabel().setText("");
-	            	}
-	            	
-	            	if(sessionSettingView.getMinuteField().getText().matches("\\d+") && Integer.parseInt(sessionSettingView.getMinuteField().getText()) > 59) {
-	        			sessionSettingView.getErrorLabel().setText("Error: minutes value must be smaller than 60.");
-	            	}
-	            	sessionSettingView.setVisible(false);
-	    			timerCountdownView.setVisible(true);
+			if (!sessionSettingView.getHourField().getText().matches("\\d+")
+					|| !sessionSettingView.getMinuteField().getText().matches("\\d+")) {
+				sessionSettingView.getErrorLabel().setText("Error: hour and minute values must be integers.");
+			} else {
+				sessionSettingView.getErrorLabel().setText("");
+			}
+
+			if (sessionSettingView.getMinuteField().getText().matches("\\d+")
+					&& Integer.parseInt(sessionSettingView.getMinuteField().getText()) > 59) {
+				sessionSettingView.getErrorLabel().setText("Error: minutes value must be smaller than 60.");
+			}
+			sessionSettingView.setVisible(false);
+			timerCountdownView.setVisible(true);
 		});
 	}
 
@@ -215,7 +217,7 @@ public class FocusApp {
 	public static Logger getLogger() {
 		return FocusApp.logger;
 	}
-	
+
 	private static void updateStatsHistogram() {
 		int year = statsView.getSelectedYear();
 		int month = statsView.getSelectedMonth();
@@ -230,7 +232,7 @@ public class FocusApp {
 	 * @param user
 	 * 
 	 */
-	private void initBuilding(User user) {
-		currentCity.loadBuildings(user);
+	private static void initBuilding() {
+		currentCity.loadBuildings(currentUser);
 	}
 }
