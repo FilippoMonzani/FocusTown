@@ -83,6 +83,7 @@ public class StatsView extends JFrame implements View {
 		bottomPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
 		backButton = new JButton("Back");
+		backButton.setFont(font);
 		bottomPanel.add(backButton);
 
 		histogram = new HistogramPanel();

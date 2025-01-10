@@ -44,7 +44,7 @@ public class HistogramPanel extends JPanel {
 
 		if (bars == null || bars.isEmpty()) {
 			g.setColor(Color.BLACK);
-			g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 30)); 
+			g.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 30)); 
 			g.drawString("NO DATA", this.getWidth() / 2, this.getHeight() / 2);
 			return;
 		}
@@ -63,13 +63,19 @@ public class HistogramPanel extends JPanel {
 			g.setColor(bar.getBarColor());
 			g.fillRect(x, y, barWidth - 10, barHeight); // Draw bars (-10 to add padding)
 
+			g.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 16));
+
 			// Draw value above bar
 			g.setColor(bar.getTextColor());
-			g.drawString(bar.getDisplayValue(), x + (barWidth / 4), y + 15);
+			g.drawString(bar.getDisplayValue(), x + (barWidth / 2 - 12), y + 24);
 
 			// Draw label below bar
-			g.setColor(bar.getTextColor());
-			g.drawString(bar.getLabel(), x + (barWidth / 4), maxHeight - 5);
+			if (bar.getHeight() == 0) {
+				g.setColor(Color.BLACK);
+			} else {				
+				g.setColor(bar.getTextColor());
+			}
+			g.drawString(bar.getLabel(), x + (barWidth / 2 - 12), maxHeight - 10);
 		}
 
 	}
