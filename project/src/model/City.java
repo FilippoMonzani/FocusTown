@@ -28,6 +28,7 @@ public class City {
      * A transient list containing buildings associated with the user.
      */
 	private List<Building> buildings;
+	
 
 	// public User user;
 

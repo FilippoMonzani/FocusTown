@@ -21,6 +21,8 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import model.AuthenticationService;
 import model.City;
 import model.DataGroupByStrategy;
@@ -61,6 +63,7 @@ public class FocusApp {
 	private static HistogramManager histogramManager;
 
 	public static void main(String[] args) {
+		FlatLightLaf.setup();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -124,7 +127,7 @@ public class FocusApp {
 			try {
 				FocusApp.currentUser = authService.login(u, passwordLogin);
 				logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
-//				initBuilding();
+				initBuilding();
 				// after succesful authentication, appView is shown
 				appView.setVisible(true);
 				loginView.setVisible(false);

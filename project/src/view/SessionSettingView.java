@@ -38,8 +38,6 @@ public class SessionSettingView extends JFrame implements View {
 	 */
 	public SessionSettingView() {
 		setFont(new Font("Arial Nova Light", Font.PLAIN, 40));
-		setResizable(false);
-		setExtendedState(Frame.MAXIMIZED_BOTH);
 
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -83,8 +81,8 @@ public class SessionSettingView extends JFrame implements View {
 		cancelButton = new JButton("CANCEL");
 		cancelButton.setBackground(new Color(169, 169, 169));
 		southPane.add(cancelButton);
-		cancelButton.setForeground(new Color(220, 20, 60));
-		cancelButton.setFont(new Font(ViewSettings.fontFamily, Font.BOLD, 40));
+		cancelButton.setForeground(new Color(0, 0, 0));
+		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 24));
 
 		JLabel blankLabel = new JLabel("        ");
 		blankLabel.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 40));
@@ -93,8 +91,8 @@ public class SessionSettingView extends JFrame implements View {
 		startButton = new JButton("START");
 		startButton.setBackground(new Color(169, 169, 169));
 		southPane.add(startButton);
-		startButton.setForeground(new Color(0, 255, 0));
-		startButton.setFont(new Font(ViewSettings.fontFamily, Font.BOLD, 40));
+		startButton.setForeground(new Color(0, 0, 0));
+		startButton.setFont(new Font("Tahoma", Font.BOLD, 24));
 
 		centerPane.add(Box.createHorizontalGlue());
 
@@ -103,7 +101,7 @@ public class SessionSettingView extends JFrame implements View {
 		northPane.setLayout(new BorderLayout(0, 0));
 
 		JLabel mainLabel = new JLabel("Session Settings");
-		mainLabel.setFont(new Font(ViewSettings.fontFamily, Font.BOLD, 45));
+		mainLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		mainLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		northPane.add(mainLabel);
 
