@@ -17,6 +17,7 @@ import javax.swing.JPasswordField; // Importato per nascondere la password
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.Font;
 
 public class LoginView extends JFrame implements View {
 
@@ -46,14 +47,15 @@ public class LoginView extends JFrame implements View {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 
-		appNameLabel = new JLabel("nomeApp");
+		appNameLabel = new JLabel("FocusTown");
+		appNameLabel.setFont(new Font("Verdana Pro Black", Font.PLAIN, 10));
 		panel.add(appNameLabel);
 
 		JPanel panel1 = new JPanel();
 		contentPane.add(panel1, BorderLayout.CENTER);
 		panel1.setLayout(new GridBagLayout());
 
-		usernameLabel = new JLabel("nomeUtente");
+		usernameLabel = new JLabel("Username");
 		GridBagConstraints gbcUsernameLabel = new GridBagConstraints();
 		gbcUsernameLabel.insets = new Insets(0, 0, 5, 0);
 		gbcUsernameLabel.gridx = 0;
@@ -92,7 +94,7 @@ public class LoginView extends JFrame implements View {
 		gbcLogin.anchor = GridBagConstraints.CENTER;
 		panel1.add(btnLogin, gbcLogin);
 
-		regLabel = new JLabel("Non sei registrato?");
+		regLabel = new JLabel("New to FocusTown?");
 		GridBagConstraints gbcRegLabel = new GridBagConstraints();
 		gbcRegLabel.insets = new Insets(0, 0, 5, 0);
 		gbcRegLabel.gridx = 0;

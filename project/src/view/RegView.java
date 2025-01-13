@@ -69,7 +69,7 @@ public class RegView extends JFrame implements View {
 		contentPane.add(passwordField, gbcPasswordField);
 
 		// Registration Button
-		btnReg = new JButton("Registrati");
+		btnReg = new JButton("Sign up");
 
 		// Add the registration button to the layout
 		GridBagConstraints gbcBtnReg = new GridBagConstraints();
@@ -78,7 +78,7 @@ public class RegView extends JFrame implements View {
 		gbcBtnReg.gridy = 2;
 		contentPane.add(btnReg, gbcBtnReg);
 
-		loginPromptLabel = new JLabel("Hai già un account?");
+		loginPromptLabel = new JLabel("Already signed up?");
 		GridBagConstraints gbcLoginPromptLabel = new GridBagConstraints();
 		gbcLoginPromptLabel.insets = new Insets(0, 0, 5, 5);
 		gbcLoginPromptLabel.gridx = 0;

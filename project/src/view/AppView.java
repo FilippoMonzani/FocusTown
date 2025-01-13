@@ -10,14 +10,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.Box;
+import java.awt.Font;
 
 public class AppView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton statsBtn;
-	private JButton startBtn;
 	private JButton userBtn;
+	private JButton startBtn;
 
 
 	/**
@@ -28,8 +37,7 @@ public class AppView extends JFrame implements View {
 		double width = screenSize.getWidth();
 		double height = screenSize.getHeight();
 
-		setResizable(false);  
-		setExtendedState(JFrame.MAXIMIZED_BOTH);;
+		setResizable(true);;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -48,22 +56,30 @@ public class AppView extends JFrame implements View {
 		
 		JPanel centerPanel = new JPanel();
 		contentPane.add(centerPanel, BorderLayout.CENTER);
-		centerPanel.setLayout(null);
 		
 		startBtn = new JButton("Start");
+		startBtn.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		startBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+		
+		Component horizontalGlue = Box.createHorizontalGlue();
+		centerPanel.add(horizontalGlue);
+		startBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		centerPanel.add(startBtn);
+		
+		Component horizontalGlue_1 = Box.createHorizontalGlue();
+		centerPanel.add(horizontalGlue_1);
 		int btnWidth = 83;
 		int btnHeight = 21;
-		startBtn.setBounds((int)(width / 2 - (double)btnWidth / 2), (int)(height / 2 - (double)btnHeight / 2), btnWidth, btnHeight);
-		centerPanel.add(startBtn);
 		
 		JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		
 		JButton cityBtn = new JButton("City");
 		bottomPanel.add(cityBtn);
-		
-		JButton challengeBtn = new JButton("Challenges");
-		bottomPanel.add(challengeBtn);
 		
 		statsBtn = new JButton("Stats");
 		bottomPanel.add(statsBtn);	
@@ -89,6 +105,5 @@ public class AppView extends JFrame implements View {
 	public void setUserBtn(JButton userBtn) {
 		this.userBtn = userBtn;
 	}
-	
 }
 
