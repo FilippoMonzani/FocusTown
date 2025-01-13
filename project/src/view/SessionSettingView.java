@@ -6,10 +6,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Toolkit;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,6 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 public class SessionSettingView extends JFrame implements View {
 
@@ -26,7 +33,6 @@ public class SessionSettingView extends JFrame implements View {
 	private JButton cancelButton;
 	private JButton startButton;
 	private JLabel errorLabel;
-
 	/**
 	 * Create the frame.
 	 */
@@ -49,6 +55,7 @@ public class SessionSettingView extends JFrame implements View {
 		centerPane.add(Box.createHorizontalGlue());
 
 		hourField = new JTextField("");
+		((AbstractDocument)hourField.getDocument()).setDocumentFilter(new NumberDocumentFilter());
 		hourField.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 45));
 		hourField.setHorizontalAlignment(SwingConstants.CENTER);
 		hourField.setMaximumSize(new Dimension(150, 100));
@@ -62,6 +69,7 @@ public class SessionSettingView extends JFrame implements View {
 		centerPane.add(label1);
 
 		minuteField = new JTextField("");
+		((AbstractDocument)minuteField.getDocument()).setDocumentFilter(new NumberDocumentFilter());
 		minuteField.setFont(new Font(ViewSettings.fontFamily, Font.PLAIN, 45));
 		minuteField.setHorizontalAlignment(SwingConstants.CENTER);
 		minuteField.setMaximumSize(new Dimension(150, 100));

@@ -135,62 +135,6 @@ public class FocusApp {
 			}
 		});
 		
-		sessionSettingView.getHourField().addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusLost(FocusEvent e) {
-
-				if (!sessionSettingView.getHourField().getText().matches("\\d+")) {
-					sessionSettingView.getErrorLabel().setText("Error: hour values must be integers.");
-					sessionSettingView.getHourField().setText("");
-				} else {
-					sessionSettingView.getErrorLabel().setText("");
-				}
-				int hours = Integer.parseInt(sessionSettingView.getHourField().getText());
-				int minutes = Integer.parseInt(sessionSettingView.getMinuteField().getText());
-				int newHours = TimeManager.calculateHours(hours, minutes);
-				if (newHours == 24) {
-					minutes = 0;
-				}
-				sessionSettingView.getHourField().setText(((Integer) newHours).toString());
-				sessionSettingView.getMinuteField().setText(((Integer) minutes).toString());
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO document why this method is empty
-			}
-		});
-
-		sessionSettingView.getMinuteField().addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusLost(FocusEvent e) {
-
-				if (!sessionSettingView.getMinuteField().getText().matches("\\d+")) {
-					sessionSettingView.getErrorLabel().setText("Error: minute values must be integers.");
-					sessionSettingView.getMinuteField().setText("");
-				} else {
-					sessionSettingView.getErrorLabel().setText("");
-				}
-				int hours = Integer.parseInt(sessionSettingView.getHourField().getText());
-				int minutes = Integer.parseInt(sessionSettingView.getMinuteField().getText());
-				int newHours = TimeManager.calculateHours(hours, minutes);
-				minutes = minutes % 60;
-				if (newHours == 24) {
-					minutes = 0;
-				}
-				sessionSettingView.getHourField().setText(((Integer) newHours).toString());
-				sessionSettingView.getMinuteField().setText(((Integer) minutes).toString());
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO document why this method is empty
-			}
-		});
-		
-		
 		sessionSettingView.getStartButton().addActionListener(a -> {
 			boolean correctInput = false;
 	            	if(!sessionSettingView.getHourField().getText().matches("\\d+") || !sessionSettingView.getMinuteField().getText().matches("\\d+")) {
