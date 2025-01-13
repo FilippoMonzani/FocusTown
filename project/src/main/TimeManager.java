@@ -1,10 +1,5 @@
 package main;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Timer;
-
 public class TimeManager {
 
 	int hours = 0;
@@ -105,34 +100,6 @@ public class TimeManager {
 		}
 		seconds--;
 	}
-
-//	public void startTimer(int hours, int minutes) {
-//		sessionTime = this.toMinutes(hours, minutes);
-//		timer = new Timer(1000,new ActionListener() {
-//			int timeLeft = sessionTime*60;
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				timeLeft--;
-//				if(sessionInterrupted) {
-//					timer.stop();
-//				}
-//				else if(count==0) {
-//					timer.stop();
-//					endTimer( subject  ,duration);
-//				}
-//			}
-//		}
-//				); 
-//		timer.start();
-//	}
-//	
-//	public boolean isSessionInterrupted() {
-//		return sessionInterrupted;
-//	}
-//
-//	public void setSessionInterrupted(boolean sessionInterrupted) {
-//		this.sessionInterrupted = sessionInterrupted;
-//	}
 	
 	public boolean isZero() {
 		return (this.hours == 0 && this.minutes == 0 && this.seconds == 0);

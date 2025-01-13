@@ -1,7 +1,5 @@
 package view;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,14 +13,22 @@ import javax.swing.Box;
 
 public class SessionTimerView extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel timerLabel;
 	private JButton stopButton;
 
 	public SessionTimerView() {
-		setAlwaysOnTop(true);
+		//setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
+		 setExtendedState(JFrame.MAXIMIZED_BOTH);
+	        setUndecorated(true);
+	        
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -36,8 +42,8 @@ public class SessionTimerView extends JFrame {
 		Component horizontalGlue = Box.createHorizontalGlue();
 		panel.add(horizontalGlue);
 		
-		JLabel timerLabel = new JLabel("");
-		timerLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		timerLabel = new JLabel("");
+		timerLabel.setFont(new Font("Tahoma", Font.PLAIN, 48));
 		panel.add(timerLabel);
 		
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
@@ -46,7 +52,7 @@ public class SessionTimerView extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		JButton stopButton = new JButton("Stop");
+		stopButton = new JButton("Stop");
 		stopButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		panel_1.add(stopButton);
 	}

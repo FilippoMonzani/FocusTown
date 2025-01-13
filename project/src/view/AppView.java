@@ -2,19 +2,13 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Toolkit;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.BoxLayout;
 import java.awt.Component;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.Box;
@@ -33,9 +27,9 @@ public class AppView extends JFrame implements View {
 	 * Create the frame.
 	 */
 	public AppView() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double width = screenSize.getWidth();
-		double height = screenSize.getHeight();
+//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//		double width = screenSize.getWidth();
+//		double height = screenSize.getHeight();
 
 		setResizable(true);;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,8 +66,8 @@ public class AppView extends JFrame implements View {
 		
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		centerPanel.add(horizontalGlue_1);
-		int btnWidth = 83;
-		int btnHeight = 21;
+//		int btnWidth = 83;
+//		int btnHeight = 21;
 		
 		JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);

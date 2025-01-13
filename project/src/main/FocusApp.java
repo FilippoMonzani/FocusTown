@@ -7,14 +7,10 @@ package main;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.time.Duration;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import org.apache.logging.log4j.Level;
@@ -35,7 +31,7 @@ import view.RegView;
 import view.SessionSettingView;
 import view.StatsView;
 import view.SubjectSessionView;
-import view.TimerCountdownView;
+import view.SessionTimerView;
 import view.View;
 
 /************************************************************/
@@ -49,7 +45,7 @@ public class FocusApp {
 	private static AppView appView = null;
 	private static StatsView statsView = null;
 	private static SessionSettingView sessionSettingView = null;
-	private static TimerCountdownView timerCountdownView = null;
+	private static SessionTimerView sessionTimerView = null;
 	private static SubjectSessionView subjectSessionView = null;
 
 	private static User currentUser = null;
@@ -72,7 +68,7 @@ public class FocusApp {
 					appView = new AppView();
 					statsView = new StatsView();
 					sessionSettingView = new SessionSettingView();
-					timerCountdownView = new TimerCountdownView();
+					sessionTimerView = new SessionTimerView();
 					subjectSessionView = new SubjectSessionView();
 
 					loginView.setVisible(true);
@@ -153,18 +149,18 @@ public class FocusApp {
 	            	int hours = Integer.parseInt(sessionSettingView.getHourField().getText());
 	            	int minutes = Integer.parseInt(sessionSettingView.getMinuteField().getText());
 	            	int seconds = 60*60*hours + 60*minutes;
-	    			timerCountdownView.setVisible(true);
+	    			sessionTimerView.setVisible(true);
 	            		sessionSettingView.setVisible(false);
 		    			startTimer(seconds);
 	            	
 		});
 		
-		timerCountdownView.getStopButton().addActionListener(a -> {
+		sessionTimerView.getStopButton().addActionListener(a -> {
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
                 timer.stop();
                 sessionSettingView.setVisible(true);
-                timerCountdownView.setVisible(false);
+                sessionTimerView.setVisible(false);
             }
 		});
             
@@ -218,14 +214,14 @@ public class FocusApp {
 				count--;
 				time.tick();
 				
-				timerCountdownView.getTimerLabel().setText("Time remaining " + time.toString());
+				sessionTimerView.getTimerLabel().setText("Time remaining " + time.toString());
 				if(sessionInterrupted) {
 					timer.stop();
 				}
 				else if(time.isZero()) {
 					timer.stop();
 					subjectSessionView.setVisible(true);
-					timerCountdownView.setVisible(false);
+					sessionTimerView.setVisible(false);
 				}
 			}
 		});
