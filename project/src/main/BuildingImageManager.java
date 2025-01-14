@@ -43,7 +43,7 @@ public class BuildingImageManager {
 
 		long duration = building.getDuration().toHours();
 		if (duration < 1L) {
-			path = "Edificio0.jpg"; //TODO: change this to return an empty image
+			path = "Edificio0.jpg";
 		} else if (duration >= 1L && duration < 2L) {
 			path = "Edificio1.jpg";
 		} else if (duration >= 2L && duration < 3L) {
@@ -146,9 +146,11 @@ public class BuildingImageManager {
 	public void setCity(City city) {
 		this.city = city;
 	}
-	
+
 	public String getDescription() {
-		Building current = city.getBuildings().get(selectedBuilding); 
-		return String.format("<html>Subject: %s<br>Duration: %d hours %d minutes</html>", current.getSubject(), current.getDuration().toHours(), current.getDuration().toMinutesPart());
+		Building current = city.getBuildings().get(selectedBuilding);
+		return String.format("<html>Subject: %s<br>Duration: %d hours %d minutes<br>Creation date: %s</html>",
+				current.getSubject(), current.getDuration().toHours(), current.getDuration().toMinutesPart(),
+				current.getTimeStamp().toLocalDate().toString());
 	}
 }
