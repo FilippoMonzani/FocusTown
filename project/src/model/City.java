@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import main.SessionUtil;
+import main.TimeManager;
 
 /************************************************************/
 /**
@@ -44,7 +45,8 @@ public class City {
      * @param subject the subject that the user has worked on during the productivity session (e.g., "Law", "English")
      * @param owner the user who owns the building
      */
-	public void addBuilding(Duration duration, String subject, User owner) {
+	public void addBuilding(TimeManager time, String subject, User owner) {
+		Duration duration = Duration.ofSeconds(time.toSeconds());
 		Building building = new Building(duration, subject, owner);
 		Session session = SessionUtil.startSession();
 		session.persist(building);
@@ -60,10 +62,11 @@ public class City {
      * @param user the owner of the buildings to be loaded
      */
 	public void loadBuildings(User user) {
+		buildings.clear();
 		Session session = SessionUtil.startSession();
 		List<Building> retrievedBuildings = session.createQuery("from Building b where b.owner = :owner_username", Building.class).setParameter("owner_username", user).list();
+		String password = session.createQuery("select u.password from User u where u.username = :owner_username", String.class).setParameter("owner_username", user.getUsername()).getSingleResult();
 		for (Building b : retrievedBuildings) {
-			String password = session.createQuery("select u.password from app_user u where u.username = :owner_username", String.class).setParameter("owner_username", user.getUsername()).toString();
 			b.getOwner().setPassword(password);
 			buildings.add(b);
 		}

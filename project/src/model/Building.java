@@ -25,7 +25,7 @@ import main.SessionUtil;
  */
 @Entity
 @Table(name = "BUILDING")
-public class Building extends Persistable{
+public class Building{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +42,8 @@ public class Building extends Persistable{
 	private String subject;
 
 	@Convert(converter = UserConverter.class)
+//	@ManyToOne
+//	@JoinColumn(name = "owner", referencedColumnName = "username")
 	private User owner;
 
 	public Building() {
@@ -103,29 +105,15 @@ public class Building extends Persistable{
 		this.owner = owner;
 	}
 
-//	public void save() {
-//		Session session = SessionUtil.startSession();
-//		session.persist(this);
-//		SessionUtil.endSession(session);
-//	}
-
-	@Override
-	public Building read() {
+	public void save() {
 		Session session = SessionUtil.startSession();
-		Building retrievedBuilding = session.find(Building.class, this.getId());
+		session.persist(this);
 		SessionUtil.endSession(session);
-		return retrievedBuilding;
 	}
 
-//	public void update() {
-//		Session session = SessionUtil.startSession();
-//		session.merge(this);
-//		SessionUtil.endSession(session);
-//	}
-//
-//	public void delete() {
-//		Session session = SessionUtil.startSession();
-//		session.remove(this);
-//		SessionUtil.endSession(session);
-//	}
+	public void delete() {
+		Session session = SessionUtil.startSession();
+		session.remove(this);
+		SessionUtil.endSession(session);
+	}
 }
