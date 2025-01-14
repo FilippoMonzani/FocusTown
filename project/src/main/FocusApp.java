@@ -4,10 +4,12 @@
 
 package main;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -20,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import model.AuthenticationService;
+import model.Building;
 import model.City;
 import model.DataGroupByStrategy;
 import model.GroupByNumberOfBuildings;
@@ -64,12 +67,12 @@ public class FocusApp {
 	private static Timer timer;
 	private static TimeManager time;
 
-
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
 	private static boolean sessionInterrupted = false;
 
 	private static HistogramManager histogramManager;
-
+	private static BuildingImageManager buildingImageManager;
+	
 	 /**
      * The main entry point of the application. Initializes views and their interactions.
      *
@@ -96,6 +99,7 @@ public class FocusApp {
 					// Initialize application state
 					currentCity = new City();
 					histogramManager = new HistogramManager(statsView.getHistogram());
+					buildingImageManager = new BuildingImageManager();
 	                // Set up button destinations and functionalities
 					setDestinations();
 					setFunctionalities();
@@ -117,7 +121,6 @@ public class FocusApp {
 		setBtnDestination(appView.getStartBtn(), appView, sessionSettingView);
 		setBtnDestination(appView.getUserBtn(), appView, loginView);
 		setBtnDestination(sessionSettingView.getCancelButton(), sessionSettingView, appView);
-		setBtnDestination(appView.getCityBtn(), appView, cityView);
 	}
 
 	 /**
@@ -207,7 +210,19 @@ public class FocusApp {
 
 		statsView.getYearSelect().addActionListener(a -> updateStatsHistogram());
 
-		
+		appView.getCityBtn().addActionListener(a -> {
+			List<Building> buildings = currentCity.getBuildings();
+			Building leftBuilding = buildings.get(buildingImageManager.getBuildingIndex() - 1);
+			Building centerBuilding = buildings.get(buildingImageManager.getBuildingIndex());
+			Building rightBuilding = buildings.get(buildingImageManager.getBuildingIndex() + 1);
+			
+			cityView.getLeftImage().setIcon(buildingImageManager.getImage(leftBuilding));
+			cityView.getCenterImage().setIcon(buildingImageManager.getImage(centerBuilding));
+			cityView.getRightImage().setIcon(buildingImageManager.getImage(rightBuilding));
+			
+			cityView.setVisible(true);
+			appView.setVisible(false);
+		});
 	}
 
 	 /**
@@ -305,6 +320,9 @@ public class FocusApp {
      */
 	private static void initBuilding() {
 		currentCity.loadBuildings(currentUser);
+		currentCity.getBuildings().forEach(b -> {
+			buildingImageManager.addBuilding(b, new Dimension(100, 100));
+		});
 	}
 	
 	 /**

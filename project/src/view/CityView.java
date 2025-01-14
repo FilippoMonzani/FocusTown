@@ -37,6 +37,9 @@ public class CityView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JLabel leftImage;
+	private JLabel centerImage;
+	private JLabel rightImage;
 
 	/**
 	 * Launch the application.
@@ -69,16 +72,16 @@ public class CityView extends JFrame implements View {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JLabel leftImage = new JLabel("");
+		leftImage = new JLabel("");
 		contentPane.add(leftImage, BorderLayout.WEST);
 		
-		JLabel centerImage = new JLabel("");
+		centerImage = new JLabel("");
 		contentPane.add(centerImage, BorderLayout.EAST);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
-		JLabel rightImage = new JLabel("");
+		rightImage = new JLabel("");
 		rightImage.setHorizontalAlignment(SwingConstants.CENTER);
 		//panel.add(lblNewLabel_2);
 		try {
@@ -119,6 +122,22 @@ public class CityView extends JFrame implements View {
 		    e.printStackTrace();
 		}
 
+	}
+
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	public JLabel getLeftImage() {
+		return leftImage;
+	}
+
+	public JLabel getCenterImage() {
+		return centerImage;
+	}
+
+	public JLabel getRightImage() {
+		return rightImage;
 	}
 
 } 

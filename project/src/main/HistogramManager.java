@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class HistogramManager {
      * @param month The month for which to generate the histogram.
      */
 	public void updateHistogram(int year, int month) {
-		List<Building> buildings = getTestBuildings(); //TODO: change this to use buildings from a user's city
+		List<Building> buildings = Collections.EMPTY_LIST; //TODO: change this to use buildings from a user's city
 
 		HistogramAdapter ha = new HistogramAdapter();
 
@@ -95,39 +96,4 @@ public class HistogramManager {
 		this.strategy = strategy;
 	}
 
-	// TODO: remove this method (only used for testing the gui)
-	public List<Building> getTestBuildings() {
-		List<Building> testBuildings = new ArrayList<Building>(); // Y M D
-		testBuildings
-				.add(new Building(Duration.ofHours(1), "Analisi 1", new User(), LocalDateTime.of(2024, 2, 2, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(10), "Analisi 1", new User(), LocalDateTime.of(2024, 2, 3, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(1), "Analisi 1", new User(), LocalDateTime.of(2024, 2, 6, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(1), "Analisi 1", new User(), LocalDateTime.of(2024, 2, 6, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(5), "Analisi 1", new User(), LocalDateTime.of(2024, 2, 6, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(2), "Analisi 1", new User(), LocalDateTime.of(2025, 2, 3, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(3), "Analisi 1", new User(), LocalDateTime.of(2025, 2, 5, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(1), "Analisi 1", new User(), LocalDateTime.of(2025, 2, 10, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(1), "Analisi 1", new User(), LocalDateTime.of(2025, 2, 20, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(2), "Analisi 1", new User(), LocalDateTime.of(2025, 2, 20, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(2), "Analisi 4", new User(), LocalDateTime.of(2025, 2, 10, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(2), "Analisi 5", new User(), LocalDateTime.of(2025, 3, 10, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(2), "Analisi 5", new User(), LocalDateTime.of(2025, 3, 10, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(7), "Analisi 5", new User(), LocalDateTime.of(2025, 3, 12, 12, 2)));
-		testBuildings
-				.add(new Building(Duration.ofHours(5), "Analisi 5", new User(), LocalDateTime.of(2025, 2, 10, 12, 2)));
-		return testBuildings;
-	}
 }
