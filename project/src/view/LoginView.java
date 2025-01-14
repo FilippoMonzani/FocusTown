@@ -44,7 +44,7 @@ public class LoginView extends JFrame implements View {
 		contentPane.add(panel, BorderLayout.NORTH);
 
 		appNameLabel = new JLabel("FocusTown");
-		appNameLabel.setFont(new Font("Verdana Pro Black", Font.PLAIN, 10));
+		appNameLabel.setFont(new Font("Verdana Pro Black", Font.PLAIN, 24));
 		panel.add(appNameLabel);
 
 		JPanel panel1 = new JPanel();

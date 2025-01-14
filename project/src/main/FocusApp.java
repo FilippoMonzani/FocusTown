@@ -151,6 +151,7 @@ public class FocusApp {
 		});
 
 		sessionTimerView.getStopButton().addActionListener(a -> {
+			sessionTimerView.setAlwaysOnTop(false);
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
             	setSessionInterrupted(true);
@@ -203,7 +204,7 @@ public class FocusApp {
 			public void actionPerformed(ActionEvent e) { 
 				time.tick();
 				
-				sessionTimerView.getTimerLabel().setText("Time remaining " + time.toString());
+				sessionTimerView.getTimerLabel().setText(time.toString());
 				if(isSessionInterrupted()) {
 					setSessionInterrupted(false);
 					timer.stop();

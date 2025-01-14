@@ -10,6 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import java.awt.Font;
+import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class SubjectSessionView extends JFrame {
 
@@ -49,7 +54,8 @@ public class SubjectSessionView extends JFrame {
         JPanel topPanel = new JPanel();
         contentPane.add(topPanel, BorderLayout.NORTH);
 
-        JLabel lblNewLabel = new JLabel("Building created!");
+        JLabel lblNewLabel = new JLabel("You nailed it!");
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         topPanel.add(lblNewLabel);
 
@@ -71,16 +77,22 @@ public class SubjectSessionView extends JFrame {
 
         // Bottom panel for additional message and building image
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BorderLayout(0, 0));
         contentPane.add(bottomPanel, BorderLayout.SOUTH);
-
-        JLabel lblUnlockedBuilding = new JLabel("Here is the unlocked building");
-        lblUnlockedBuilding.setHorizontalAlignment(SwingConstants.CENTER);
-        bottomPanel.add(lblUnlockedBuilding, BorderLayout.NORTH);
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 
         JLabel lblBuildingImage = new JLabel();
         lblBuildingImage.setHorizontalAlignment(SwingConstants.CENTER);
         lblBuildingImage.setIcon(new ImageIcon("path/to/your/building/image.jpg")); // Placeholder for the image
-        bottomPanel.add(lblBuildingImage, BorderLayout.CENTER);
+        bottomPanel.add(lblBuildingImage);
+        
+        Component horizontalGlue_1 = Box.createHorizontalGlue();
+        bottomPanel.add(horizontalGlue_1);
+        
+        JButton btnNewButton = new JButton("Confirm");
+        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        bottomPanel.add(btnNewButton);
+        
+        Component horizontalGlue = Box.createHorizontalGlue();
+        bottomPanel.add(horizontalGlue);
     }
 }
