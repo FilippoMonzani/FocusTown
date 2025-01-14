@@ -145,6 +145,7 @@ public class FocusApp {
 				initBuilding();
 				// after succesful authentication, appView is shown
 				appView.setVisible(true);
+				appView.getWelcomeLabel().setText("Welcome, " + u.getUsername() +"!");
 				loginView.setVisible(false);
 			} catch (UserNotFoundException e) {
 				loginView.showErrorMessage("Questo nome utente non esiste.");

@@ -93,7 +93,7 @@ public class SessionSettingView extends JFrame implements View {
 		southPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		cancelButton = new JButton("CANCEL");
-		cancelButton.setBackground(new Color(169, 169, 169));
+		cancelButton.setBackground(new Color(255, 255, 255));
 		southPane.add(cancelButton);
 		cancelButton.setForeground(new Color(0, 0, 0));
 		cancelButton.setFont(new Font("Tahoma", Font.BOLD, 24));
@@ -103,7 +103,7 @@ public class SessionSettingView extends JFrame implements View {
 		southPane.add(blankLabel);
 
 		startButton = new JButton("START");
-		startButton.setBackground(new Color(169, 169, 169));
+		startButton.setBackground(new Color(255, 255, 255));
 		southPane.add(startButton);
 		startButton.setForeground(new Color(0, 0, 0));
 		startButton.setFont(new Font("Tahoma", Font.BOLD, 24));

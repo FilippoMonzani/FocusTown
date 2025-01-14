@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.Box;
 import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.GridLayout;
 
 /**
  * The main application window for the application. This class is responsible for
@@ -37,9 +40,10 @@ public class AppView extends JFrame implements View {
 	private JButton statsBtn;
 	private JButton userBtn;
 	private JButton startBtn;
+	private JLabel welcomeLabel;
 
 
-	 /**
+	/**
      * Constructs the {@link AppView} window with its components and layout.
      * Initializes the panels and buttons and sets up basic actions.
      */
@@ -59,11 +63,18 @@ public class AppView extends JFrame implements View {
 		
 		JPanel topPanel = new JPanel();
 		contentPane.add(topPanel, BorderLayout.NORTH);
-		topPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 5));
 		topPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		topPanel.setLayout(new BorderLayout(0, 0));
 		
-		userBtn = new JButton("Logout");
-		topPanel.add(userBtn);
+		welcomeLabel = new JLabel("Welcome, User!");
+		welcomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		topPanel.add(welcomeLabel, BorderLayout.CENTER);
+		welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		JLabel lblNewLabel = new JLabel("FocusTown");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Verdana Pro Black", Font.PLAIN, 24));
+		topPanel.add(lblNewLabel, BorderLayout.NORTH);
 		
 		JPanel centerPanel = new JPanel();
 		contentPane.add(centerPanel, BorderLayout.CENTER);
@@ -94,6 +105,9 @@ public class AppView extends JFrame implements View {
 		
 		statsBtn = new JButton("Stats");
 		bottomPanel.add(statsBtn);	
+		
+		userBtn = new JButton("Logout");
+		bottomPanel.add(userBtn);
 		
 	}
 	
@@ -141,5 +155,14 @@ public class AppView extends JFrame implements View {
 	public void setUserBtn(JButton userBtn) {
 		this.userBtn = userBtn;
 	}
+	
+	/**
+     * Gets the {@link JLabel} for the welcome label.
+     * 
+     * @return the welcome label
+     */
+	 public JLabel getWelcomeLabel() {
+			return welcomeLabel;
+		}
 }
 

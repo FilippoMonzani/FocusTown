@@ -84,6 +84,7 @@ public class SubjectSessionView extends JFrame {
         centerPanel.setLayout(new BorderLayout(0, 0));
 
         JLabel lblSubject = new JLabel("Insert the subject of study:");
+        lblSubject.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblSubject.setHorizontalAlignment(SwingConstants.CENTER);
         centerPanel.add(lblSubject, BorderLayout.NORTH);
         

@@ -75,7 +75,7 @@ public class CityView extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel.add(lblNewLabel_2);
+		//panel.add(lblNewLabel_2);
 		try {
 		    String imagePath = "src/resources/th10.jpg"; 
 		    ImageIcon buildingIcon = new ImageIcon(new File(imagePath).getAbsolutePath());
