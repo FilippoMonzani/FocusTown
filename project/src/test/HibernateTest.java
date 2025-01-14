@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.apache.logging.log4j.core.Logger;
 import org.hibernate.Session;
 import org.hibernate.internal.build.AllowSysOut;
 import org.junit.After;
@@ -79,7 +80,6 @@ public class HibernateTest {
 
 	@Test
 	public void hibernateInsertTest() {
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			session.beginTransaction();
 
 			TestDB[] t = new TestDB[10];
@@ -90,12 +90,11 @@ public class HibernateTest {
 			}
 			session.getTransaction().commit();
 		}
-	}
+
 
 	@Test
 	public void hibernateRemoveTest() {
 
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			session.beginTransaction();
 
 			List<TestDB> t = session.createQuery("from TestDB", TestDB.class).list();
@@ -105,13 +104,13 @@ public class HibernateTest {
 			}
 			session.getTransaction().commit();
 		}
-	}
 
 	@AfterClass
 	public static void tearDown() throws Exception {
 		if (HibernateUtil.getSessionFactory() != null) {
 			HibernateUtil.getSessionFactory().close();
 			System.out.println("SessionFactory destroyed");
+			//Logger logger = new Logger();
 		}
 	}
 }
