@@ -20,6 +20,7 @@ import java.awt.FlowLayout;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.Font;
+import javax.swing.JButton;
 
 /**
  * The {@link CityView} class represents a graphical user interface (GUI) for displaying
@@ -141,6 +142,9 @@ public class CityView extends JFrame implements View {
 					    JLabel screenshotIcon = new JLabel("ScreenshotIcon");
 					    screenshotIcon.setHorizontalAlignment(SwingConstants.LEFT);
 					    northPanel.add(screenshotIcon);
+					    
+					    JButton btnNewButton = new JButton("Back");
+					    northPanel.add(btnNewButton);
 					    
 					    JLabel leftArrowIcon = new JLabel("left arr");
 					    contentPane.add(leftArrowIcon, BorderLayout.WEST);
