@@ -16,6 +16,22 @@ import javax.swing.BoxLayout;
 import java.awt.Component;
 import javax.swing.Box;
 
+/**
+ * The {@link SubjectSessionView} class represents the user interface for a session where the user 
+ * can input the subject of study for a specific session.
+ * 
+ * <p>This view includes a text field for entering the subject name, a "Confirm" button, and 
+ * an image to indicate the successful creation of a building (as an example image).</p>
+ * 
+ * <p>Key Features:
+ * <ul>
+ *     <li>A text field for entering the subject of study.</li>
+ *     <li>A "Confirm" button to submit the subject of study.</li>
+ *     <li>A success message displayed at the top.</li>
+ *     <li>An image representing a building or success displayed at the bottom.</li>
+ * </ul>
+ * </p>
+ */
 public class SubjectSessionView extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -41,7 +57,8 @@ public class SubjectSessionView extends JFrame {
     }
 
     /**
-     * Create the frame.
+     * Creates the frame for the SubjectSessionView, including all components and layout.
+     * This view allows the user to input the subject of study for a session.
      */
     public SubjectSessionView() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,18 +116,38 @@ public class SubjectSessionView extends JFrame {
     }
     
 
+    /**
+     * Retrieves the confirm button.
+     * 
+     * @return the confirm button
+     */
     public JButton getConfirmButton() {
 		return confirmButton;
 	}
 
+    /**
+     * Sets the confirm button.
+     * 
+     * @param confirmButton the confirm button to set
+     */
 	public void setConfirmButton(JButton confirmButton) {
 		this.confirmButton = confirmButton;
 	}
 	
+	/**
+     * Retrieves the text field where the subject of study is entered.
+     * 
+     * @return the subject text field
+     */
 	public JTextField getSubjectField() {
 		return subjectField;
 	}
 
+	 /**
+     * Sets the subject text field.
+     * 
+     * @param subjectField the subject text field to set
+     */ 
 	public void setSubjectField(JTextField subjectField) {
 		this.subjectField = subjectField;
 	}

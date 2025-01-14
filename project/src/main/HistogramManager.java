@@ -28,7 +28,7 @@ public class HistogramManager {
 	private final HistogramPanel panel;
 	private DataGroupByStrategy strategy;
 
-	/**
+	  /**
      * Constructs a HistogramManager with a default strategy of grouping by the number of buildings.
      * 
      * @param panel The {@link HistogramPanel} to display the histogram.
@@ -38,7 +38,7 @@ public class HistogramManager {
 
 	}
 
-	/**
+	  /**
      * Constructs a HistogramManager with a custom data aggregation strategy.
      * 
      * @param panel   The {@link HistogramPanel} to display the histogram.
@@ -66,7 +66,7 @@ public class HistogramManager {
 		panel.repaint();
 	}
 
-	/**
+	 /**
      * Generates a map of building data aggregated by day for a specified year and month.
      * 
      * @param year      The year for the aggregation.
@@ -86,7 +86,7 @@ public class HistogramManager {
 		return histogram;
 	}
 
-	/**
+	  /**
      * Sets a new data aggregation strategy to be used when generating the histogram.
      * 
      * @param strategy The new data aggregation strategy.

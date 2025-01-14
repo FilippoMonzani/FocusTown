@@ -36,10 +36,18 @@ import view.View;
 
 /************************************************************/
 /**
- * 
+ * The {@code FocusApp} class serves as the entry point and main controller for 
+ * the application. It initializes the views, manages interactions between them, 
+ * and handles user actions.
+ * <p>
+ * The class sets up the graphical user interface (GUI) components, handles 
+ * button destinations, defines functionalities for user actions, and manages 
+ * the application's state during runtime.
+ * </p>
  */
 public class FocusApp {
 
+	// GUI components
 	private static LoginView loginView = null;
 	private static RegView regView = null;
 	private static AppView appView = null;
@@ -48,6 +56,7 @@ public class FocusApp {
 	private static SessionTimerView sessionTimerView = null;
 	private static SubjectSessionView subjectSessionView = null;
 
+	// Application state
 	private static User currentUser = null;
 	private static City currentCity = null;
 	private static Timer timer;
@@ -59,11 +68,17 @@ public class FocusApp {
 
 	private static HistogramManager histogramManager;
 
+	 /**
+     * The main entry point of the application. Initializes views and their interactions.
+     *
+     * @param args command-line arguments (not used)
+     */
 	public static void main(String[] args) {
 		FlatLightLaf.setup();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+	                // Initialize views
 					loginView = new LoginView();
 					regView = new RegView();
 					appView = new AppView();
@@ -72,12 +87,12 @@ public class FocusApp {
 					sessionTimerView = new SessionTimerView();
 					subjectSessionView = new SubjectSessionView();
 					time = new TimeManager();
-
+	                // Show login view by default
 					loginView.setVisible(true);
-
+					// Initialize application state
 					currentCity = new City();
 					histogramManager = new HistogramManager(statsView.getHistogram());
-
+	                // Set up button destinations and functionalities
 					setDestinations();
 					setFunctionalities();
 				} catch (Exception e) {
@@ -88,8 +103,8 @@ public class FocusApp {
 	}
 
 	/**
-	 * Define the destination of every button here
-	 */
+     * Defines the destinations of each button to transition between views.
+     */
 	private static void setDestinations() {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
@@ -100,10 +115,11 @@ public class FocusApp {
 		setBtnDestination(sessionSettingView.getCancelButton(), sessionSettingView, appView);
 	}
 
-	/**
-	 * Define the action listener of every button here
-	 */
+	 /**
+     * Defines the functionalities and actions for each button in the application.
+     */
 	private static void setFunctionalities() {
+        // Registration functionality
 		regView.getBtnReg().addActionListener(a -> {
 			try {
 				addUser();
@@ -114,7 +130,8 @@ public class FocusApp {
 				regView.showErrorMessage("Questo nome utente è già preso.");
 			}
 		});
-
+		
+        // Login functionality
 		loginView.getLoginBtn().addActionListener(a -> {
 			String usernameLogin = loginView.getUsername();
 			String passwordLogin = loginView.getPassword();
@@ -135,7 +152,8 @@ public class FocusApp {
 				loginView.showErrorMessage("Password errata.");
 			}
 		});
-
+		
+        // Timer session start functionality
 		sessionSettingView.getStartButton().addActionListener(a -> {
 			if (!sessionSettingView.getHourField().getText().matches("\\d+")) {
 				sessionSettingView.getHourField().setText("0");
@@ -152,6 +170,7 @@ public class FocusApp {
 
 		});
 
+        // Stop button functionality
 		sessionTimerView.getStopButton().addActionListener(a -> {
 			sessionTimerView.setAlwaysOnTop(false);
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -159,13 +178,15 @@ public class FocusApp {
             	setSessionInterrupted(true);
             }
 		});
-            
+        
+        // Confirmation of session subject
 		subjectSessionView.getConfirmButton().addActionListener(a -> {
 			createNewBuilding(subjectSessionView.getSubjectField().getText());
 			appView.setVisible(true);
 			subjectSessionView.setVisible(false);
 		});
 
+        // Statistics update functionality
 		statsView.getDataSelect().addActionListener(a -> {
 			DataGroupByStrategy strategy = switch (statsView.getSelectedData()) {
 			case 0 -> new GroupByNumberOfBuildings();
@@ -183,13 +204,13 @@ public class FocusApp {
 		
 	}
 
-	/***
-	 * Set the destination view for a button
-	 * 
-	 * @param btn    Button that brings to view "dest" when clicked
-	 * @param source View that contains the button
-	 * @param dest   Destination view
-	 */
+	 /**
+     * Sets the destination view for a button action.
+     *
+     * @param btn    the button that triggers the action
+     * @param source the source view containing the button
+     * @param dest   the destination view to display
+     */
 	private static void setBtnDestination(JButton btn, View source, View dest) {
 		btn.addActionListener(a -> {
 			source.setVisible(false);
@@ -198,12 +219,10 @@ public class FocusApp {
 	}
 
 	/**
-	 * 
-	 * @param duration
-	 * @return
-	 * @return
-	 */
-	
+     * Starts a countdown timer for the study session.
+     *
+     * @param time the {@code TimeManager} object representing the session duration
+     */
 	public static void startTimer(TimeManager time) {
 		timer = new Timer(1000,new ActionListener() {
 			TimeManager countingTime = new TimeManager(time.toSeconds());
@@ -239,6 +258,12 @@ public class FocusApp {
 //		currentCity.addBuilding(duration, subject, currentUser);
 //	}
 
+	 /**
+     * Adds a new user to the application. If the username is already taken, 
+     * throws a {@link DuplicateUserException}.
+     *
+     * @throws DuplicateUserException if the username is already taken
+     */
 	private static void addUser() {
 		User user = new User(regView.getUsername(), regView.getPassword());
 		if (user.read() != null) {
@@ -248,10 +273,19 @@ public class FocusApp {
 		}
 	}
 
+	 /**
+     * Returns the logger instance for this application.
+     *
+     * @return the {@link Logger} instance
+     */
 	public static Logger getLogger() {
 		return FocusApp.logger;
 	}
 
+	/**
+     * Updates the histogram displayed in the statistics view based on the selected year 
+     * and month. Logs the selected filters for debugging purposes.
+     */
 	private static void updateStatsHistogram() {
 		int year = statsView.getSelectedYear();
 		int month = statsView.getSelectedMonth();
@@ -259,26 +293,40 @@ public class FocusApp {
 		histogramManager.updateHistogram(year, month);
 	}
 
-	/**
-	 * 
-	 * call loadBuilding method for the current city
-	 * 
-	 * @param user
-	 * 
-	 */
+	 /**
+     * Initializes the buildings for the current user in the application by loading 
+     * data from persistent storage through the {@link City} class.
+     */
 	private static void initBuilding() {
 		currentCity.loadBuildings(currentUser);
 	}
 	
+	 /**
+     * Creates a new building in the current city, associated with the current user, 
+     * and based on the provided subject. Resets the timer duration to zero after creation.
+     *
+     * @param subject the name or description of the subject associated with the building
+     */
 	private static void createNewBuilding(String subject) {
 		currentCity.addBuilding(time, subject, currentUser);
 		time.setToZero();
 	}
 
+	/**
+     * Checks if the current session has been interrupted.
+     *
+     * @return {@code true} if the session has been interrupted, {@code false} otherwise
+     */
 	public static boolean isSessionInterrupted() {
 		return sessionInterrupted;
 	}
 
+	 /**
+     * Sets the interruption status of the current session. If set to {@code true}, 
+     * the session timer will stop.
+     *
+     * @param sessionInterrupted {@code true} to mark the session as interrupted, {@code false} otherwise
+     */
 	public static void setSessionInterrupted(boolean sessionInterrupted) {
 		FocusApp.sessionInterrupted = sessionInterrupted;
 	}

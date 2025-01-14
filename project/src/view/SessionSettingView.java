@@ -17,6 +17,23 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.AbstractDocument;
 
+/**
+ * The {@link SessionSettingView} class represents the user interface for configuring session settings.
+ * It allows the user to input the duration of a session in hours and minutes, with buttons to start or cancel the session.
+ * The layout includes input fields for hours and minutes, and a section for navigation options such as start and cancel buttons.
+ * It uses a {@link JFrame} to create the main window and arranges components with {@link BoxLayout}, {@link FlowLayout}, and {@link BorderLayout}.
+ * 
+ * <p>This class also displays error messages if the user attempts to enter invalid session times.</p>
+ * 
+ * <p>Key Features:
+ * <ul>
+ *     <li>Input fields for hours and minutes</li>
+ *     <li>Start button to begin the session</li>
+ *     <li>Cancel button to stop or reset the session</li>
+ *     <li>Error label for displaying error messages</li>
+ * </ul>
+ * </p>
+ */
 public class SessionSettingView extends JFrame implements View {
 
 	/**
@@ -29,9 +46,10 @@ public class SessionSettingView extends JFrame implements View {
 	private JButton cancelButton;
 	private JButton startButton;
 	private JLabel errorLabel;
+	
 	/**
-	 * Create the frame.
-	 */
+     * Creates the frame for the session settings view, including all components and layout.
+     */
 	public SessionSettingView() {
 		setFont(new Font("Arial Nova Light", Font.PLAIN, 40));
 
@@ -109,42 +127,92 @@ public class SessionSettingView extends JFrame implements View {
 
 	}
 
+	/**
+     * Retrieves the error label used to display error messages.
+     * 
+     * @return the error label
+     */
 	public JLabel getErrorLabel() {
 		return errorLabel;
 	}
 
+	/**
+     * Sets the error label for displaying error messages.
+     * 
+     * @param errorLabel the error label to set
+     */
 	public void setErrorLabel(JLabel errorLabel) {
 		this.errorLabel = errorLabel;
 	}
 
+	/**
+     * Retrieves the cancel button used to cancel the session configuration.
+     * 
+     * @return the cancel button
+     */
 	public JButton getCancelButton() {
 		return cancelButton;
 	}
 
+	/**
+     * Sets the cancel button for the session configuration screen.
+     * 
+     * @param cancelButton the cancel button to set
+     */
 	public void setCancelButton(JButton cancelButton) {
 		this.cancelButton = cancelButton;
 	}
 
+	/**
+     * Retrieves the start button used to initiate the session.
+     * 
+     * @return the start button
+     */
 	public JButton getStartButton() {
 		return startButton;
 	}
 
+	 /**
+     * Sets the start button for the session configuration screen.
+     * 
+     * @param startButton the start button to set
+     */
 	public void setStartButton(JButton startButton) {
 		this.startButton = startButton;
 	}
 
+	/**
+     * Retrieves the text field for entering the hour value.
+     * 
+     * @return the hour text field
+     */
 	public JTextField getHourField() {
 		return hourField;
 	}
 
+	/**
+     * Sets the hour text field.
+     * 
+     * @param hourField the hour text field to set
+     */
 	public void setHourField(JTextField hourField) {
 		this.hourField = hourField;
 	}
 
+	/**
+     * Retrieves the text field for entering the minute value.
+     * 
+     * @return the minute text field
+     */
 	public JTextField getMinuteField() {
 		return minuteField;
 	}
 
+	/**
+     * Sets the minute text field.
+     * 
+     * @param minuteField the minute text field to set
+     */
 	public void setMinuteField(JTextField minuteField) {
 		this.minuteField = minuteField;
 	}

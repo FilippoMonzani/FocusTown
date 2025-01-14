@@ -11,6 +11,23 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+/**
+ * The {@link CityView} class represents a graphical user interface (GUI) for displaying
+ * images of buildings. It extends {@link JFrame} and is used to visualize images 
+ * in a centered layout on the screen.
+ * 
+ * <p>The class includes methods for setting up the frame, loading images, and displaying them
+ * in a visually appealing arrangement. The view consists of a main panel with three images
+ * displayed horizontally across the center of the window.</p>
+ * 
+ * <p>Key features of the {@link CityView} class include:
+ * <ul>
+ *     <li>Display of images using {@link JLabel} components.</li>
+ *     <li>Dynamic centering of images on the screen.</li>
+ *     <li>Error handling for loading images.</li>
+ * </ul>
+ * </p>
+ */
 public class CityView extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -33,8 +50,11 @@ public class CityView extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
-	 */
+     * Constructs the {@link CityView} frame with its components and layout.
+     * Initializes the content pane, image labels, and sets up the frame with the
+     * specified bounds. Attempts to load and display images from a specified 
+     * file path.
+     */
 	public CityView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

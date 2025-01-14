@@ -14,6 +14,22 @@ import java.awt.event.ActionEvent;
 import javax.swing.Box;
 import java.awt.Font;
 
+/**
+ * The main application window for the application. This class is responsible for
+ * displaying the primary user interface, including buttons for various features.
+ * It extends {@link JFrame} and implements the {@link View} interface.
+ * 
+ * <p>The {@link AppView} class organizes the layout of the frame with a top panel,
+ * a central panel containing a start button, and a bottom panel for additional actions.</p>
+ * 
+ * <p>Key components in this view include:
+ * <ul>
+ *     <li>{@link #startBtn}: The button to initiate an action.</li>
+ *     <li>{@link #statsBtn}: The button to view application statistics.</li>
+ *     <li>{@link #userBtn}: The button for user logout.</li>
+ * </ul>
+ * </p>
+ */
 public class AppView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
@@ -23,9 +39,10 @@ public class AppView extends JFrame implements View {
 	private JButton startBtn;
 
 
-	/**
-	 * Create the frame.
-	 */
+	 /**
+     * Constructs the {@link AppView} window with its components and layout.
+     * Initializes the panels and buttons and sets up basic actions.
+     */
 	public AppView() {
 //		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 //		double width = screenSize.getWidth();
@@ -80,22 +97,47 @@ public class AppView extends JFrame implements View {
 		
 	}
 	
+	/**
+     * Gets the {@link JButton} for the start button.
+     * 
+     * @return the start button
+     */
 	public JButton getStartBtn() {
 		return startBtn;
 	}
 
+	/**
+     * Sets the start button.
+     * 
+     * @param startBtn the start button to set
+     */
 	public void setStartBtn(JButton startBtn) {
 		this.startBtn = startBtn;
 	}
 	
+	/**
+     * Gets the {@link JButton} for the statistics button.
+     * 
+     * @return the stats button
+     */
 	public JButton getStatsButton() {
 		return this.statsBtn;
 	}
 
+	/**
+     * Gets the {@link JButton} for the user logout button.
+     * 
+     * @return the user button
+     */
 	public JButton getUserBtn() {
 		return userBtn;
 	}
 
+	/**
+     * Sets the user button.
+     * 
+     * @param userBtn the user button to set
+     */
 	public void setUserBtn(JButton userBtn) {
 		this.userBtn = userBtn;
 	}
