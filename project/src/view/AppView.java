@@ -40,6 +40,7 @@ public class AppView extends JFrame implements View {
 	private JButton statsBtn;
 	private JButton userBtn;
 	private JButton startBtn;
+	private JButton cityBtn;
 	private JLabel welcomeLabel;
 
 
@@ -100,7 +101,7 @@ public class AppView extends JFrame implements View {
 		JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		
-		JButton cityBtn = new JButton("City");
+		cityBtn = new JButton("City");
 		bottomPanel.add(cityBtn);
 		
 		statsBtn = new JButton("Stats");
@@ -145,6 +146,15 @@ public class AppView extends JFrame implements View {
      */
 	public JButton getUserBtn() {
 		return userBtn;
+	}
+	
+	/**
+     * Gets the {@link JButton} for the user city button.
+     * 
+     * @return the city button
+     */
+	public JButton getCityBtn() {
+		return cityBtn;
 	}
 
 	/**

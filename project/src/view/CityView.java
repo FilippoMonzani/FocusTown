@@ -7,6 +7,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.apache.logging.log4j.Level;
+
+import main.FocusApp;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -28,7 +33,7 @@ import javax.swing.SwingConstants;
  * </ul>
  * </p>
  */
-public class CityView extends JFrame {
+public class CityView extends JFrame implements View {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -36,18 +41,18 @@ public class CityView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CityView frame = new CityView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					CityView frame = new CityView();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
      * Constructs the {@link CityView} frame with its components and layout.
@@ -64,17 +69,17 @@ public class CityView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("");
-		contentPane.add(lblNewLabel, BorderLayout.WEST);
+		JLabel leftImage = new JLabel("");
+		contentPane.add(leftImage, BorderLayout.WEST);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		contentPane.add(lblNewLabel_1, BorderLayout.EAST);
+		JLabel centerImage = new JLabel("");
+		contentPane.add(centerImage, BorderLayout.EAST);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel rightImage = new JLabel("");
+		rightImage.setHorizontalAlignment(SwingConstants.CENTER);
 		//panel.add(lblNewLabel_2);
 		try {
 		    String imagePath = "src/resources/th10.jpg"; 
@@ -95,22 +100,22 @@ public class CityView extends JFrame {
 		    
 
 		    // Immagine di sinistra
-		    lblNewLabel.setIcon(buildingIcon);
-		    lblNewLabel.setBounds(startX, startY, imageWidth, imageHeight);
-		    contentPane.add(lblNewLabel);
+		    leftImage.setIcon(buildingIcon);
+		    leftImage.setBounds(startX, startY, imageWidth, imageHeight);
+		    contentPane.add(leftImage);
 
 		    // Immagine centrale (abbassata di centralYOffset)
-		    lblNewLabel_1.setIcon(buildingIcon);
-		    lblNewLabel_1.setBounds(startX + (imageWidth + spacing), startY + centralYOffset, imageWidth, imageHeight);
-		    contentPane.add(lblNewLabel_1);
+		    centerImage.setIcon(buildingIcon);
+		    centerImage.setBounds(startX + (imageWidth + spacing), startY + centralYOffset, imageWidth, imageHeight);
+		    contentPane.add(centerImage);
 
 		    // Immagine di destra
-		    lblNewLabel_2.setIcon(buildingIcon);
-		    lblNewLabel_2.setBounds(startX + 2 * (imageWidth + spacing), startY, imageWidth, imageHeight);
-		    contentPane.add(lblNewLabel_2);
+		    rightImage.setIcon(buildingIcon);
+		    rightImage.setBounds(startX + 2 * (imageWidth + spacing), startY, imageWidth, imageHeight);
+		    contentPane.add(rightImage);
 
 		} catch (Exception e) {
-		    System.out.println("Error during the image uploading");
+			FocusApp.getLogger().log(Level.ERROR, "Error during the image uploading");
 		    e.printStackTrace();
 		}
 

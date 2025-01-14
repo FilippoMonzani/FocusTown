@@ -26,6 +26,7 @@ import model.GroupByNumberOfBuildings;
 import model.GroupByStudyHours;
 import model.User;
 import view.AppView;
+import view.CityView;
 import view.LoginView;
 import view.RegView;
 import view.SessionSettingView;
@@ -55,6 +56,7 @@ public class FocusApp {
 	private static SessionSettingView sessionSettingView = null;
 	private static SessionTimerView sessionTimerView = null;
 	private static SubjectSessionView subjectSessionView = null;
+	private static CityView cityView = null;
 
 	// Application state
 	private static User currentUser = null;
@@ -86,6 +88,8 @@ public class FocusApp {
 					sessionSettingView = new SessionSettingView();
 					sessionTimerView = new SessionTimerView();
 					subjectSessionView = new SubjectSessionView();
+					cityView = new CityView();
+					
 					time = new TimeManager();
 	                // Show login view by default
 					loginView.setVisible(true);
@@ -113,6 +117,7 @@ public class FocusApp {
 		setBtnDestination(appView.getStartBtn(), appView, sessionSettingView);
 		setBtnDestination(appView.getUserBtn(), appView, loginView);
 		setBtnDestination(sessionSettingView.getCancelButton(), sessionSettingView, appView);
+		setBtnDestination(appView.getCityBtn(), appView, cityView);
 	}
 
 	 /**
