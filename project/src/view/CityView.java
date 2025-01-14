@@ -50,6 +50,10 @@ public class CityView extends JFrame implements View {
 	private JLabel leftImage;
 	private JLabel centerImage;
 	private JLabel rightImage;
+	private JButton backButton;
+	private JButton rightArrowBtn;
+	private JButton leftArrowBtn;
+	private JLabel descriptionLabel;
 	private final JPanel centerPanel = new JPanel();
 
 	/**
@@ -76,7 +80,7 @@ public class CityView extends JFrame implements View {
 	 */
 	public CityView() {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setResizable(false);
+//		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -97,9 +101,6 @@ public class CityView extends JFrame implements View {
 		// panel.add(lblNewLabel_2);
 
 		try {
-			String imagePath = "src/resources/th10.jpg";
-			ImageIcon buildingIcon = new ImageIcon(new File(imagePath).getAbsolutePath());
-
 			int imageWidth = 200;
 			int imageHeight = 200;
 			int spacing = 100; // Spazio aumentato tra le immagini
@@ -125,34 +126,34 @@ public class CityView extends JFrame implements View {
 			Component horizontalGlue = Box.createHorizontalGlue();
 			centerPanel.add(horizontalGlue);
 
-			JLabel rightImage = new JLabel("");
+			rightImage = new JLabel("");
 			centerPanel.add(rightImage);
 			rightImage.setHorizontalAlignment(SwingConstants.CENTER);
 
 			// Immagine di destra
-			rightImage.setIcon(buildingIcon);
+//			rightImage.setIcon(buildingIcon);
 			rightImage.setBounds(startX + 2 * (imageWidth + spacing), startY, imageWidth, imageHeight);
 
 			JLabel spaceLabel1 = new JLabel("                              ");
 			centerPanel.add(spaceLabel1);
 
-			JLabel centerImage = new JLabel("");
+			centerImage = new JLabel("");
 			centerPanel.add(centerImage);
 			centerImage.setHorizontalAlignment(SwingConstants.CENTER);
 
 			// Immagine centrale (abbassata di centralYOffset)
-			centerImage.setIcon(buildingIcon);
+//			centerImage.setIcon(buildingIcon);
 			centerImage.setBounds(startX + (imageWidth + spacing), startY + centralYOffset, imageWidth, imageHeight);
 
 			JLabel spaceLabel2 = new JLabel("                              ");
 			centerPanel.add(spaceLabel2);
 
-			JLabel leftImage = new JLabel("");
+			leftImage = new JLabel("");
 			centerPanel.add(leftImage);
 			leftImage.setHorizontalAlignment(SwingConstants.CENTER);
 
 			// Immagine di sinistra
-			leftImage.setIcon(buildingIcon);
+//			leftImage.setIcon(buildingIcon);
 			leftImage.setBounds(startX, startY, imageWidth, imageHeight);
 
 			Component horizontalGlue_1 = Box.createHorizontalGlue();
@@ -167,31 +168,27 @@ public class CityView extends JFrame implements View {
 			screenshotIcon.setHorizontalAlignment(SwingConstants.LEFT);
 			northPanel.add(screenshotIcon);
 
-			JButton btnNewButton = new JButton("Back");
-			northPanel.add(btnNewButton);
+			backButton = new JButton("Back");
+			northPanel.add(backButton);
 
-			JLabel leftArrowIcon = new JLabel("left arr");
-			contentPane.add(leftArrowIcon, BorderLayout.WEST);
+			leftArrowBtn = new JButton("<");
+			contentPane.add(leftArrowBtn, BorderLayout.WEST);
 
-			JLabel rightArrowIcon = new JLabel("right arr");
-			contentPane.add(rightArrowIcon, BorderLayout.EAST);
+			rightArrowBtn = new JButton(">");
+			contentPane.add(rightArrowBtn, BorderLayout.EAST);
 
 			JPanel southPanel = new JPanel();
 			contentPane.add(southPanel, BorderLayout.SOUTH);
 
-			JLabel lblNewLabel = new JLabel("Builidng Description");
-			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-			southPanel.add(lblNewLabel);
+			descriptionLabel = new JLabel("Builidng Description");
+			descriptionLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			southPanel.add(descriptionLabel);
 
 		} catch (Exception e) {
 			FocusApp.getLogger().log(Level.ERROR, "Error during the image uploading");
 			e.printStackTrace();
 		}
 
-	}
-
-	public JPanel getContentPane() {
-		return contentPane;
 	}
 
 	public JLabel getLeftImage() {
@@ -205,5 +202,20 @@ public class CityView extends JFrame implements View {
 	public JLabel getRightImage() {
 		return rightImage;
 	}
+	
+	public JButton getBackButton() {
+		return backButton;
+	}
 
+	public JButton getRightArrowBtn() {
+		return rightArrowBtn;
+	}
+
+	public JButton getLeftArrowBtn() {
+		return leftArrowBtn;
+	}
+	
+	public void setBuildingDescription(String desc) {
+		descriptionLabel.setText(desc);
+	}
 }

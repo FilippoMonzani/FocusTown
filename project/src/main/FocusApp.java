@@ -8,9 +8,12 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -121,6 +124,7 @@ public class FocusApp {
 		setBtnDestination(appView.getStartBtn(), appView, sessionSettingView);
 		setBtnDestination(appView.getUserBtn(), appView, loginView);
 		setBtnDestination(sessionSettingView.getCancelButton(), sessionSettingView, appView);
+		setBtnDestination(cityView.getBackButton(), cityView, appView);
 	}
 
 	 /**
@@ -212,16 +216,34 @@ public class FocusApp {
 
 		appView.getCityBtn().addActionListener(a -> {
 			List<Building> buildings = currentCity.getBuildings();
-			Building leftBuilding = buildings.get(buildingImageManager.getBuildingIndex() - 1);
-			Building centerBuilding = buildings.get(buildingImageManager.getBuildingIndex());
-			Building rightBuilding = buildings.get(buildingImageManager.getBuildingIndex() + 1);
 			
-			cityView.getLeftImage().setIcon(buildingImageManager.getImage(leftBuilding));
-			cityView.getCenterImage().setIcon(buildingImageManager.getImage(centerBuilding));
-			cityView.getRightImage().setIcon(buildingImageManager.getImage(rightBuilding));
+			buildings.forEach(b -> {
+				logger.log(Level.DEBUG, String.format("Building subject: %s, Study hours: %d, Icon path: %s", b.getSubject(), b.getDuration().toHours(), buildingImageManager.selectPath(b)));
+			});
+			
+			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
+			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
+			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
+			cityView.setBuildingDescription(buildingImageManager.getDescription());
 			
 			cityView.setVisible(true);
 			appView.setVisible(false);
+		});
+		
+		cityView.getRightArrowBtn().addActionListener(a -> {
+			buildingImageManager.swipeRight();
+			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
+			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
+			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
+			cityView.setBuildingDescription(buildingImageManager.getDescription());
+		});
+		
+		cityView.getLeftArrowBtn().addActionListener(a -> {
+			buildingImageManager.swipeLeft();
+			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
+			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
+			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
+			cityView.setBuildingDescription(buildingImageManager.getDescription());
 		});
 	}
 
@@ -320,9 +342,7 @@ public class FocusApp {
      */
 	private static void initBuilding() {
 		currentCity.loadBuildings(currentUser);
-		currentCity.getBuildings().forEach(b -> {
-			buildingImageManager.addBuilding(b, new Dimension(100, 100));
-		});
+		buildingImageManager.setCity(currentCity);
 	}
 	
 	 /**
