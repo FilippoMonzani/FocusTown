@@ -142,7 +142,7 @@ public class RegView extends JFrame implements View {
      * Displays a success message to the user after successful registration.
      */
 	public void showSuccessMessage() {
-		JOptionPane.showMessageDialog(RegView.this, "Registrazione avvenuta con successo!");
+		JOptionPane.showMessageDialog(RegView.this, "Succesfully signed up!");
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class RegView extends JFrame implements View {
      */
 	public void showErrorMessage(String msg) {
 		JOptionPane.showMessageDialog(RegView.this, String.format(
-				"<html><p>C'è stato un <span style=\"color: red\">errore</span> durante la registrazione:</p><br><div style=\"text-align: center; font-size:1.2em\">%s</div></html>",
+				"<html><p>An <span style=\"color: red\">error</span> occured during signing up:</p><br><div style=\"text-align: center; font-size:1.2em\">%s</div></html>",
 				msg));
 	}
 

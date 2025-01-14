@@ -166,7 +166,7 @@ public class LoginView extends JFrame implements View {
      */
 	public void showErrorMessage(String msg) {
 		JOptionPane.showMessageDialog(LoginView.this, String.format(
-				"<html><p>C'è stato un <span style=\"color: red\">errore</span> durante il login:</p><br><div style=\"text-align: center; font-size:1.2em\">%s</div></html>",
+				"<html><p>An <span style=\"color: red\">error</span> occurred during login:</p><br><div style=\"text-align: center; font-size:1.2em\">%s</div></html>",
 				msg));
 	}
 }
