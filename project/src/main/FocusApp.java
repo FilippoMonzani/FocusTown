@@ -132,7 +132,7 @@ public class FocusApp {
 				loginView.setVisible(true);
 				regView.setVisible(false);
 			} catch (DuplicateUserException e) {
-				regView.showErrorMessage("Questo nome utente è già preso.");
+				regView.showErrorMessage("This username is already taken.");
 			}
 		});
 		
@@ -153,9 +153,9 @@ public class FocusApp {
 				appView.getWelcomeLabel().setText("Welcome, " + u.getUsername() +"!");
 				loginView.setVisible(false);
 			} catch (UserNotFoundException e) {
-				loginView.showErrorMessage("Questo nome utente non esiste.");
+				loginView.showErrorMessage("This username does not exist.");
 			} catch (WrongPasswordException e) {
-				loginView.showErrorMessage("Password errata.");
+				loginView.showErrorMessage("Wrong password.");
 			}
 		});
 		
