@@ -25,7 +25,7 @@ import main.SessionUtil;
  */
 @Entity
 @Table(name = "BUILDING")
-public class Building implements Persistable{
+public class Building extends Persistable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,12 +103,13 @@ public class Building implements Persistable{
 		this.owner = owner;
 	}
 
-	public void save() {
-		Session session = SessionUtil.startSession();
-		session.persist(this);
-		SessionUtil.endSession(session);
-	}
+//	public void save() {
+//		Session session = SessionUtil.startSession();
+//		session.persist(this);
+//		SessionUtil.endSession(session);
+//	}
 
+	@Override
 	public Building read() {
 		Session session = SessionUtil.startSession();
 		Building retrievedBuilding = session.find(Building.class, this.getId());
@@ -116,15 +117,15 @@ public class Building implements Persistable{
 		return retrievedBuilding;
 	}
 
-	public void update() {
-		Session session = SessionUtil.startSession();
-		session.merge(this);
-		SessionUtil.endSession(session);
-	}
-
-	public void delete() {
-		Session session = SessionUtil.startSession();
-		session.remove(this);
-		SessionUtil.endSession(session);
-	}
+//	public void update() {
+//		Session session = SessionUtil.startSession();
+//		session.merge(this);
+//		SessionUtil.endSession(session);
+//	}
+//
+//	public void delete() {
+//		Session session = SessionUtil.startSession();
+//		session.remove(this);
+//		SessionUtil.endSession(session);
+//	}
 }

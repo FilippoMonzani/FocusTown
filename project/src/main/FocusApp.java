@@ -54,7 +54,7 @@ public class FocusApp {
 
 
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
-	private boolean sessionInterrupted;
+	private static boolean sessionInterrupted = false;
 
 	private static HistogramManager histogramManager;
 
@@ -133,34 +133,27 @@ public class FocusApp {
 				loginView.showErrorMessage("Password errata.");
 			}
 		});
-		
+
 		sessionSettingView.getStartButton().addActionListener(a -> {
-			boolean correctInput = false;
-	            	if(!sessionSettingView.getHourField().getText().matches("\\d+") || !sessionSettingView.getMinuteField().getText().matches("\\d+")) {
-	            		sessionSettingView.getErrorLabel().setText("Error: hour and minute values must be integers.");
-	            	}
-	            	else {
-	            		sessionSettingView.getErrorLabel().setText("");
-	            	}
-	            	
-	            	if(sessionSettingView.getMinuteField().getText().matches("\\d+") && Integer.parseInt(sessionSettingView.getMinuteField().getText()) > 59) {
-	        			sessionSettingView.getErrorLabel().setText("Error: minutes value must be smaller than 60.");
-	            	}
-	            	int hours = Integer.parseInt(sessionSettingView.getHourField().getText());
-	            	int minutes = Integer.parseInt(sessionSettingView.getMinuteField().getText());
-	            	int seconds = 60*60*hours + 60*minutes;
-	    			sessionTimerView.setVisible(true);
-	            		sessionSettingView.setVisible(false);
-		    			startTimer(seconds);
-	            	
+			if (!sessionSettingView.getHourField().getText().matches("\\d+")) {
+				sessionSettingView.getHourField().setText("0");
+			}
+			if (!sessionSettingView.getMinuteField().getText().matches("\\d+")) {
+				sessionSettingView.getMinuteField().setText("0");
+			}
+			TimeManager time = new TimeManager();
+			time.ofHours(Integer.parseInt(sessionSettingView.getHourField().getText()));
+			time.ofMinutes(Integer.parseInt(sessionSettingView.getMinuteField().getText()));
+			sessionTimerView.setVisible(true);
+			sessionSettingView.setVisible(false);
+			startTimer(time);
+
 		});
-		
+
 		sessionTimerView.getStopButton().addActionListener(a -> {
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
-                timer.stop();
-                sessionSettingView.setVisible(true);
-                sessionTimerView.setVisible(false);
+            	setSessionInterrupted(true);
             }
 		});
             
@@ -202,21 +195,20 @@ public class FocusApp {
 	 * @return
 	 * @return
 	 */
-	public static void startTimer(int duration) {
-		boolean sessionInterrupted = false;
-		String subject = null;
+	
+	public static void startTimer(TimeManager time) {
 		timer = new Timer(1000,new ActionListener() {
-			 int count = duration;
-			 TimeManager time = new TimeManager(count);
 
 			@Override
 			public void actionPerformed(ActionEvent e) { 
-				count--;
 				time.tick();
 				
 				sessionTimerView.getTimerLabel().setText("Time remaining " + time.toString());
-				if(sessionInterrupted) {
+				if(isSessionInterrupted()) {
+					setSessionInterrupted(false);
 					timer.stop();
+	                sessionSettingView.setVisible(true);
+	                sessionTimerView.setVisible(false);
 				}
 				else if(time.isZero()) {
 					timer.stop();
@@ -268,4 +260,14 @@ public class FocusApp {
 	private static void initBuilding() {
 		currentCity.loadBuildings(currentUser);
 	}
+
+	public static boolean isSessionInterrupted() {
+		return sessionInterrupted;
+	}
+
+	public static void setSessionInterrupted(boolean sessionInterrupted) {
+		FocusApp.sessionInterrupted = sessionInterrupted;
+	}
+
+
 }

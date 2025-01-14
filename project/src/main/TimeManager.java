@@ -6,6 +6,11 @@ public class TimeManager {
 	int minutes = 0;
 	int seconds = 0;
 
+	
+	public TimeManager() {
+		super();
+	}
+
 	public TimeManager(int seconds) {
 		this.ofSeconds(seconds);
 	}

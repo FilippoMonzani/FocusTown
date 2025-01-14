@@ -1,11 +1,30 @@
 package model;
 
-public interface Persistable {
+import org.hibernate.Session;
 
-	public void save();
-	public Persistable read();
-	public void update();
-	public void delete();
+import main.SessionUtil;
+
+public abstract class Persistable {
+
+	public void save() {
+		Session session = SessionUtil.startSession();
+		session.persist(this);
+		SessionUtil.endSession(session);
+	}
+	
+	public abstract Persistable read();
+	
+	public void update() {
+		Session session = SessionUtil.startSession();
+		session.merge(this);
+		SessionUtil.endSession(session);
+	}
+	
+	public void delete() {
+		Session session = SessionUtil.startSession();
+		session.remove(this);
+		SessionUtil.endSession(session);
+	}
 	
 }
 

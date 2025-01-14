@@ -18,7 +18,7 @@ import main.SessionUtil;
  */
 @Entity
 @Table(name = "APP_USER")
-public class User implements Persistable{
+public class User extends Persistable{
 
 	@Id
 	@Column(name = "username", nullable = false, updatable = false)
@@ -55,17 +55,18 @@ public class User implements Persistable{
 	/**
 	 * Save this user in the database.
 	 */
-	public void save() {
-		Session session = SessionUtil.startSession();
-		session.persist(this);
-		SessionUtil.endSession(session);
-	}
+//	public void save() {
+//		Session session = SessionUtil.startSession();
+//		session.persist(this);
+//		SessionUtil.endSession(session);
+//	}
 
 	
 	/**
 	 * Read the user from the database that matches the username.
 	 * @return The user, if the username matches, else returns null.
 	 */
+	@Override
 	public User read() {
 		Session session = SessionUtil.startSession();
 		User retrievedUser = session.find(User.class, this.getUsername());
@@ -76,18 +77,18 @@ public class User implements Persistable{
 	/**
 	 * Update this user in the database.
 	 */
-	public void update() {
-		Session session = SessionUtil.startSession();
-		session.merge(this);
-		SessionUtil.endSession(session);
-	}
+//	public void update() {
+//		Session session = SessionUtil.startSession();
+//		session.merge(this);
+//		SessionUtil.endSession(session);
+//	}
 	
 	/**
 	 * Delete this user from the database.
 	 */
-	public void delete() {
-		Session session = SessionUtil.startSession();
-		session.remove(this);
-		SessionUtil.endSession(session);
-	}
+//	public void delete() {
+//		Session session = SessionUtil.startSession();
+//		session.remove(this);
+//		SessionUtil.endSession(session);
+//	}
 }
