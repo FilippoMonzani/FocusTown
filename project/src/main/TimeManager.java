@@ -76,21 +76,6 @@ public class TimeManager {
 		return hourString + ":" + minuteString + ":" + secondString;
 	}
 
-	public static int calculateHours(int h, int m) {
-		int minutes;
-		int hours;
-		hours = h;
-		minutes = m;
-		while (minutes >= 60) {
-			hours++;
-			minutes -= 60;
-		}
-		if (hours > 24) {
-			hours = 24;
-		}
-		return hours;
-	}
-
 	public void tick() {
 		if (this.seconds == 0) {
 			if (this.minutes == 0) {
@@ -109,4 +94,24 @@ public class TimeManager {
 	public boolean isZero() {
 		return (this.hours == 0 && this.minutes == 0 && this.seconds == 0);
 	}
+	
+	public void setToZero() {
+		this.hours = 0;
+		this.minutes = 0;
+		this.seconds = 0;
+	}
+
+	public int getHours() {
+		return hours;
+	}
+
+	public int getMinutes() {
+		return minutes;
+	}
+
+
+	public int getSeconds() {
+		return seconds;
+	}
+
 }

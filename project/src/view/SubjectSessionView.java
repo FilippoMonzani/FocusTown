@@ -20,9 +20,11 @@ public class SubjectSessionView extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField textField;
+    private JTextField subjectField;
+    private JButton confirmButton;
+   
 
-    /**
+	/**
      * Launch the application.
      */
     public static void main(String[] args) {
@@ -71,9 +73,9 @@ public class SubjectSessionView extends JFrame {
         JPanel panel = new JPanel();
         centerPanel.add(panel, BorderLayout.CENTER);
         
-        textField = new JTextField();
-        panel.add(textField);
-        textField.setColumns(10);
+        subjectField = new JTextField();
+        panel.add(subjectField);
+        subjectField.setColumns(10);
 
         // Bottom panel for additional message and building image
         JPanel bottomPanel = new JPanel();
@@ -88,11 +90,28 @@ public class SubjectSessionView extends JFrame {
         Component horizontalGlue_1 = Box.createHorizontalGlue();
         bottomPanel.add(horizontalGlue_1);
         
-        JButton btnNewButton = new JButton("Confirm");
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
-        bottomPanel.add(btnNewButton);
+        confirmButton = new JButton("Confirm");
+        confirmButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+        bottomPanel.add(confirmButton);
         
         Component horizontalGlue = Box.createHorizontalGlue();
         bottomPanel.add(horizontalGlue);
     }
+    
+
+    public JButton getConfirmButton() {
+		return confirmButton;
+	}
+
+	public void setConfirmButton(JButton confirmButton) {
+		this.confirmButton = confirmButton;
+	}
+	
+	public JTextField getSubjectField() {
+		return subjectField;
+	}
+
+	public void setSubjectField(JTextField subjectField) {
+		this.subjectField = subjectField;
+	}
 }

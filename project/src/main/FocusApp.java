@@ -51,6 +51,7 @@ public class FocusApp {
 	private static User currentUser = null;
 	private static City currentCity = null;
 	private static Timer timer;
+	private static TimeManager time;
 
 
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
@@ -70,6 +71,7 @@ public class FocusApp {
 					sessionSettingView = new SessionSettingView();
 					sessionTimerView = new SessionTimerView();
 					subjectSessionView = new SubjectSessionView();
+					time = new TimeManager();
 
 					loginView.setVisible(true);
 
@@ -141,7 +143,7 @@ public class FocusApp {
 			if (!sessionSettingView.getMinuteField().getText().matches("\\d+")) {
 				sessionSettingView.getMinuteField().setText("0");
 			}
-			TimeManager time = new TimeManager();
+			//TimeManager time = new TimeManager();
 			time.ofHours(Integer.parseInt(sessionSettingView.getHourField().getText()));
 			time.ofMinutes(Integer.parseInt(sessionSettingView.getMinuteField().getText()));
 			sessionTimerView.setVisible(true);
@@ -158,6 +160,11 @@ public class FocusApp {
             }
 		});
             
+		subjectSessionView.getConfirmButton().addActionListener(a -> {
+			createNewBuilding(subjectSessionView.getSubjectField().getText());
+			appView.setVisible(true);
+			subjectSessionView.setVisible(false);
+		});
 
 		statsView.getDataSelect().addActionListener(a -> {
 			DataGroupByStrategy strategy = switch (statsView.getSelectedData()) {
@@ -199,19 +206,20 @@ public class FocusApp {
 	
 	public static void startTimer(TimeManager time) {
 		timer = new Timer(1000,new ActionListener() {
-
+			TimeManager countingTime = new TimeManager(time.toSeconds());
 			@Override
 			public void actionPerformed(ActionEvent e) { 
-				time.tick();
+				countingTime.tick();
 				
-				sessionTimerView.getTimerLabel().setText(time.toString());
+				sessionTimerView.getTimerLabel().setText(countingTime.toString());
 				if(isSessionInterrupted()) {
 					setSessionInterrupted(false);
 					timer.stop();
+					time.setToZero();
 	                sessionSettingView.setVisible(true);
 	                sessionTimerView.setVisible(false);
 				}
-				else if(time.isZero()) {
+				else if(countingTime.isZero()) {
 					timer.stop();
 					subjectSessionView.setVisible(true);
 					sessionTimerView.setVisible(false);
@@ -226,10 +234,10 @@ public class FocusApp {
 	/**
 	 * 
 	 */
-	public static void endTimer(String subject, int seconds) {
-		Duration duration =  Duration.ofSeconds(seconds);
-		currentCity.addBuilding(duration, subject, currentUser);
-	}
+//	public static void endTimer(String subject, int seconds) {
+//		Duration duration =  Duration.ofSeconds(seconds);
+//		currentCity.addBuilding(duration, subject, currentUser);
+//	}
 
 	private static void addUser() {
 		User user = new User(regView.getUsername(), regView.getPassword());
@@ -260,6 +268,11 @@ public class FocusApp {
 	 */
 	private static void initBuilding() {
 		currentCity.loadBuildings(currentUser);
+	}
+	
+	private static void createNewBuilding(String subject) {
+		currentCity.addBuilding(time, subject, currentUser);
+		time.setToZero();
 	}
 
 	public static boolean isSessionInterrupted() {
