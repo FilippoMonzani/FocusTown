@@ -6,8 +6,11 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import model.Building;
 import model.City;
@@ -86,6 +89,16 @@ public class HistogramManager {
 		Map<Integer, Long> buildingsPerDay = strategy.aggregate(year, month, buildings);
 		buildingsPerDay.forEach(histogram::put);
 		return histogram;
+	}
+	
+	public List<Integer> getYearRange() {
+		Set<Integer> uniqueYears = new HashSet<>();
+		city.getBuildings().stream()
+		.map(b -> b.getTimeStamp().getYear())
+		.forEach(y -> uniqueYears.add(y));
+		List<Integer> result = new ArrayList<>(uniqueYears);
+		result.sort(Integer::compareTo);
+		return result;
 	}
 
 	  /**

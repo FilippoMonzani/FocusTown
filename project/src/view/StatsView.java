@@ -86,7 +86,7 @@ public class StatsView extends JFrame implements View {
 		horizontalStrut2 = Box.createHorizontalStrut(30);
 		topPanel.add(horizontalStrut2);
 
-		yearSelect = new JComboBox<>(new String[] { "2024", "2025", "2026" });
+		yearSelect = new JComboBox<>();
 		yearSelect.setFont(font);
 		topPanel.add(yearSelect);
 
@@ -177,5 +177,9 @@ public class StatsView extends JFrame implements View {
      */
 	public int getSelectedData() {
 		return dataSelect.getSelectedIndex();
+	}
+	
+	public void addYear(int year) {
+		this.yearSelect.addItem(String.valueOf(year));
 	}
 }

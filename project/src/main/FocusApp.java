@@ -164,6 +164,7 @@ public class FocusApp {
 				FocusApp.currentUser = authService.login(u, passwordLogin);
 				logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
 				initBuilding();
+				setCities();
 				// after succesful authentication, appView is shown
 				appView.setVisible(true);
 				appView.getWelcomeLabel().setText("Welcome, " + u.getUsername() +"!");
@@ -369,8 +370,16 @@ public class FocusApp {
      */
 	private static void initBuilding() {
 		currentCity.loadBuildings(currentUser);
+	}
+	
+	private static void setCities() {
 		histogramManager.setCity(currentCity);
 		buildingImageManager.setCity(currentCity);
+		
+		histogramManager.getYearRange().forEach(y -> {
+			statsView.addYear(y);
+		});
+
 	}
 	
 	 /**
@@ -402,6 +411,4 @@ public class FocusApp {
 	public static void setSessionInterrupted(boolean sessionInterrupted) {
 		FocusApp.sessionInterrupted = sessionInterrupted;
 	}
-
-
 }
