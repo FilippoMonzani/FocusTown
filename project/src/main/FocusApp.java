@@ -369,6 +369,7 @@ public class FocusApp {
      */
 	private static void initBuilding() {
 		currentCity.loadBuildings(currentUser);
+		histogramManager.setCity(currentCity);
 		buildingImageManager.setCity(currentCity);
 	}
 	

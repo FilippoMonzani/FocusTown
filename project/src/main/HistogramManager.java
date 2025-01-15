@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.Building;
+import model.City;
 import model.DataGroupByStrategy;
 import model.GroupByNumberOfBuildings;
 import model.HistogramAdapter;
@@ -27,6 +28,7 @@ import view.HistogramPanel;
 public class HistogramManager {
 
 	private final HistogramPanel panel;
+	private City city;
 	private DataGroupByStrategy strategy;
 
 	  /**
@@ -36,7 +38,6 @@ public class HistogramManager {
      */
 	public HistogramManager(HistogramPanel panel) {
 		this(panel, new GroupByNumberOfBuildings());
-
 	}
 
 	  /**
@@ -57,7 +58,7 @@ public class HistogramManager {
      * @param month The month for which to generate the histogram.
      */
 	public void updateHistogram(int year, int month) {
-		List<Building> buildings = Collections.EMPTY_LIST; //TODO: change this to use buildings from a user's city
+		List<Building> buildings = city.getBuildings();
 
 		HistogramAdapter ha = new HistogramAdapter();
 
@@ -96,4 +97,7 @@ public class HistogramManager {
 		this.strategy = strategy;
 	}
 
+	public void setCity(City city) {
+		this.city = city;
+	}
 }
