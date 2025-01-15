@@ -42,8 +42,6 @@ public class Building{
 	private String subject;
 
 	@Convert(converter = UserConverter.class)
-//	@ManyToOne
-//	@JoinColumn(name = "owner", referencedColumnName = "username")
 	private User owner;
 
 	public Building() {
@@ -56,29 +54,13 @@ public class Building{
 		this.subject = subject;
 		this.owner = owner;
 	}
-	
-	public Building(Duration duration, String subject, User owner, LocalDateTime timestamp) {
-		super();
-		this.duration = duration;
-		this.subject = subject;
-		this.owner = owner;
-		this.timeStamp = timestamp;
-	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public LocalDateTime getTimeStamp() {
 		return timeStamp;
-	}
-
-	public void setTimeStamp(LocalDateTime timeStamp) {
-		this.timeStamp = timeStamp;
 	}
 
 	public Duration getDuration() {

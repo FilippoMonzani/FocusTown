@@ -14,7 +14,7 @@ import model.User;
 public class CityTest {
 	
 	City city = new City();
-	User user = new User("Test","testPassword");
+	User user = new User("cityTest","testPassword");
 	
 	@Test
 	public void addBuildingTest() {
@@ -25,7 +25,7 @@ public class CityTest {
 		Building b = city.getBuildings().get(0);
 		assertEquals(b.getOwner().getPassword(),"testPassword");
 		assertEquals(b.getDuration(), Duration.ofSeconds(time.toSeconds()));
-		assertEquals(b.getOwner().getUsername(),"Test");
+		assertEquals(b.getOwner().getUsername(),"cityTest");
 		assertEquals(b.getSubject(),"informatica");
 	}
 }

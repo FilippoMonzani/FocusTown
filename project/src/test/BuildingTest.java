@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
@@ -19,7 +20,7 @@ import model.User;
 
 public class BuildingTest {
 
-	User u = new User("Test","test");
+	User u = new User("buildingTest","test");
 	Building b = new Building(Duration.ofSeconds(7200), "programmazione web", u);
 	// private static final Logger logger =
 	// LogManager.getLogger(BuildingTest.class);
@@ -33,5 +34,21 @@ public class BuildingTest {
 		System.out.println("Updated id: " + b.getId());
 		assertEquals(b.getId(),b2.getId());
 		assertEquals(b.getOwner().getPassword(),b2.getOwner().getPassword());
+	}
+	
+	@Test
+	public void getSetTest() {
+		Duration d = Duration.ofSeconds(60);
+		String s = "Matematica";
+		Building emptyB = new Building();
+		emptyB.setDuration(d);
+		emptyB.setOwner(u);
+		emptyB.setSubject(s);
+		assertNull(emptyB.getId());
+		assertNull(emptyB.getTimeStamp());
+		assertEquals(emptyB.getDuration(),d);
+		assertEquals(emptyB.getOwner(),u);
+		assertEquals(emptyB.getSubject(),s);
+		
 	}
 }
