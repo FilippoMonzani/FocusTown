@@ -11,6 +11,20 @@ import javax.swing.BoxLayout;
 import java.awt.Component;
 import javax.swing.Box;
 
+/**
+ * The {@link SessionTimerView} class represents the user interface for displaying a session timer.
+ * It shows the elapsed time in a large format and provides a button to stop the session.
+ * The window is designed to be fullscreen and undecorated to provide a clean view of the timer.
+ * 
+ * <p>This class allows the user to see the remaining time of a session and stop the session once it's done.</p>
+ * 
+ * <p>Key Features:
+ * <ul>
+ *     <li>Timer label that shows the elapsed time in a large font</li>
+ *     <li>Stop button to stop the session</li>
+ * </ul>
+ * </p>
+ */
 public class SessionTimerView extends JFrame {
 
 	/**
@@ -21,6 +35,10 @@ public class SessionTimerView extends JFrame {
 	private JLabel timerLabel;
 	private JButton stopButton;
 
+	 /**
+     * Creates the frame for the session timer view, including all components and layout.
+     * The window is maximized and undecorated for a clean timer display.
+     */
 	public SessionTimerView() {
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,18 +75,38 @@ public class SessionTimerView extends JFrame {
 		panel_1.add(stopButton);
 	}
 	
+	/**
+     * Retrieves the label that displays the timer.
+     * 
+     * @return the timer label
+     */
 	public JLabel getTimerLabel() {
 		return timerLabel;
 	}
 
+	/**
+     * Sets the label that displays the timer.
+     * 
+     * @param timerLabel the timer label to set
+     */
 	public void setTimerLabel(JLabel timerLabel) {
 		this.timerLabel = timerLabel;
 	}
 
+	/**
+     * Retrieves the stop button used to stop the session.
+     * 
+     * @return the stop button
+     */
 	public JButton getStopButton() {
 		return stopButton;
 	}
 
+	/**
+     * Sets the stop button for the session.
+     * 
+     * @param stopButton the stop button to set
+     */
 	public void setStopButton(JButton stopButton) {
 		this.stopButton = stopButton;
 	}

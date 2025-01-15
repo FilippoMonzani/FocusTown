@@ -14,6 +14,12 @@ import main.SessionUtil;
 
 /************************************************************/
 /**
+ * Represents a user of the application with a username and password.
+ * This class allows operations such as saving, reading, updating, and deleting users in the database.
+ * 
+ * 
+ * <p>This class is an entity that maps to the 'APP_USER' table in the database. 
+ * It provides methods for CRUD (Create, Read, Update, Delete) operations using Hibernate ORM.</p>
  * 
  */
 @Entity
@@ -26,28 +32,56 @@ public class User{
 	@Column
 	private String password;
 
-	// empty constructor needed for Hibernate queries
+	 /**
+     * Default constructor required by Hibernate for entity mapping.
+     */
 	public User() {
 
 	}
 
+	 /**
+     * Constructs a new user with the specified username and password.
+     * 
+     * @param username the username of the user
+     * @param password the password of the user
+     */
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
 	}
 
+	  /**
+     * Gets the username of this user.
+     * 
+     * @return the username of the user
+     */
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+     * Sets the username of this user.
+     * 
+     * @param username the username to set
+     */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
+	 /**
+     * Gets the password of this user.
+     * 
+     * @return the password of the user
+     */
 	public String getPassword() {
 		return password;
 	}
 
+	 /**
+     * Sets the password of this user.
+     * 
+     * @param password the password to set
+     */
 	public void setPassword(String password) {
 		this.password = password;
 	}

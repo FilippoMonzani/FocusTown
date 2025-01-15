@@ -7,9 +7,22 @@ import org.junit.Test;
 
 import model.User;
 
+/**
+ * Unit tests for the {@link User} class, verifying user-related database operations.
+ * <p>This test class contains unit tests to validate the behavior of the methods 
+ * in the {@link User} class, including saving, reading, updating, and deleting users 
+ * in the database.</p>
+ */
 public class UserTest {
 	
 	User u = new User("userTest","testPassword");
+	
+	 /**
+     * Test for saving and reading a user from the database.
+     * <p>This test verifies that the {@link User#save()} and {@link User#read()} 
+     * methods correctly persist and retrieve the user data from the database.</p>
+     */
+
 	@Test
 	public void userSaveReadTest() {
 		u.save();
@@ -22,6 +35,11 @@ public class UserTest {
 		System.out.println(u.getPassword()+" "+u2.getPassword());
 	}
 	
+	/**
+     * Test for updating a user in the database.
+     * <p>This test ensures that the {@link User#update()} method correctly updates 
+     * the user's information in the database.</p>
+     */
 	@Test
 	public void userUpdateTest() {
 		User u3 = new User("userTest", "AnotherPassword");
@@ -32,6 +50,12 @@ public class UserTest {
 		
 	}
 	
+	/**
+     * Test for deleting a user from the database.
+     * <p>This test verifies that the {@link User#delete()} method correctly deletes 
+     * the user from the database, and that the {@link User#read()} method returns null 
+     * after deletion.</p>
+     */
 	@Test
 	public void userDeleteTest() {
 		u.delete();

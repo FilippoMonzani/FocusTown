@@ -24,6 +24,15 @@ import jakarta.persistence.Table;
 import main.HibernateUtil;
 import model.User;
 
+/**
+ * Unit tests for performing Hibernate operations, including inserting and removing 
+ * entries from the database using Hibernate ORM.
+ * 
+ * <p>This test class is used to test basic database operations with Hibernate 
+ * such as persisting and removing entities. It tests the interaction with 
+ * a test database and verifies that records can be inserted and removed 
+ * properly from the database.</p>
+ */
 @Entity
 @Table(name = "TEST_T")
 class TestDB {
@@ -61,16 +70,35 @@ class TestDB {
 
 }
 
+/**
+ * Tests Hibernate persistence operations such as inserting and removing entities.
+ * 
+ * <p>This test class ensures the correct functionality of Hibernate's insert and remove 
+ * operations. It uses a simple entity (`TestDB`) to insert data into the database and 
+ * then remove it, verifying the session lifecycle and transaction handling.</p>
+ */
 public class HibernateTest {
 
 	private Session session;
 
+	/**
+     * Opens a Hibernate session before each test.
+     * 
+     * <p>This method is called before each test method to initialize a Hibernate session 
+     * for database operations.</p>
+     */
 	@Before
 	public void openSession() {
 		session = HibernateUtil.getSessionFactory().openSession();
 		System.out.println("Session created");
 	}
 
+	/**
+     * Closes the Hibernate session after each test.
+     * 
+     * <p>This method is called after each test method to close the Hibernate session 
+     * and ensure proper cleanup of resources.</p>
+     */
 	@After
 	public void closeSession() {
 		if (session != null)
@@ -78,6 +106,12 @@ public class HibernateTest {
 		System.out.println("Session closed\n");
 	}
 
+	 /**
+     * Tests inserting data into the database using Hibernate.
+     * 
+     * <p>This test persists a series of `TestDB` entities into the database. It 
+     * verifies that new entries can be inserted and the transaction is committed.</p>
+     */
 	@Test
 	public void hibernateInsertTest() {
 			session.beginTransaction();
@@ -92,6 +126,13 @@ public class HibernateTest {
 		}
 
 
+	/**
+     * Tests removing data from the database using Hibernate.
+     * 
+     * <p>This test retrieves all `TestDB` entities from the database, prints their 
+     * details, and then removes them. It verifies that the delete operation is properly 
+     * handled in a Hibernate session.</p>
+     */
 	@Test
 	public void hibernateRemoveTest() {
 
@@ -105,6 +146,14 @@ public class HibernateTest {
 			session.getTransaction().commit();
 		}
 
+	   /**
+     * Cleans up the session factory after all tests are finished.
+     * 
+     * <p>This method is called after all tests have been run to close the Hibernate 
+     * session factory and clean up resources.</p>
+     * 
+     * @throws Exception if any error occurs during the cleanup process
+     */
 	@AfterClass
 	public static void tearDown() throws Exception {
 		if (HibernateUtil.getSessionFactory() != null) {

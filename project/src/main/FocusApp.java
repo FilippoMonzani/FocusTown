@@ -4,11 +4,25 @@
 
 package main;
 
+import java.awt.AWTException;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -20,12 +34,14 @@ import org.apache.logging.log4j.Logger;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import model.AuthenticationService;
+import model.Building;
 import model.City;
 import model.DataGroupByStrategy;
 import model.GroupByNumberOfBuildings;
 import model.GroupByStudyHours;
 import model.User;
 import view.AppView;
+import view.CityView;
 import view.LoginView;
 import view.RegView;
 import view.SessionSettingView;
@@ -36,10 +52,18 @@ import view.View;
 
 /************************************************************/
 /**
- * 
+ * The {@code FocusApp} class serves as the entry point and main controller for 
+ * the application. It initializes the views, manages interactions between them, 
+ * and handles user actions.
+ * <p>
+ * The class sets up the graphical user interface (GUI) components, handles 
+ * button destinations, defines functionalities for user actions, and manages 
+ * the application's state during runtime.
+ * </p>
  */
 public class FocusApp {
 
+	// GUI components
 	private static LoginView loginView = null;
 	private static RegView regView = null;
 	private static AppView appView = null;
@@ -47,24 +71,32 @@ public class FocusApp {
 	private static SessionSettingView sessionSettingView = null;
 	private static SessionTimerView sessionTimerView = null;
 	private static SubjectSessionView subjectSessionView = null;
+	private static CityView cityView = null;
 
+	// Application state
 	private static User currentUser = null;
 	private static City currentCity = null;
 	private static Timer timer;
 	private static TimeManager time;
-
 
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
 	private static boolean sessionInterrupted = false;
 	private static boolean sessionSuspended = false;
 
 	private static HistogramManager histogramManager;
-
+	private static BuildingImageManager buildingImageManager;
+	
+	 /**
+     * The main entry point of the application. Initializes views and their interactions.
+     *
+     * @param args command-line arguments (not used)
+     */
 	public static void main(String[] args) {
 		FlatLightLaf.setup();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+	                // Initialize views
 					loginView = new LoginView();
 					regView = new RegView();
 					appView = new AppView();
@@ -72,13 +104,16 @@ public class FocusApp {
 					sessionSettingView = new SessionSettingView();
 					sessionTimerView = new SessionTimerView();
 					subjectSessionView = new SubjectSessionView();
+					cityView = new CityView();
+					
 					time = new TimeManager();
-
+	                // Show login view by default
 					loginView.setVisible(true);
-
+					// Initialize application state
 					currentCity = new City();
 					histogramManager = new HistogramManager(statsView.getHistogram());
-
+					buildingImageManager = new BuildingImageManager();
+	                // Set up button destinations and functionalities
 					setDestinations();
 					setFunctionalities();
 				} catch (Exception e) {
@@ -89,8 +124,8 @@ public class FocusApp {
 	}
 
 	/**
-	 * Define the destination of every button here
-	 */
+     * Defines the destinations of each button to transition between views.
+     */
 	private static void setDestinations() {
 		setBtnDestination(loginView.getBtnReg(), loginView, regView);
 		setBtnDestination(regView.getBackToLoginBtn(), regView, loginView);
@@ -99,12 +134,14 @@ public class FocusApp {
 		setBtnDestination(appView.getStartBtn(), appView, sessionSettingView);
 		setBtnDestination(appView.getUserBtn(), appView, loginView);
 		setBtnDestination(sessionSettingView.getCancelButton(), sessionSettingView, appView);
+		setBtnDestination(cityView.getBackButton(), cityView, appView);
 	}
 
-	/**
-	 * Define the action listener of every button here
-	 */
+	 /**
+     * Defines the functionalities and actions for each button in the application.
+     */
 	private static void setFunctionalities() {
+        // Registration functionality
 		regView.getBtnReg().addActionListener(a -> {
 			try {
 				addUser();
@@ -112,10 +149,11 @@ public class FocusApp {
 				loginView.setVisible(true);
 				regView.setVisible(false);
 			} catch (DuplicateUserException e) {
-				regView.showErrorMessage("Questo nome utente è già preso.");
+				regView.showErrorMessage("This username is already taken.");
 			}
 		});
-
+		
+        // Login functionality
 		loginView.getLoginBtn().addActionListener(a -> {
 			String usernameLogin = loginView.getUsername();
 			String passwordLogin = loginView.getPassword();
@@ -129,14 +167,16 @@ public class FocusApp {
 				initBuilding();
 				// after succesful authentication, appView is shown
 				appView.setVisible(true);
+				appView.getWelcomeLabel().setText("Welcome, " + u.getUsername() +"!");
 				loginView.setVisible(false);
 			} catch (UserNotFoundException e) {
-				loginView.showErrorMessage("Questo nome utente non esiste.");
+				loginView.showErrorMessage("This username does not exist.");
 			} catch (WrongPasswordException e) {
-				loginView.showErrorMessage("Password errata.");
+				loginView.showErrorMessage("Wrong password.");
 			}
 		});
-
+		
+        // Timer session start functionality
 		sessionSettingView.getStartButton().addActionListener(a -> {
 			if (!sessionSettingView.getHourField().getText().matches("\\d+")) {
 				sessionSettingView.getHourField().setText("0");
@@ -153,6 +193,7 @@ public class FocusApp {
 
 		});
 
+        // Stop button functionality
 		sessionTimerView.getStopButton().addActionListener(a -> {
 			sessionTimerView.setAlwaysOnTop(false);
 			setSessionSuspended(true);
@@ -162,13 +203,15 @@ public class FocusApp {
             }
             setSessionSuspended(false);
 		});
-            
+        
+        // Confirmation of session subject
 		subjectSessionView.getConfirmButton().addActionListener(a -> {
 			createNewBuilding(subjectSessionView.getSubjectField().getText());
 			appView.setVisible(true);
 			subjectSessionView.setVisible(false);
 		});
 
+        // Statistics update functionality
 		statsView.getDataSelect().addActionListener(a -> {
 			DataGroupByStrategy strategy = switch (statsView.getSelectedData()) {
 			case 0 -> new GroupByNumberOfBuildings();
@@ -183,16 +226,64 @@ public class FocusApp {
 
 		statsView.getYearSelect().addActionListener(a -> updateStatsHistogram());
 
+		appView.getCityBtn().addActionListener(a -> {
+			List<Building> buildings = currentCity.getBuildings();
+			
+			buildings.forEach(b -> {
+				logger.log(Level.DEBUG, String.format("Building subject: %s, Study hours: %d, Icon path: %s", b.getSubject(), b.getDuration().toHours(), buildingImageManager.selectPath(b)));
+			});
+			
+			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
+			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
+			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
+			cityView.setBuildingDescription(buildingImageManager.getDescription());
+			
+			cityView.setVisible(true);
+			appView.setVisible(false);
+		});
 		
+		cityView.getRightArrowBtn().addActionListener(a -> {
+			buildingImageManager.swipeRight();
+			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
+			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
+			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
+			cityView.setBuildingDescription(buildingImageManager.getDescription());
+		});
+		
+		cityView.getLeftArrowBtn().addActionListener(a -> {
+			buildingImageManager.swipeLeft();
+			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
+			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
+			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
+			cityView.setBuildingDescription(buildingImageManager.getDescription());
+		});
+		
+		cityView.getScreenshotButton().addActionListener(a -> { 
+                try {
+                	Rectangle windowBounds = cityView.getContentPane().getBounds();
+                    Point locationOnScreen = cityView.getContentPane().getLocationOnScreen();
+                    windowBounds.setLocation(locationOnScreen);
+                    Robot robot = new Robot();
+                    BufferedImage windowCapture = robot.createScreenCapture(windowBounds);
+                    String path = System.getenv("APPDATA");
+                    File outputFile = new File(path + File.separator + "screenshot.png");
+                    ImageIO.write(windowCapture, "png", outputFile);
+
+                    JOptionPane.showMessageDialog(cityView.getContentPane(), "Saved screenshot at " + path + ".");
+                } catch (AWTException | IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(cityView.getContentPane(), "There was an error during screenshot acquisition.");
+                }
+        });
 	}
 
-	/***
-	 * Set the destination view for a button
-	 * 
-	 * @param btn    Button that brings to view "dest" when clicked
-	 * @param source View that contains the button
-	 * @param dest   Destination view
-	 */
+	 /**
+     * Sets the destination view for a button action.
+     *
+     * @param btn    the button that triggers the action
+     * @param source the source view containing the button
+     * @param dest   the destination view to display
+     */
 	private static void setBtnDestination(JButton btn, View source, View dest) {
 		btn.addActionListener(a -> {
 			source.setVisible(false);
@@ -201,12 +292,10 @@ public class FocusApp {
 	}
 
 	/**
-	 * 
-	 * @param duration
-	 * @return
-	 * @return
-	 */
-	
+     * Starts a countdown timer for the study session.
+     *
+     * @param time the {@code TimeManager} object representing the session duration
+     */
 	public static void startTimer(TimeManager time) {
 		timer = new Timer(1000,new ActionListener() {
 			TimeManager countingTime = new TimeManager(time.toSeconds());
@@ -245,6 +334,12 @@ public class FocusApp {
 //		currentCity.addBuilding(duration, subject, currentUser);
 //	}
 
+	 /**
+     * Adds a new user to the application. If the username is already taken, 
+     * throws a {@link DuplicateUserException}.
+     *
+     * @throws DuplicateUserException if the username is already taken
+     */
 	private static void addUser() {
 		User user = new User(regView.getUsername(), regView.getPassword());
 		if (user.read() != null) {
@@ -254,10 +349,19 @@ public class FocusApp {
 		}
 	}
 
+	 /**
+     * Returns the logger instance for this application.
+     *
+     * @return the {@link Logger} instance
+     */
 	public static Logger getLogger() {
 		return FocusApp.logger;
 	}
 
+	/**
+     * Updates the histogram displayed in the statistics view based on the selected year 
+     * and month. Logs the selected filters for debugging purposes.
+     */
 	private static void updateStatsHistogram() {
 		int year = statsView.getSelectedYear();
 		int month = statsView.getSelectedMonth();
@@ -265,26 +369,41 @@ public class FocusApp {
 		histogramManager.updateHistogram(year, month);
 	}
 
-	/**
-	 * 
-	 * call loadBuilding method for the current city
-	 * 
-	 * @param user
-	 * 
-	 */
+	 /**
+     * Initializes the buildings for the current user in the application by loading 
+     * data from persistent storage through the {@link City} class.
+     */
 	private static void initBuilding() {
 		currentCity.loadBuildings(currentUser);
+		buildingImageManager.setCity(currentCity);
 	}
 	
+	 /**
+     * Creates a new building in the current city, associated with the current user, 
+     * and based on the provided subject. Resets the timer duration to zero after creation.
+     *
+     * @param subject the name or description of the subject associated with the building
+     */
 	private static void createNewBuilding(String subject) {
 		currentCity.addBuilding(time, subject, currentUser);
 		time.setToZero();
 	}
 
+	/**
+     * Checks if the current session has been interrupted.
+     *
+     * @return {@code true} if the session has been interrupted, {@code false} otherwise
+     */
 	public static boolean isSessionInterrupted() {
 		return sessionInterrupted;
 	}
 
+	 /**
+     * Sets the interruption status of the current session. If set to {@code true}, 
+     * the session timer will stop.
+     *
+     * @param sessionInterrupted {@code true} to mark the session as interrupted, {@code false} otherwise
+     */
 	public static void setSessionInterrupted(boolean sessionInterrupted) {
 		FocusApp.sessionInterrupted = sessionInterrupted;
 	}
