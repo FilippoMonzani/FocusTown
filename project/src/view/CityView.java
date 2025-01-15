@@ -53,6 +53,7 @@ public class CityView extends JFrame implements View {
 	private JButton backButton;
 	private JButton rightArrowBtn;
 	private JButton leftArrowBtn;
+	private JButton screenshotButton;
 	private JLabel descriptionLabel;
 	private final JPanel centerPanel = new JPanel();
 
@@ -164,9 +165,9 @@ public class CityView extends JFrame implements View {
 			flowLayout.setAlignment(FlowLayout.RIGHT);
 			contentPane.add(northPanel, BorderLayout.NORTH);
 
-			JLabel screenshotIcon = new JLabel("ScreenshotIcon");
-			screenshotIcon.setHorizontalAlignment(SwingConstants.LEFT);
-			northPanel.add(screenshotIcon);
+			screenshotButton = new JButton("Take a Screenshot!");
+			screenshotButton.setHorizontalAlignment(SwingConstants.LEFT);
+			northPanel.add(screenshotButton);
 
 			backButton = new JButton("Back");
 			northPanel.add(backButton);
@@ -213,6 +214,10 @@ public class CityView extends JFrame implements View {
 
 	public JButton getLeftArrowBtn() {
 		return leftArrowBtn;
+	}
+	
+	public JButton getScreenshotButton() {
+		return screenshotButton;
 	}
 	
 	public void setBuildingDescription(String desc) {

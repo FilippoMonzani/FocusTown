@@ -4,15 +4,24 @@
 
 package main;
 
+import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -245,6 +254,24 @@ public class FocusApp {
 			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
 			cityView.setBuildingDescription(buildingImageManager.getDescription());
 		});
+		
+		cityView.getScreenshotButton().addActionListener(a -> { 
+                try {
+                	Rectangle windowBounds = cityView.getContentPane().getBounds();
+                    Point locationOnScreen = cityView.getContentPane().getLocationOnScreen();
+                    windowBounds.setLocation(locationOnScreen);
+                    Robot robot = new Robot();
+                    BufferedImage windowCapture = robot.createScreenCapture(windowBounds);
+                    String path = System.getenv("APPDATA");
+                    File outputFile = new File(path + File.separator + "screenshot.png");
+                    ImageIO.write(windowCapture, "png", outputFile);
+
+                    JOptionPane.showMessageDialog(cityView.getContentPane(), "Saved screenshot at " + path + ".");
+                } catch (AWTException | IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(cityView.getContentPane(), "There was an error during screenshot acquisition.");
+                }
+        });
 	}
 
 	 /**
