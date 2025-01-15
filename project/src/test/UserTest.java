@@ -15,18 +15,19 @@ import model.User;
  */
 public class UserTest {
 	
-	User u = new User("testUsername","testPassword");
+	User u = new User("userTest","testPassword");
 	
 	 /**
      * Test for saving and reading a user from the database.
      * <p>This test verifies that the {@link User#save()} and {@link User#read()} 
      * methods correctly persist and retrieve the user data from the database.</p>
      */
+
 	@Test
 	public void userSaveReadTest() {
 		u.save();
 		User u2 = new User();
-		u2.setUsername("testUsername");
+		u2.setUsername("userTest");
 		u2.setPassword("");
 		u2 = u2.read();
 		assertEquals(u.getUsername(),u2.getUsername());
@@ -41,7 +42,7 @@ public class UserTest {
      */
 	@Test
 	public void userUpdateTest() {
-		User u3 = new User("testUsername", "AnotherPassword");
+		User u3 = new User("userTest", "AnotherPassword");
 		u3.update();
 		u = u.read();
 		System.out.println(u.getPassword()+" "+u3.getPassword());

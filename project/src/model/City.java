@@ -55,10 +55,8 @@ public class City {
 	public void addBuilding(TimeManager time, String subject, User owner) {
 		Duration duration = Duration.ofSeconds(time.toSeconds());
 		Building building = new Building(duration, subject, owner);
-		Session session = SessionUtil.startSession();
-		session.persist(building);
+		building.save();
 		buildings.add(building);
-		SessionUtil.endSession(session);
 	}
 
 	/**

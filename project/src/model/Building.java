@@ -45,8 +45,6 @@ public class Building{
 	private String subject;
 
 	@Convert(converter = UserConverter.class)
-//	@ManyToOne
-//	@JoinColumn(name = "owner", referencedColumnName = "username")
 	private User owner;
 
 	 /**
@@ -89,6 +87,7 @@ public class Building{
 		this.timeStamp = timestamp;
 	}
 
+
 	   /**
      * Gets the unique identifier of the building.
      * 
@@ -97,6 +96,7 @@ public class Building{
 	public Long getId() {
 		return id;
 	}
+
 
 	 /**
      * Sets the unique identifier of the building.
@@ -112,6 +112,7 @@ public class Building{
      * 
      * @return The timestamp of the study session.
      */
+	
 	public LocalDateTime getTimeStamp() {
 		return timeStamp;
 	}
@@ -130,6 +131,7 @@ public class Building{
      * 
      * @return The duration of the study session.
      */
+	
 	public Duration getDuration() {
 		return duration;
 	}

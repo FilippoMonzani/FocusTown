@@ -81,6 +81,7 @@ public class FocusApp {
 
 	private static final Logger logger = LogManager.getLogger(FocusApp.class);
 	private static boolean sessionInterrupted = false;
+	private static boolean sessionSuspended = false;
 
 	private static HistogramManager histogramManager;
 	private static CityManager cityManager;
@@ -196,10 +197,12 @@ public class FocusApp {
         // Stop button functionality
 		sessionTimerView.getStopButton().addActionListener(a -> {
 			sessionTimerView.setAlwaysOnTop(false);
+			setSessionSuspended(true);
 			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
             	setSessionInterrupted(true);
             }
+            setSessionSuspended(false);
 		});
         
         // Confirmation of session subject
@@ -289,7 +292,10 @@ public class FocusApp {
 			TimeManager countingTime = new TimeManager(time.toSeconds());
 			@Override
 			public void actionPerformed(ActionEvent e) { 
-				countingTime.tick();
+				if(!isSessionSuspended())
+				{
+					countingTime.tick();
+				}
 				
 				sessionTimerView.getTimerLabel().setText(countingTime.toString());
 				if(isSessionInterrupted()) {
@@ -401,4 +407,14 @@ public class FocusApp {
 	public static void setSessionInterrupted(boolean sessionInterrupted) {
 		FocusApp.sessionInterrupted = sessionInterrupted;
 	}
+
+	public static boolean isSessionSuspended() {
+		return sessionSuspended;
+	}
+
+	public static void setSessionSuspended(boolean sessionSuspended) {
+		FocusApp.sessionSuspended = sessionSuspended;
+	}
+
+
 }

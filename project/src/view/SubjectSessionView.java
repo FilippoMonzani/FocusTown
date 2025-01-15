@@ -39,23 +39,6 @@ public class SubjectSessionView extends JFrame {
     private JTextField subjectField;
     private JButton confirmButton;
    
-
-	/**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    SubjectSessionView frame = new SubjectSessionView();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
     /**
      * Creates the frame for the SubjectSessionView, including all components and layout.
      * This view allows the user to input the subject of study for a session.
