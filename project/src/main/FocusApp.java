@@ -83,7 +83,7 @@ public class FocusApp {
 	private static boolean sessionInterrupted = false;
 
 	private static HistogramManager histogramManager;
-	private static BuildingImageManager buildingImageManager;
+	private static CityManager cityManager;
 	
 	 /**
      * The main entry point of the application. Initializes views and their interactions.
@@ -111,7 +111,7 @@ public class FocusApp {
 					// Initialize application state
 					currentCity = new City();
 					histogramManager = new HistogramManager(statsView.getHistogram());
-					buildingImageManager = new BuildingImageManager();
+					cityManager = new CityManager();
 	                // Set up button destinations and functionalities
 					setDestinations();
 					setFunctionalities();
@@ -228,32 +228,22 @@ public class FocusApp {
 			List<Building> buildings = currentCity.getBuildings();
 			
 			buildings.forEach(b -> {
-				logger.log(Level.DEBUG, String.format("Building subject: %s, Study hours: %d, Icon path: %s", b.getSubject(), b.getDuration().toHours(), buildingImageManager.selectPath(b)));
+				logger.log(Level.DEBUG, String.format("Building subject: %s, Study hours: %d, Icon path: %s", b.getSubject(), b.getDuration().toHours(), cityManager.selectPath(b)));
 			});
 			
-			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
-			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
-			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
-			cityView.setBuildingDescription(buildingImageManager.getDescription());
-			
+			cityManager.updateIcons();
 			cityView.setVisible(true);
 			appView.setVisible(false);
 		});
 		
 		cityView.getRightArrowBtn().addActionListener(a -> {
-			buildingImageManager.swipeRight();
-			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
-			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
-			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
-			cityView.setBuildingDescription(buildingImageManager.getDescription());
+			cityManager.swipeRight();
+			cityManager.updateIcons();
 		});
 		
 		cityView.getLeftArrowBtn().addActionListener(a -> {
-			buildingImageManager.swipeLeft();
-			cityView.getLeftImage().setIcon(buildingImageManager.getLeftIcon());
-			cityView.getCenterImage().setIcon(buildingImageManager.getCenterIcon());
-			cityView.getRightImage().setIcon(buildingImageManager.getRightIcon());
-			cityView.setBuildingDescription(buildingImageManager.getDescription());
+			cityManager.swipeLeft();
+			cityManager.updateIcons();
 		});
 		
 		cityView.getScreenshotButton().addActionListener(a -> { 
@@ -374,7 +364,7 @@ public class FocusApp {
 	
 	private static void setCities() {
 		histogramManager.setCity(currentCity);
-		buildingImageManager.setCity(currentCity);
+		cityManager.setCity(currentCity, cityView);
 		
 		histogramManager.getYearRange().forEach(y -> {
 			statsView.addYear(y);

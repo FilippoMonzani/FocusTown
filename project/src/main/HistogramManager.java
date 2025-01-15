@@ -1,23 +1,18 @@
 package main;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import model.Building;
 import model.City;
 import model.DataGroupByStrategy;
 import model.GroupByNumberOfBuildings;
 import model.HistogramAdapter;
-import model.User;
 import view.HistogramPanel;
 
 /**

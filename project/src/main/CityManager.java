@@ -1,13 +1,12 @@
 package main;
-
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 
 import model.Building;
 import model.City;
+import view.CityView;
 
 /**
  * The {@code BuildingImageManager} class is responsible for managing the
@@ -20,12 +19,13 @@ import model.City;
  * </p>
  */
 
-public class BuildingImageManager {
+public class CityManager {
 	private City city;
+	private CityView cityView;
 	private int selectedBuilding;
 	private final ImageIcon emptyIcon;
 
-	public BuildingImageManager() {
+	public CityManager() {
 		selectedBuilding = 0;
 		emptyIcon = new ImageIcon(new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB));
 	}
@@ -68,7 +68,7 @@ public class BuildingImageManager {
 	 * @return an {@code ImageIcon} representing the building
 	 */
 	private ImageIcon getBuildingIcon(Building building, Dimension size) {
-		return loadImageAsIcon(size, selectPath(building));
+		return ImageUtils.loadImageAsIcon(size, selectPath(building));
 	}
 
 	/**
@@ -80,26 +80,6 @@ public class BuildingImageManager {
 	 */
 	private ImageIcon getBuildingIcon(Building building) {
 		return getBuildingIcon(building, new Dimension(200, 200));
-	}
-
-	/**
-	 * Loads an image from the specified path and returns it as a scaled
-	 * {@code ImageIcon}.
-	 *
-	 * @param size      the desired {@code Dimension} for scaling the image
-	 * @param imagePath the path to the image file
-	 * @return a {@code ImageIcon} representing the scaled image
-	 * @throws NullPointerException if {@code size} is {@code null}
-	 */
-	private static ImageIcon loadImageAsIcon(Dimension size, String imagePath) {
-		if (size == null) {
-			throw new NullPointerException(
-					"size cannot be set to null when calling ImageUtils.loadImageAsIcon() method!");
-		}
-		ImageIcon icon = new ImageIcon(imagePath);
-		Image tmpImage = icon.getImage();
-		tmpImage = tmpImage.getScaledInstance(size.width, size.height, java.awt.Image.SCALE_SMOOTH);
-		return new ImageIcon(tmpImage);
 	}
 
 	public ImageIcon getLeftIcon() {
@@ -143,14 +123,29 @@ public class BuildingImageManager {
 		selectedBuilding = Math.max(0, selectedBuilding - 1);
 	}
 
-	public void setCity(City city) {
+	public void setCity(City city, CityView cityView) {
 		this.city = city;
+		this.cityView = cityView;
 	}
 
+	/**
+	 * Get the description of the selected building
+	 * @return A string containing the HTML-formatted description for the selected building
+	 */
 	public String getDescription() {
 		Building current = city.getBuildings().get(selectedBuilding);
 		return String.format("<html>Subject: %s<br>Duration: %d hours %d minutes<br>Creation date: %s</html>",
 				current.getSubject(), current.getDuration().toHours(), current.getDuration().toMinutesPart(),
 				current.getTimeStamp().toLocalDate().toString());
+	}
+	
+	/**
+	 * Update building icons on the {@link CityView}
+	 */
+	public void updateIcons() {
+		cityView.getLeftImage().setIcon(getLeftIcon());
+		cityView.getCenterImage().setIcon(getCenterIcon());
+		cityView.getRightImage().setIcon(getRightIcon());
+		cityView.setBuildingDescription(getDescription());
 	}
 }
