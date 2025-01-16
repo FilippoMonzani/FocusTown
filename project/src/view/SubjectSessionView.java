@@ -32,7 +32,7 @@ import javax.swing.Box;
  * </ul>
  * </p>
  */
-public class SubjectSessionView extends JFrame {
+public class SubjectSessionView extends JFrame implements View{
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;

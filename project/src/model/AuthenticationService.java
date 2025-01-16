@@ -1,8 +1,5 @@
 package model;
 
-import main.UserNotFoundException;
-import main.WrongPasswordException;
-
 /**
  * Service class that handles user authentication.
  * <p>

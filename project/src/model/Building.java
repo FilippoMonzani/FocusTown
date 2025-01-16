@@ -17,7 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import main.SessionUtil;
+import model.dbutil.SessionUtil;
 
 /**
  * Represents a study session related to a specific building.

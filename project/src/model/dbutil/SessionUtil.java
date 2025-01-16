@@ -1,4 +1,4 @@
-package main;
+package model.dbutil;
 
 import org.hibernate.Session;
 

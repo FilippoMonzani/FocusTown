@@ -10,8 +10,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
-import main.SessionUtil;
+
 import main.TimeManager;
+import model.dbutil.SessionUtil;
 
 /**
  * Represents the collection of buildings belonging to a specific user.

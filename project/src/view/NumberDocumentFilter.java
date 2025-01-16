@@ -21,7 +21,7 @@ import javax.swing.text.DocumentFilter;
  * </ul>
  * </p>
  */
-public class NumberDocumentFilter extends DocumentFilter{
+public class NumberDocumentFilter extends DocumentFilter implements View{
 	
 	/**
      * Inserts a string into the document if the string consists only of numeric characters.

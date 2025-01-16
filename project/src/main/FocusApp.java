@@ -40,6 +40,8 @@ import model.DataGroupByStrategy;
 import model.GroupByNumberOfBuildings;
 import model.GroupByStudyHours;
 import model.User;
+import model.UserNotFoundException;
+import model.WrongPasswordException;
 import view.AppView;
 import view.CityView;
 import view.LoginView;

@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
  * </ul>
  * </p>
  */
-public class SessionTimerView extends JFrame {
+public class SessionTimerView extends JFrame implements View{
 
 	/**
 	 * 

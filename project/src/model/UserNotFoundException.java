@@ -1,6 +1,4 @@
-package main;
-
-import model.User;
+package model;
 
 /**
  * Custom exception thrown when a specified user is not found.

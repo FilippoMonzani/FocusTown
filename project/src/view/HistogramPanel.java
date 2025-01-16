@@ -15,7 +15,7 @@ import model.HistogramBar;
  * The histogram is created using a list of {@link HistogramBar} objects, 
  * each representing a bar with its label, value, height, and colors.
  */
-public class HistogramPanel extends JPanel {
+public class HistogramPanel extends JPanel implements View{
 
 	private List<HistogramBar> bars = null;
 

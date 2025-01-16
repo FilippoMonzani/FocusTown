@@ -21,8 +21,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import main.HibernateUtil;
 import model.User;
+import model.dbutil.HibernateUtil;
 
 /**
  * Unit tests for performing Hibernate operations, including inserting and removing 

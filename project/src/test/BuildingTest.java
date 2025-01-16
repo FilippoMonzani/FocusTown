@@ -13,10 +13,10 @@ import org.hibernate.Session;
 import org.junit.Test;
 
 import main.FocusApp;
-import main.HibernateUtil;
 import model.Building;
 import model.City;
 import model.User;
+import model.dbutil.HibernateUtil;
 
 /**
  * Unit test for handling Building objects.
