@@ -198,13 +198,35 @@ public class FocusApp {
 		sessionTimerView.getStopButton().addActionListener(a -> {
 			sessionTimerView.setAlwaysOnTop(false);
 			setSessionSuspended(true);
-			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (confirm == JOptionPane.YES_OPTION) {
-            	setSessionInterrupted(true);
-            }
-            setSessionSuspended(false);
+//			int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to stop the timer?", "Confirm Stop", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+//            if (confirm == JOptionPane.YES_OPTION) {
+//            	setSessionInterrupted(true);
+//            }
+			sessionTimerView.getStopButton().setVisible(false);
+			sessionTimerView.getResumeButton().setVisible(true);
+			sessionTimerView.getCancelSessionButton().setVisible(true);
+//            setSessionSuspended(false);
+		});
+		
+		sessionTimerView.getResumeButton().addActionListener(a -> {
+			setSessionSuspended(false);
+			sessionTimerView.setAlwaysOnTop(true);
+			sessionTimerView.getStopButton().setVisible(true);
+			sessionTimerView.getResumeButton().setVisible(false);
+			sessionTimerView.getCancelSessionButton().setVisible(false);
 		});
         
+		sessionTimerView.getCancelSessionButton().addActionListener(a -> {
+			setSessionSuspended(false);
+			setSessionInterrupted(true);
+			new Timer(1000, at -> {
+				sessionTimerView.getStopButton().setVisible(true);
+				sessionTimerView.getResumeButton().setVisible(false);
+				sessionTimerView.getCancelSessionButton().setVisible(false);
+				((Timer) at.getSource()).stop();
+			}).start();
+		});
+		
         // Confirmation of session subject
 		subjectSessionView.getConfirmButton().addActionListener(a -> {
 			createNewBuilding(subjectSessionView.getSubjectField().getText());

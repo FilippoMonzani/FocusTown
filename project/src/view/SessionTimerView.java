@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import javax.swing.Box;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * The {@link SessionTimerView} class represents the user interface for displaying a session timer.
@@ -34,6 +36,8 @@ public class SessionTimerView extends JFrame {
 	private JPanel contentPane;
 	private JLabel timerLabel;
 	private JButton stopButton;
+	private JButton resumeButton;
+	private JButton cancelSessionButton;
 
 	 /**
      * Creates the frame for the session timer view, including all components and layout.
@@ -70,9 +74,20 @@ public class SessionTimerView extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
+		resumeButton = new JButton("Resume");
+		resumeButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		resumeButton.setVisible(false);
+		panel_1.add(resumeButton);
+
+		
 		stopButton = new JButton("Stop");
 		stopButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		panel_1.add(stopButton);
+		
+		cancelSessionButton = new JButton("Cancel session");
+		cancelSessionButton.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		cancelSessionButton.setVisible(false);;
+		panel_1.add(cancelSessionButton);
 	}
 	
 	/**
@@ -109,6 +124,22 @@ public class SessionTimerView extends JFrame {
      */
 	public void setStopButton(JButton stopButton) {
 		this.stopButton = stopButton;
+	}
+
+	public JButton getResumeButton() {
+		return resumeButton;
+	}
+
+	public void setResumeButton(JButton resumeButton) {
+		this.resumeButton = resumeButton;
+	}
+
+	public JButton getCancelSessionButton() {
+		return cancelSessionButton;
+	}
+
+	public void setCancelSessionButton(JButton cancelSessionButton) {
+		this.cancelSessionButton = cancelSessionButton;
 	}
 
 }
