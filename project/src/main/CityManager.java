@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 
+import org.apache.logging.log4j.Level;
+
 import model.Building;
 import model.City;
 import view.CityView;
@@ -61,25 +63,16 @@ public class CityManager {
 
 	/**
 	 * Returns the icon representing a building based on the duration of its study
-	 * session.
+	 * session and its subject.
 	 * 
 	 * @param building the {@code Building} object whose icon needs to be determined
 	 * @param size     a {@code Dimension} in pixels for the icon.
 	 * @return an {@code ImageIcon} representing the building
 	 */
-	private ImageIcon getBuildingIcon(Building building, Dimension size) {
-		return ImageUtils.loadImageAsIcon(size, selectPath(building));
-	}
-
-	/**
-	 * Returns an icon with size 200x200 px representing a building based on the
-	 * duration of its study session.
-	 * 
-	 * @param building the {@code Building} object whose icon needs to be determined
-	 * @return an {@code ImageIcon} representing the building
-	 */
 	private ImageIcon getBuildingIcon(Building building) {
-		return getBuildingIcon(building, new Dimension(200, 200));
+		ImageIcon icon = ImageUtils.loadImageAsIcon(new Dimension(200, 200), selectPath(building));
+		int hashCode = building.getSubject().hashCode();
+		return ImageUtils.shiftColor(icon, normalizeHashCode(hashCode));
 	}
 
 	public ImageIcon getLeftIcon() {
@@ -148,4 +141,21 @@ public class CityManager {
 		cityView.getRightImage().setIcon(getRightIcon());
 		cityView.setBuildingDescription(getDescription());
 	}
+	
+	/**
+	 * Normalize a hashCode to the range [-1.0, 1.0]
+	 * @param hashCode the {@code hashCode} to normalize
+	 * @return the normalized {@code hashhode} in range [-1.0, 1.0] 
+	 */
+	private double normalizeHashCode(int hashCode) {
+	    double min = Integer.MIN_VALUE;
+	    double max = Integer.MAX_VALUE;
+	    
+	    double result = -1.0 + (double)(hashCode - min) * (2.0 / (max - (double)min));
+	    
+	    FocusApp.getLogger().log(Level.DEBUG, String.format("Hashcode: %d, normalized: %f", hashCode, result));
+
+	    return result;
+	}
+	
 }

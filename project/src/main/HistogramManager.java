@@ -89,8 +89,8 @@ public class HistogramManager {
 	public List<Integer> getYearRange() {
 		Set<Integer> uniqueYears = new HashSet<>();
 		city.getBuildings().stream()
-		.map(b -> b.getTimeStamp().getYear())
-		.forEach(y -> uniqueYears.add(y));
+			.map(b -> b.getTimeStamp().getYear())
+			.forEach(y -> uniqueYears.add(y));
 		List<Integer> result = new ArrayList<>(uniqueYears);
 		result.sort(Integer::compareTo);
 		return result;
