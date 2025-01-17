@@ -5,24 +5,18 @@
 package main;
 
 import java.awt.AWTException;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Robot;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.List;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -47,9 +41,9 @@ import view.CityView;
 import view.LoginView;
 import view.RegView;
 import view.SessionSettingView;
+import view.SessionTimerView;
 import view.StatsView;
 import view.SubjectSessionView;
-import view.SessionTimerView;
 import view.View;
 
 /************************************************************/

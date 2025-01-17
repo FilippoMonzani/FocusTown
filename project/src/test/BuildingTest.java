@@ -29,8 +29,6 @@ public class BuildingTest {
 
 	User u = new User("buildingTest","test");
 	Building b = new Building(Duration.ofSeconds(7200), "programmazione web", u);
-	// private static final Logger logger =
-	// LogManager.getLogger(BuildingTest.class);
 	
 	/**
      * Test that verifies the insertion of a Building object into the city.
