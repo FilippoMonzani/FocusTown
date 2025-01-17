@@ -3,6 +3,9 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
 import main.model.User;
@@ -16,6 +19,7 @@ import main.model.User;
 public class UserTest {
 	
 	User u = new User("userTest","testPassword");
+	private final Logger logger = LogManager.getLogger(UserTest.class);
 	
 	 /**
      * Test for saving and reading a user from the database.
@@ -32,7 +36,7 @@ public class UserTest {
 		u2 = u2.read();
 		assertEquals(u.getUsername(),u2.getUsername());
 		assertEquals(u.getPassword(),u2.getPassword());
-		System.out.println(u.getPassword()+" "+u2.getPassword());
+		logger.log(Level.INFO, String.format("%s %s", u.getPassword(), u2.getPassword()));
 	}
 	
 	/**
@@ -45,9 +49,8 @@ public class UserTest {
 		User u3 = new User("userTest", "AnotherPassword");
 		u3.update();
 		u = u.read();
-		System.out.println(u.getPassword()+" "+u3.getPassword());
+		logger.log(Level.INFO, String.format("%s %s", u.getPassword(), u3.getPassword()));
 		assertEquals(u.getPassword(),"AnotherPassword");
-		
 	}
 	
 	/**

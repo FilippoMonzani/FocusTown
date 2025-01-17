@@ -1,18 +1,15 @@
 
 package test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import java.util.List;
 
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.internal.build.AllowSysOut;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import jakarta.persistence.Column;
@@ -21,7 +18,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import main.model.User;
 import main.model.dbutil.HibernateUtil;
 
 /**
@@ -80,6 +76,7 @@ class TestDB {
 public class HibernateTest {
 
 	private Session session;
+	private final static Logger logger = LogManager.getLogger(HibernateTest.class);
 
 	/**
      * Opens a Hibernate session before each test.
@@ -90,7 +87,7 @@ public class HibernateTest {
 	@Before
 	public void openSession() {
 		session = HibernateUtil.getSessionFactory().openSession();
-		System.out.println("Session created");
+		logger.log(Level.INFO, "Session created");
 	}
 
 	/**
@@ -103,7 +100,7 @@ public class HibernateTest {
 	public void closeSession() {
 		if (session != null)
 			session.close();
-		System.out.println("Session closed\n");
+		logger.log(Level.INFO, "Session closed");
 	}
 
 	 /**
@@ -140,7 +137,7 @@ public class HibernateTest {
 
 			List<TestDB> t = session.createQuery("from TestDB", TestDB.class).list();
 			for (TestDB testDB : t) {
-				System.out.println("id: " + testDB.getId() + " word: " + testDB.getWord());
+				logger.log(Level.INFO, String.format("id: %d, word: %s", testDB.getId(), testDB.getWord()));
 				session.remove(testDB);
 			}
 			session.getTransaction().commit();
@@ -158,8 +155,7 @@ public class HibernateTest {
 	public static void tearDown() throws Exception {
 		if (HibernateUtil.getSessionFactory() != null) {
 			HibernateUtil.getSessionFactory().close();
-			System.out.println("SessionFactory destroyed");
-			//Logger logger = new Logger();
+			logger.log(Level.INFO, "SessionFactory destroyed");
 		}
 	}
 }
