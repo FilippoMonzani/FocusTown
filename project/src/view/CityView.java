@@ -176,34 +176,74 @@ public class CityView extends JFrame implements View {
 
 	}
 
+	/**
+     * Retrieves the {@link JLabel} displaying the left image.
+     *
+     * @return the left image label.
+     */
 	public JLabel getLeftImage() {
 		return leftImage;
 	}
 
+	/**
+     * Retrieves the {@link JLabel} displaying the center image.
+     *
+     * @return the center image label.
+     */
 	public JLabel getCenterImage() {
 		return centerImage;
 	}
 
+	/**
+     * Retrieves the {@link JLabel} displaying the right image.
+     *
+     * @return the right image label.
+     */
 	public JLabel getRightImage() {
 		return rightImage;
 	}
 	
+	/**
+     * Retrieves the back button.
+     *
+     * @return the back button.
+     */
 	public JButton getBackButton() {
 		return backButton;
 	}
 
+	/**
+     * Retrieves the right arrow navigation button.
+     *
+     * @return the right arrow button.
+     */
 	public JButton getRightArrowBtn() {
 		return rightArrowBtn;
 	}
 
+	/**
+     * Retrieves the left arrow navigation button.
+     *
+     * @return the left arrow button.
+     */
 	public JButton getLeftArrowBtn() {
 		return leftArrowBtn;
 	}
 	
+	/**
+     * Retrieves the screenshot button.
+     *
+     * @return the screenshot button.
+     */
 	public JButton getScreenshotButton() {
 		return screenshotButton;
 	}
 	
+	/**
+     * Sets the building description text in the description label.
+     *
+     * @param desc the building description to display.
+     */
 	public void setBuildingDescription(String desc) {
 		descriptionLabel.setText(desc);
 	}

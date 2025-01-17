@@ -179,6 +179,11 @@ public class StatsView extends JFrame implements View {
 		return dataSelect.getSelectedIndex();
 	}
 	
+	/**
+     * Adds a year to the year selection combo box.
+     * 
+     * @param year the year to add
+     */
 	public void addYear(int year) {
 		this.yearSelect.addItem(String.valueOf(year));
 	}

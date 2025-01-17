@@ -56,6 +56,13 @@ public class BuildingTest {
 		assertEquals(b.getOwner().getPassword(),b2.getOwner().getPassword());
 	}
 	
+	 /**
+     * Tests the getter and setter methods of the Building class.
+     *
+     * <p>This method creates a new Building instance and sets its properties, 
+     * then verifies that the properties are correctly assigned and the default 
+     * values of uninitialized fields are as expected.</p>
+     */
 	@Test
 	public void getSetTest() {
 		Duration d = Duration.ofSeconds(60);

@@ -126,18 +126,38 @@ public class SessionTimerView extends JFrame implements View{
 		this.stopButton = stopButton;
 	}
 
+	 /**
+     * Retrieves the {@link JButton} used to resume the session.
+     * 
+     * @return the resume button.
+     */
 	public JButton getResumeButton() {
 		return resumeButton;
 	}
 
+	/**
+     * Sets the {@link JButton} used to resume the session.
+     * 
+     * @param resumeButton the resume button to set.
+     */
 	public void setResumeButton(JButton resumeButton) {
 		this.resumeButton = resumeButton;
 	}
 
+	/**
+     * Retrieves the {@link JButton} used to cancel the session.
+     * 
+     * @return the cancel session button.
+     */
 	public JButton getCancelSessionButton() {
 		return cancelSessionButton;
 	}
 
+	/**
+     * Sets the {@link JButton} used to cancel the session.
+     * 
+     * @param cancelSessionButton the cancel session button to set.
+     */
 	public void setCancelSessionButton(JButton cancelSessionButton) {
 		this.cancelSessionButton = cancelSessionButton;
 	}
