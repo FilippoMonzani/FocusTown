@@ -14,4 +14,8 @@ public class WrongPasswordException extends Exception {
 	public WrongPasswordException(User u) {
 		this.user = u;
 	}
+	
+	public User getUser() {
+		return user;
+	}
 }

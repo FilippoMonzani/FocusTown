@@ -14,4 +14,8 @@ public class UserNotFoundException extends Exception {
 	public UserNotFoundException(User u) {
 		this.user = u;
 	}
+	
+	public User getUser() {
+		return user;
+	}
 }
