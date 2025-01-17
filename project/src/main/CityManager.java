@@ -46,17 +46,17 @@ public class CityManager {
 
 		long duration = building.getDuration().toHours();
 		if (duration < 1L) {
-			path = "Edificio0.jpg";
+			path = "Edificio0.png";
 		} else if (duration >= 1L && duration < 2L) {
-			path = "Edificio1.jpg";
+			path = "Edificio1.png";
 		} else if (duration >= 2L && duration < 3L) {
-			path = "Edificio2.jpg";
+			path = "Edificio2.png";
 		} else if (duration >= 3L && duration < 4L) {
-			path = "Edificio3.jpg";
+			path = "Edificio3.png";
 		} else if (duration >= 4L && duration < 5L) {
-			path = "Edificio4.jpg";
+			path = "Edificio4.png";
 		} else {
-			path = "Edificio5.jpg";
+			path = "Edificio5.png";
 		}
 
 		return "src/resources/" + path;
@@ -71,7 +71,7 @@ public class CityManager {
 	 * @return an {@code ImageIcon} representing the building
 	 */
 	private ImageIcon getBuildingIcon(Building building) {
-		ImageIcon icon = ImageUtils.loadImageAsIcon(new Dimension(200, 200), selectPath(building));
+		ImageIcon icon = ImageUtils.loadImageAsIcon(new Dimension(300, 300), selectPath(building));
 		int hashCode = building.getSubject().hashCode();
 		return ImageUtils.shiftColor(icon, normalizeHashCode(hashCode));
 	}
