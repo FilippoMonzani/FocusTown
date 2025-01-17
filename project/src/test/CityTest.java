@@ -6,10 +6,10 @@ import java.time.Duration;
 
 import org.junit.Test;
 
-import main.TimeManager;
-import model.Building;
-import model.City;
-import model.User;
+import main.controller.TimeManager;
+import main.model.Building;
+import main.model.City;
+import main.model.User;
 
 /**
  * Unit test for handling City operations, particularly for adding a building.

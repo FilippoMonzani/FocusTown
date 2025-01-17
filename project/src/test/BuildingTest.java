@@ -12,11 +12,11 @@ import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.junit.Test;
 
-import main.FocusApp;
-import model.Building;
-import model.City;
-import model.User;
-import model.dbutil.HibernateUtil;
+import main.controller.FocusApp;
+import main.model.Building;
+import main.model.City;
+import main.model.User;
+import main.model.dbutil.HibernateUtil;
 
 /**
  * Unit test for handling Building objects.

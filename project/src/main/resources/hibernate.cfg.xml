@@ -17,8 +17,8 @@
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
 		<!-- Names the annotated entity class -->
-		<mapping class="model.User" />
-		<mapping class="model.Building" />
+		<mapping class="main.model.User" />
+		<mapping class="main.model.Building" />
 		<mapping class="test.TestDB" />
 	</session-factory>
 </hibernate-configuration>

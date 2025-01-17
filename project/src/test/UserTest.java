@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import model.User;
+import main.model.User;
 
 /**
  * Unit tests for the {@link User} class, verifying user-related database operations.

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import main.TimeManager;
+import main.controller.TimeManager;
 
 /**
  * Unit tests for the {@link TimeManager} class, verifying time-related functionalities.
