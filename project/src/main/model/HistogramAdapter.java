@@ -36,13 +36,15 @@ public class HistogramAdapter {
 	 * @return A list of HistogramBar objects representing the bars for the
 	 *         histogram. An empty list if the map is empty.
 	 */
-	public List<HistogramBar> getHistogramBars() {
+	public List<HistogramBar> getHistogramBars(Map<Integer, Long> data) {
 
 		if (data.isEmpty()) {
 			return Collections.emptyList();
 		}
 
 		List<HistogramBar> bars = new LinkedList<>();
+		
+		// if max is 0, then 1 is returned as fallback value
 		float maxValue = data.values().stream()
 				.max(Long::compare)
 				.filter(value -> value != 0)
@@ -52,12 +54,13 @@ public class HistogramAdapter {
 			float height = value / maxValue;
 
 			bars.add(new HistogramBar(label.toString(), String.valueOf(value), height));
-
-//			FocusApp.getLogger().log(Level.DEBUG,
-//					String.format("Bar: %d, height: %f", (int) label, height));
 		});
 
 		return bars;
+	}
+	
+	public List<HistogramBar> getHistogramBars() {
+		return getHistogramBars(this.data);
 	}
 
 	/**

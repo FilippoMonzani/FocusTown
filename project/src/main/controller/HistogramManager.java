@@ -90,14 +90,18 @@ public class HistogramManager {
 	 * Determines the range of years to display
 	 * @return A list containing the range of years in order
 	 */
-	public List<Integer> getYearRange() {
+	public List<Integer> getYearRange(List<Building> buildings) {
 		Set<Integer> uniqueYears = new HashSet<>();
-		city.getBuildings().stream()
+		buildings.stream()
 			.map(b -> b.getTimeStamp().getYear())
 			.forEach(y -> uniqueYears.add(y));
 		List<Integer> result = new ArrayList<>(uniqueYears);
 		result.sort(Integer::compareTo);
 		return result;
+	}
+	
+	public List<Integer> getYearRange() {
+		return getYearRange(this.city.getBuildings());
 	}
 
 	  /**

@@ -30,7 +30,7 @@ public class CityManager {
 
 	public CityManager() {
 		selectedBuilding = 0;
-		emptyIcon = new ImageIcon(new BufferedImage(200, 200, BufferedImage.TYPE_INT_ARGB));
+		emptyIcon = new ImageIcon(new BufferedImage(300, 300, BufferedImage.TYPE_INT_ARGB));
 	}
 
 	/**
