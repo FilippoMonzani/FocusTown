@@ -392,6 +392,9 @@ public class FocusApp {
 		currentCity.loadBuildings(currentUser);
 	}
 	
+	/**
+	 * Sets the city that is used by each sub-manager
+	 */
 	private static void setCities() {
 		histogramManager.setCity(currentCity);
 		cityManager.setCity(currentCity, cityView);

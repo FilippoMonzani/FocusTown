@@ -15,6 +15,8 @@ import javax.swing.Box;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
 import java.awt.GridLayout;
 
 /**
@@ -49,12 +51,8 @@ public class AppView extends JFrame implements View {
      * Initializes the panels and buttons and sets up basic actions.
      */
 	public AppView() {
-//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//		double width = screenSize.getWidth();
-//		double height = screenSize.getHeight();
-
 		setResizable(true);;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,8 +93,6 @@ public class AppView extends JFrame implements View {
 		
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		centerPanel.add(horizontalGlue_1);
-//		int btnWidth = 83;
-//		int btnHeight = 21;
 		
 		JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);

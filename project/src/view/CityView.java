@@ -58,22 +58,6 @@ public class CityView extends JFrame implements View {
 	private final JPanel centerPanel = new JPanel();
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CityView frame = new CityView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Constructs the {@link CityView} frame with its components and layout.
 	 * Initializes the content pane, image labels, and sets up the frame with the
 	 * specified bounds. Attempts to load and display images from a specified file

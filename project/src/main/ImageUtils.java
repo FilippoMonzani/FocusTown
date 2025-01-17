@@ -10,6 +10,9 @@ import javax.swing.ImageIcon;
 
 import org.apache.logging.log4j.Level;
 
+/**
+ * Class with static methods to operate and apply effects to images
+ */
 public class ImageUtils {
 	/**
 	 * Loads an image from the specified path and returns it as a scaled

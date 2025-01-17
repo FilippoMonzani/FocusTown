@@ -86,6 +86,10 @@ public class HistogramManager {
 		return histogram;
 	}
 	
+	/**
+	 * Determines the range of years to display
+	 * @return A list containing the range of years in order
+	 */
 	public List<Integer> getYearRange() {
 		Set<Integer> uniqueYears = new HashSet<>();
 		city.getBuildings().stream()
