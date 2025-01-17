@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
@@ -75,14 +76,26 @@ public class CityManager {
 		return ImageUtils.shiftColor(icon, normalizeHashCode(hashCode));
 	}
 
+	/**
+	 * Returns the {@link ImageIcon} corresponding to the building displayed on the
+	 * left
+	 */
 	public ImageIcon getLeftIcon() {
 		return getIcon(selectedBuilding + 1);
 	}
 
+	/**
+	 * Returns the {@link ImageIcon} corresponding to the building displayed in the
+	 * center
+	 */
 	public ImageIcon getCenterIcon() {
 		return getIcon(selectedBuilding);
 	}
 
+	/**
+	 * Returns the {@link ImageIcon} corresponding to the building displayed on the
+	 * right
+	 */
 	public ImageIcon getRightIcon() {
 		return getIcon(selectedBuilding - 1);
 	}
@@ -123,7 +136,9 @@ public class CityManager {
 
 	/**
 	 * Get the description of the selected building
-	 * @return A string containing the HTML-formatted description for the selected building
+	 * 
+	 * @return A string containing the HTML-formatted description for the selected
+	 *         building
 	 */
 	public String getDescription() {
 		Building current = city.getBuildings().get(selectedBuilding);
@@ -131,7 +146,7 @@ public class CityManager {
 				current.getSubject(), current.getDuration().toHours(), current.getDuration().toMinutesPart(),
 				current.getTimeStamp().toLocalDate().toString());
 	}
-	
+
 	/**
 	 * Update building icons on the {@link CityView}
 	 */
@@ -141,21 +156,20 @@ public class CityManager {
 		cityView.getRightImage().setIcon(getRightIcon());
 		cityView.setBuildingDescription(getDescription());
 	}
-	
+
 	/**
 	 * Normalize a hashCode to the range [-1.0, 1.0]
+	 * 
 	 * @param hashCode the {@code hashCode} to normalize
-	 * @return the normalized {@code hashhode} in range [-1.0, 1.0] 
+	 * @return the normalized {@code hashhode} in range [-1.0, 1.0]
 	 */
 	private double normalizeHashCode(int hashCode) {
-	    double min = Integer.MIN_VALUE;
-	    double max = Integer.MAX_VALUE;
-	    
-	    double result = -1.0 + (double)(hashCode - min) * (2.0 / (max - (double)min));
-	    
-	    FocusApp.getLogger().log(Level.DEBUG, String.format("Hashcode: %d, normalized: %f", hashCode, result));
+		double min = Integer.MIN_VALUE;
+		double max = Integer.MAX_VALUE;
 
-	    return result;
+		double result = -1.0 + (double) (hashCode - min) * (2.0 / (max - (double) min));
+		FocusApp.getLogger().log(Level.DEBUG, String.format("Hashcode: %d, normalized: %f", hashCode, result));
+		return result;
 	}
-	
+
 }

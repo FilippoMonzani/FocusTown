@@ -105,6 +105,10 @@ public class HistogramManager {
 		this.strategy = strategy;
 	}
 
+	/**
+	 * Set the {@code City} used by this manager
+	 * @param city
+	 */
 	public void setCity(City city) {
 		this.city = city;
 	}
