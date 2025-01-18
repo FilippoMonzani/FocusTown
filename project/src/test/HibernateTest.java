@@ -143,19 +143,4 @@ public class HibernateTest {
 			session.getTransaction().commit();
 		}
 
-	   /**
-     * Cleans up the session factory after all tests are finished.
-     * 
-     * <p>This method is called after all tests have been run to close the Hibernate 
-     * session factory and clean up resources.</p>
-     * 
-     * @throws Exception if any error occurs during the cleanup process
-     */
-	@AfterClass
-	public static void tearDown() throws Exception {
-		if (HibernateUtil.getSessionFactory() != null) {
-			HibernateUtil.getSessionFactory().close();
-			logger.log(Level.INFO, "SessionFactory destroyed");
-		}
-	}
 }
