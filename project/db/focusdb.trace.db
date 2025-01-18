@@ -1,0 +1,3 @@
+2025-01-18 16:20:05.884024+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "USER_APP" not found; SQL statement:
+select * from user_app [42102-232]
