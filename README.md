@@ -1,6 +1,5 @@
-<p align="center">
-  <img src="https://private-user-images.githubusercontent.com/126600691/404549304-c9b8fb1e-0cda-41ff-89b5-87aa47081e72.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzcyMTk4ODIsIm5iZiI6MTczNzIxOTU4MiwicGF0aCI6Ii8xMjY2MDA2OTEvNDA0NTQ5MzA0LWM5YjhmYjFlLTBjZGEtNDFmZi04OWI1LTg3YWE0NzA4MWU3Mi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwMTE4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDExOFQxNjU5NDJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wYjdiYTlhMmUyYzI1NmI0MjZlOWJhNDQwMzI2YTk1ZWYyNWFkNzA4NDBmNGY0ZTY2MzhjOWM3Y2NhOGRjOGM1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.A0giBz4dqSWCtB6WxaQeDhW6WXI-GTJ_HU9GiQQgn28" alt="Sublime's custom image"/>
-</p>
+
+![FocusLogo2](https://github.com/user-attachments/assets/112316de-5f86-426d-acac-98fe63c4409f)
 
 # FocusTown
 FocusTown è un'applicazione desktop scritta in Java progettata per aiutare gli studenti a organizzare le loro sessioni di studio in modo coinvolgente.
