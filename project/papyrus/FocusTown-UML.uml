@@ -247,7 +247,13 @@
     <node xmi:type="uml:OpaqueAction" xmi:id="_LMlJ0NfgEe-OYvBN7yE6qg" name="View city" incoming="_LNVXwNfgEe-OYvBN7yE6qg" outgoing="_OqPjgNfgEe-OYvBN7yE6qg"/>
     <node xmi:type="uml:ActivityFinalNode" xmi:id="_S0eIQNfgEe-OYvBN7yE6qg" name="" incoming="_S1usgNfgEe-OYvBN7yE6qg"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Package" xmi:id="_fJLbINfgEe-OYvBN7yE6qg" name="View"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_fJLbINfgEe-OYvBN7yE6qg" name="View">
+    <packagedElement xmi:type="uml:Package" xmi:id="_OomKoNgVEe-AqcWvqdcNHQ" name="CityUI"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_YALlENgVEe-AqcWvqdcNHQ" name="SignUpUI"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_e3LSENgVEe-AqcWvqdcNHQ" name="LoginUI"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_ffi5oNgVEe-AqcWvqdcNHQ" name="StatsUI"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_eWDskNgWEe-AqcWvqdcNHQ" name="&lt;&lt;access>>" client="_fJLbINfgEe-OYvBN7yE6qg" supplier="_iZfiQNgVEe-AqcWvqdcNHQ"/>
+  </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_HzJ6cNfhEe-OYvBN7yE6qg" name="FocusApp" visibility="package">
     <ownedAttribute xmi:type="uml:Property" xmi:id="_J51TENfhEe-OYvBN7yE6qg" name="currentUser" visibility="private" type="_8pU9YNd_Ee-HcqXNNcLLUQ"/>
     <ownedAttribute xmi:type="uml:Property" xmi:id="_MqXhANfhEe-OYvBN7yE6qg" name="currentCity" visibility="private" type="__Ct2oNd_Ee-HcqXNNcLLUQ"/>
@@ -339,7 +345,7 @@
     <ownedOperation xmi:type="uml:Operation" xmi:id="_UcAJ8NfkEe-OYvBN7yE6qg" name="update"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_ZxXsINfkEe-OYvBN7yE6qg" name="Timer">
-    <ownedAttribute xmi:type="uml:Property" xmi:id="_cMzz0NfkEe-OYvBN7yE6qg" name="duration">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_cMzz0NfkEe-OYvBN7yE6qg" name="duration" visibility="private">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
     </ownedAttribute>
     <ownedOperation xmi:type="uml:Operation" xmi:id="_fkorQNfkEe-OYvBN7yE6qg" name="start"/>
@@ -418,6 +424,26 @@
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_gf3vANflEe-OYvBN7yE6qg"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ggjrgNflEe-OYvBN7yE6qg" value="*"/>
     </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_iZfiQNgVEe-AqcWvqdcNHQ" name="Controller">
+    <packagedElement xmi:type="uml:Package" xmi:id="_jKQQ0NgVEe-AqcWvqdcNHQ" name="Stats"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_mZMSANgVEe-AqcWvqdcNHQ" name="Timer"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_nbXgsNgVEe-AqcWvqdcNHQ" name="Auth"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_ZXWW4NgWEe-AqcWvqdcNHQ" name="&lt;&lt;access>>" client="_iZfiQNgVEe-AqcWvqdcNHQ" supplier="_pboIQNgVEe-AqcWvqdcNHQ"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_beUqcNgWEe-AqcWvqdcNHQ" name="&lt;&lt;access>>" client="_iZfiQNgVEe-AqcWvqdcNHQ" supplier="_fJLbINfgEe-OYvBN7yE6qg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_pboIQNgVEe-AqcWvqdcNHQ" name="Model">
+    <packagedElement xmi:type="uml:Package" xmi:id="_siTlUNgVEe-AqcWvqdcNHQ" name="City">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_IC07ENgWEe-AqcWvqdcNHQ" client="_siTlUNgVEe-AqcWvqdcNHQ" supplier="_vm7M4NgVEe-AqcWvqdcNHQ"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_J5KKkNgWEe-AqcWvqdcNHQ" client="_siTlUNgVEe-AqcWvqdcNHQ" supplier="_tSoPANgVEe-AqcWvqdcNHQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_tSoPANgVEe-AqcWvqdcNHQ" name="User"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_vm7M4NgVEe-AqcWvqdcNHQ" name="Building"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_x9dmcNgVEe-AqcWvqdcNHQ" name="Stats">
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_MMsTcNgWEe-AqcWvqdcNHQ" name="&lt;&lt;import>>" client="_x9dmcNgVEe-AqcWvqdcNHQ" supplier="_siTlUNgVEe-AqcWvqdcNHQ"/>
+      <packagedElement xmi:type="uml:Dependency" xmi:id="_Ou800NgWEe-AqcWvqdcNHQ" name="&lt;&lt;import>>" client="_x9dmcNgVEe-AqcWvqdcNHQ" supplier="_vm7M4NgVEe-AqcWvqdcNHQ"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_Vk9qYNgWEe-AqcWvqdcNHQ" name="&lt;&lt;access>>" client="_pboIQNgVEe-AqcWvqdcNHQ" supplier="_iZfiQNgVEe-AqcWvqdcNHQ"/>
   </packagedElement>
   <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_o2R0MNeAEe-HcqXNNcLLUQ">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_o2TCUNeAEe-HcqXNNcLLUQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
