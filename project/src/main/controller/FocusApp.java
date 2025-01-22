@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -75,7 +74,6 @@ public class FocusApp {
 	private static Timer timer;
 	private static TimeManager time;
 
-	private static final Logger logger = LogManager.getLogger(FocusApp.class);
 	private static boolean sessionInterrupted = false;
 	private static boolean sessionSuspended = false;
 
@@ -159,7 +157,7 @@ public class FocusApp {
 
 			try {
 				FocusApp.currentUser = authService.login(u, passwordLogin);
-				logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
+				City.logger.info("Utente <" + currentUser.getUsername() + "> ha effettuato il login.");
 				initBuilding();
 				setCities();
 				// after succesful authentication, appView is shown
@@ -249,7 +247,7 @@ public class FocusApp {
 			List<Building> buildings = currentCity.getBuildings();
 			
 			buildings.forEach(b -> {
-				logger.log(Level.DEBUG, String.format("Building subject: %s, Study hours: %d, Icon path: %s", b.getSubject(), b.getDuration().toHours(), cityManager.selectPath(b)));
+				City.logger.log(Level.DEBUG, String.format("Building subject: %s, Study hours: %d, Icon path: %s", b.getSubject(), b.getDuration().toHours(), cityManager.selectPath(b)));
 			});
 			
 			cityManager.updateIcons();
@@ -364,7 +362,7 @@ public class FocusApp {
      * @return the {@link Logger} instance
      */
 	public static Logger getLogger() {
-		return FocusApp.logger;
+		return City.logger;
 	}
 
 	/**
@@ -374,7 +372,7 @@ public class FocusApp {
 	private static void updateStatsHistogram() {
 		int year = statsView.getSelectedYear();
 		int month = statsView.getSelectedMonth();
-		logger.log(Level.DEBUG, String.format("Looking at buildings from %d, %d", year, month));
+		City.logger.log(Level.DEBUG, String.format("Looking at buildings from %d, %d", year, month));
 		histogramManager.updateHistogram(year, month);
 	}
 
